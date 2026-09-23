@@ -14,3 +14,56 @@
 2026-09-23 12:12:50 [INFO] [job_copilot:build_applications_batch:248]    -> PDF:  CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
 2026-09-23 12:12:50 [INFO] [job_copilot:build_applications_batch:249]    -> DOCX: CV_Jairo_Ochoa_Amazon.com_0edbe2.docx
 2026-09-23 12:12:50 [INFO] [job_copilot:build_applications_batch:252] Compilación completada: 4 vacantes procesadas con éxito.
+2026-09-23 12:45:25 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 12:45:25 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 12:45:25 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 12:45:25 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 12:45:25 [INFO] [job_copilot:evaluate_single_job:308] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Empresa Mock - Senior Data Scientist | Score: 90/100
+2026-09-23 12:45:25 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 12:45:25 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 12:51:07 [INFO] [job_copilot:build_applications_batch:271] Recompilando 4 CVs con el esquema corregido...
+2026-09-23 12:51:11 [INFO] [job_copilot:build_applications_batch:298] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 12:52:13 [INFO] [job_copilot:build_applications_batch:271] Recompilando 4 CVs con el esquema corregido...
+2026-09-23 12:52:16 [INFO] [job_copilot:build_applications_batch:298] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 12:52:19 [INFO] [job_copilot:build_applications_batch:298] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 12:52:21 [INFO] [job_copilot:build_applications_batch:298] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 12:52:24 [INFO] [job_copilot:build_applications_batch:298] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 13:06:42 [INFO] [job_copilot:build_applications_batch:321] Recompilando 4 CVs con localización completa...
+2026-09-23 13:06:44 [INFO] [job_copilot:build_applications_batch:348] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 13:06:47 [INFO] [job_copilot:build_applications_batch:348] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 13:06:49 [INFO] [job_copilot:build_applications_batch:348] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 13:06:52 [INFO] [job_copilot:build_applications_batch:348] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 13:09:22 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 13:09:22 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 13:09:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 13:09:22 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 13:09:22 [INFO] [job_copilot:evaluate_single_job:308] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Empresa Mock - Senior Data Scientist | Score: 90/100
+2026-09-23 13:09:22 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 13:09:22 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 13:13:11 [INFO] [job_copilot:build_applications_batch:321] Recompilando 4 CVs con esquema completo...
+2026-09-23 13:13:26 [INFO] [job_copilot:build_applications_batch:321] Recompilando 4 CVs con esquema completo...
+2026-09-23 13:14:52 [INFO] [job_copilot:build_applications_batch:331] Recompilando 4 CVs con esquema completo...
+2026-09-23 13:14:55 [INFO] [job_copilot:build_applications_batch:358] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 13:14:57 [INFO] [job_copilot:build_applications_batch:358] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 13:14:59 [INFO] [job_copilot:build_applications_batch:358] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 13:15:02 [INFO] [job_copilot:build_applications_batch:358] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 13:17:43 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 13:17:43 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 13:17:43 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 13:17:43 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 13:17:43 [INFO] [job_copilot:evaluate_single_job:308] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Empresa Mock - Senior Data Scientist | Score: 90/100
+2026-09-23 13:17:43 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 13:17:43 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 13:31:43 [INFO] [job_copilot:build_applications_batch:343] Recompilando 4 CVs con tipografía y secciones homologadas...
+2026-09-23 13:31:55 [INFO] [job_copilot:build_applications_batch:343] Recompilando 4 CVs con tipografía y secciones homologadas...
+2026-09-23 13:31:57 [INFO] [job_copilot:build_applications_batch:370] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 13:32:00 [INFO] [job_copilot:build_applications_batch:370] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 13:32:03 [INFO] [job_copilot:build_applications_batch:370] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 13:32:05 [INFO] [job_copilot:build_applications_batch:370] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 13:34:17 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 13:34:17 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 13:34:17 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 13:34:17 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 13:34:18 [INFO] [job_copilot:evaluate_single_job:308] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Empresa Mock - Senior Data Scientist | Score: 90/100
+2026-09-23 13:34:18 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 13:34:18 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.

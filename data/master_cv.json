@@ -47,24 +47,6 @@
     "education": [
         {
             "id": "edu_01",
-            "status": "in_progress",
-            "degree": {
-                "es": "Ingeniería en Inteligencia Artificial y Ciencia de Datos",
-                "en": "Bachelor of Science in Artificial Intelligence & Data Science"
-            },
-            "institution": "Universidad Nacional Abierta y a Distancia (UNAD)",
-            "location": "Colombia",
-            "period": {
-                "es": "2024 – En curso (Graduación esperada: Jun 2028)",
-                "en": "2024 – Present (Expected Graduation: Jun 2028)"
-            },
-            "details": {
-                "es": "Formación integral en sistemas autónomos, deep learning, arquitecturas de software y analítica avanzada.",
-                "en": "Core focus on autonomous systems, deep learning architectures, software engineering, and advanced analytics."
-            }
-        },
-        {
-            "id": "edu_02",
             "status": "completed",
             "degree": {
                 "es": "Magíster en Estadística",
@@ -82,7 +64,7 @@
             }
         },
         {
-            "id": "edu_03",
+            "id": "edu_02",
             "status": "completed",
             "degree": {
                 "es": "Licenciado en Estadística",
@@ -97,6 +79,24 @@
             "details": {
                 "es": "Enfoque riguroso en probabilidad, inferencia estadística, muestreo probabilístico y modelado multivariado.",
                 "en": "Rigorous training in probability theory, mathematical inference, sampling design, and multivariate analysis."
+            }
+        },
+        {
+            "id": "edu_03",
+            "status": "in_progress",
+            "degree": {
+                "es": "Ingeniería en Inteligencia Artificial y Ciencia de Datos",
+                "en": "Bachelor of Science in Artificial Intelligence & Data Science"
+            },
+            "institution": "Universidad Nacional Abierta y a Distancia (UNAD)",
+            "location": "Colombia",
+            "period": {
+                "es": "En curso (Graduación: 2028)",
+                "en": "In Progress (Expected 2028)"
+            },
+            "details": {
+                "es": "Formación integral en sistemas autónomos, deep learning, arquitecturas de software y analítica avanzada.",
+                "en": "Core focus on autonomous systems, deep learning architectures, software engineering, and advanced analytics."
             }
         }
     ],
