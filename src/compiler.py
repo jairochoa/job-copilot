@@ -1,4 +1,4 @@
-﻿"""
+"""
 Módulo de Compilación de CVs (HU-05).
 Genera versiones adaptadas en PDF (Playwright) y DOCX (python-docx)
 cruzando el análisis de Gemini con data/master_cv.json.
@@ -7,7 +7,7 @@ cruzando el análisis de Gemini con data/master_cv.json.
 import json
 import re
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
@@ -28,19 +28,21 @@ def sanitize_filename(name: str) -> str:
     return re.sub(r"[^\w\-_\. ]", "_", name).strip()
 
 
-def load_master_cv() -> Dict[str, Any]:
+def load_master_cv() -> dict[str, Any]:
     with open(MASTER_CV_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def prepare_cv_context(job_record: Dict[str, Any], master_cv: Dict[str, Any]) -> Dict[str, Any]:
+def prepare_cv_context(
+    job_record: dict[str, Any], master_cv: dict[str, Any]
+) -> dict[str, Any]:
     """Ensambla el payload final de datos en el idioma correspondiente."""
     lang = job_record.get("language", "en")
     text_key = "text_es" if lang == "es" else "text_en"
-    
+
     # Mapeo de viñetas seleccionadas por empresa
     raw_bullets_json = job_record.get("selected_bullet_ids")
-    selected_bullets_map: Dict[str, List[str]] = {}
+    selected_bullets_map: dict[str, list[str]] = {}
     if raw_bullets_json:
         try:
             selected_bullets_map = json.loads(raw_bullets_json)
@@ -61,31 +63,41 @@ def prepare_cv_context(job_record: Dict[str, Any], master_cv: Dict[str, Any]) ->
         if not matching_bullets and exp.get("bullets"):
             matching_bullets = [exp["bullets"][0].get(text_key)]
 
-        processed_experience.append({
-            "company": exp.get("company"),
-            "title": exp.get("title_formula_a"),
-            "location": exp.get("location"),
-            "period": exp.get("period_en") if lang == "en" else exp.get("period_es"),
-            "selected_bullets": matching_bullets,
-        })
+        processed_experience.append(
+            {
+                "company": exp.get("company"),
+                "title": exp.get("title_formula_a"),
+                "location": exp.get("location"),
+                "period": exp.get("period_en")
+                if lang == "en"
+                else exp.get("period_es"),
+                "selected_bullets": matching_bullets,
+            }
+        )
 
     # Certificaciones traducidas
     certs = []
     for c in master_cv.get("certifications", []):
-        certs.append({
-            "name": c.get("name"),
-            "issuer": c.get("issuer"),
-            "year": c.get("year"),
-        })
+        certs.append(
+            {
+                "name": c.get("name"),
+                "issuer": c.get("issuer"),
+                "year": c.get("year"),
+            }
+        )
 
     # Educación traducida
     education = []
     for edu in master_cv.get("education", []):
-        education.append({
-            "degree": edu.get("degree_es") if lang == "es" else edu.get("degree_en"),
-            "institution": edu.get("institution"),
-            "year": edu.get("year"),
-        })
+        education.append(
+            {
+                "degree": edu.get("degree_es")
+                if lang == "es"
+                else edu.get("degree_en"),
+                "institution": edu.get("institution"),
+                "year": edu.get("year"),
+            }
+        )
 
     return {
         "language": lang,
@@ -109,12 +121,17 @@ def compile_pdf_with_playwright(html_content: str, output_path: Path) -> None:
             path=str(output_path),
             format="Letter",
             print_background=True,
-            margin={"top": "1.2cm", "bottom": "1.2cm", "left": "1.4cm", "right": "1.4cm"},
+            margin={
+                "top": "1.2cm",
+                "bottom": "1.2cm",
+                "left": "1.4cm",
+                "right": "1.4cm",
+            },
         )
         browser.close()
 
 
-def compile_docx(context: Dict[str, Any], output_path: Path) -> None:
+def compile_docx(context: dict[str, Any], output_path: Path) -> None:
     """Genera documento DOCX compatible con ATS usando python-docx."""
     doc = Document()
 
@@ -212,7 +229,9 @@ def build_applications_batch() -> int:
         logger.info("No hay vacantes en estado 'SCORED' listas para compilar.")
         return 0
 
-    logger.info(f"Iniciando compilación ATS para {len(scored_jobs)} vacantes calificadas...")
+    logger.info(
+        f"Iniciando compilación ATS para {len(scored_jobs)} vacantes calificadas..."
+    )
     compiled_count = 0
 
     for job in scored_jobs:
@@ -249,5 +268,7 @@ def build_applications_batch() -> int:
         logger.info(f"   -> DOCX: {docx_path.name}")
         compiled_count += 1
 
-    logger.info(f"Compilación completada: {compiled_count} vacantes procesadas con éxito.")
+    logger.info(
+        f"Compilación completada: {compiled_count} vacantes procesadas con éxito."
+    )
     return compiled_count
