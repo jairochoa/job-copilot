@@ -1,0 +1,16 @@
+2026-09-23 11:48:21 [INFO] [job_copilot:evaluate_single_job:304] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Empresa Mock - Senior Data Scientist | Score: 90/100
+2026-09-23 11:49:40 [INFO] [job_copilot:evaluate_single_job:304] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Empresa Mock - Senior Data Scientist | Score: 90/100
+2026-09-23 12:12:35 [INFO] [job_copilot:build_applications_batch:215] Iniciando compilación ATS para 4 vacantes calificadas...
+2026-09-23 12:12:41 [INFO] [job_copilot:build_applications_batch:247] 📄 CVs compilados para [Capgemini Engineering - Senior Data Scientist]:
+2026-09-23 12:12:41 [INFO] [job_copilot:build_applications_batch:248]    -> PDF:  CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 12:12:41 [INFO] [job_copilot:build_applications_batch:249]    -> DOCX: CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.docx
+2026-09-23 12:12:44 [INFO] [job_copilot:build_applications_batch:247] 📄 CVs compilados para [CGI - Especialista Senior en Data & Analytics (Foco en Negocio)]:
+2026-09-23 12:12:44 [INFO] [job_copilot:build_applications_batch:248]    -> PDF:  CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 12:12:44 [INFO] [job_copilot:build_applications_batch:249]    -> DOCX: CV_Jairo_Ochoa_CGI_4c2fd7.docx
+2026-09-23 12:12:47 [INFO] [job_copilot:build_applications_batch:247] 📄 CVs compilados para [Cavca - Agencia de Seguros - Científico de Datos – Analítica]:
+2026-09-23 12:12:47 [INFO] [job_copilot:build_applications_batch:248]    -> PDF:  CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 12:12:47 [INFO] [job_copilot:build_applications_batch:249]    -> DOCX: CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.docx
+2026-09-23 12:12:50 [INFO] [job_copilot:build_applications_batch:247] 📄 CVs compilados para [Amazon.com - Risk Manager (2LoD, Model Risk Validation), Risk and Compliance Solutions]:
+2026-09-23 12:12:50 [INFO] [job_copilot:build_applications_batch:248]    -> PDF:  CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 12:12:50 [INFO] [job_copilot:build_applications_batch:249]    -> DOCX: CV_Jairo_Ochoa_Amazon.com_0edbe2.docx
+2026-09-23 12:12:50 [INFO] [job_copilot:build_applications_batch:252] Compilación completada: 4 vacantes procesadas con éxito.

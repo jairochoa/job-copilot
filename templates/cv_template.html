@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="{{ language }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ personal.name }} - {{ tailored_headline }}</title>
+    <style>
+        @page {
+            size: letter portrait;
+            margin: 1.5cm;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #1a1a1a;
+            line-height: 1.4;
+            font-size: 10pt;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            font-size: 18pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 2px 0;
+            color: #0f172a;
+        }
+        .headline {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 6px;
+        }
+        .contact {
+            font-size: 9pt;
+            color: #4b5563;
+            margin-bottom: 14px;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 8px;
+        }
+        .contact a {
+            color: #4b5563;
+            text-decoration: none;
+        }
+        .section-title {
+            font-size: 11pt;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            border-bottom: 1.5px solid #0f172a;
+            margin: 12px 0 6px 0;
+            padding-bottom: 2px;
+            color: #0f172a;
+        }
+        .summary {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+        .job-entry {
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+        }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 10pt;
+            color: #0f172a;
+        }
+        .job-sub {
+            display: flex;
+            justify-content: space-between;
+            font-style: italic;
+            font-size: 9.5pt;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+        ul {
+            margin: 2px 0 6px 18px;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 3px;
+            text-align: justify;
+        }
+        .skills-grid {
+            margin-top: 4px;
+        }
+        .skill-group {
+            margin-bottom: 3px;
+        }
+        .skill-name {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ personal.name }}</h1>
+        <div class="headline">{{ tailored_headline }}</div>
+        <div class="contact">
+            {{ personal.location }} &bull; {{ personal.email }} &bull; {{ personal.phone }} &bull; 
+            <a href="https://{{ personal.linkedin }}">linkedin.com/in/jairochoa</a> &bull; 
+            <a href="https://{{ personal.github }}">github.com/jairochoa</a>
+        </div>
+    </header>
+
+    <section>
+        <div class="section-title">
+            {% if language == 'es' %}Resumen Profesional{% else %}Professional Summary{% endif %}
+        </div>
+        <div class="summary">{{ tailored_summary }}</div>
+    </section>
+
+    <section>
+        <div class="section-title">
+            {% if language == 'es' %}Experiencia Laboral{% else %}Professional Experience{% endif %}
+        </div>
+        {% for exp in experience %}
+        <div class="job-entry">
+            <div class="job-header">
+                <span>{{ exp.title }}</span>
+                <span>{{ exp.period }}</span>
+            </div>
+            <div class="job-sub">
+                <span>{{ exp.company }}</span>
+                <span>{{ exp.location }}</span>
+            </div>
+            <ul>
+                {% for bullet in exp.selected_bullets %}
+                <li>{{ bullet }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </section>
+
+    <section>
+        <div class="section-title">
+            {% if language == 'es' %}Educación y Certificaciones{% else %}Education & Certifications{% endif %}
+        </div>
+        {% for edu in education %}
+        <div class="job-header">
+            <span>{{ edu.degree }} - {{ edu.institution }}</span>
+            <span>{{ edu.year }}</span>
+        </div>
+        {% endfor %}
+        <div style="margin-top: 4px;">
+            <strong>{% if language == 'es' %}Certificaciones:{% else %}Certifications:{% endif %}</strong>
+            {% for cert in certifications %}
+            {{ cert.name }} ({{ cert.issuer }}, {{ cert.year }}){% if not loop.last %} &bull; {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <div class="section-title">
+            {% if language == 'es' %}Competencias Técnicas{% else %}Technical Skills{% endif %}
+        </div>
+        <div class="skills-grid">
+            <div class="skill-group"><span class="skill-name">{% if language == 'es' %}Modelado y ML:{% else %}ML & Modeling:{% endif %}</span> {{ skills.ml_data_science | join(', ') }}</div>
+            <div class="skill-group"><span class="skill-name">{% if language == 'es' %}Ingeniería de Datos y Cloud:{% else %}Data Engineering & Cloud:{% endif %}</span> {{ skills.data_engineering_cloud | join(', ') }}</div>
+            <div class="skill-group"><span class="skill-name">{% if language == 'es' %}Lenguajes y Herramientas:{% else %}Languages & Tools:{% endif %}</span> {{ skills.languages_tools | join(', ') }}</div>
+        </div>
+    </section>
+</body>
+</html>

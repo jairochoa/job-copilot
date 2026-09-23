@@ -1,16 +1,17 @@
-﻿"""
+"""
 Módulo de Persistencia y Gestión Transaccional con SQLite.
 - SQLite en modo WAL (Write-Ahead Logging) para concurrencia limpia.
 - Algoritmo de deduplicación SHA-256 normalizado (compute_job_hash).
 - Esquema relacional para control de estados del embudo de postulaciones.
 """
 
+import hashlib
 import re
 import sqlite3
-import hashlib
-from pathlib import Path
 from contextlib import contextmanager
-from typing import Dict, Any, Optional
+from pathlib import Path
+from typing import Any
+
 from src.logger import logger
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,9 @@ def compute_job_hash(company: str, title: str, description_snippet: str) -> str:
     Genera un hash SHA-256 normalizado para evitar postulaciones o ingestas duplicadas.
     Limpia sufijos legales, puntuación y espacios en blanco redundantes.
     """
-    clean_company = re.sub(r"\b(sas|s\.a\.s|inc|corp|llc|ltd|gmbh)\b", "", company.lower())
+    clean_company = re.sub(
+        r"\b(sas|s\.a\.s|inc|corp|llc|ltd|gmbh)\b", "", company.lower()
+    )
     clean_company = re.sub(r"[^\w\s]", "", clean_company).strip()
     clean_company = re.sub(r"\s+", " ", clean_company)
 
@@ -94,7 +97,7 @@ def init_db() -> None:
     indices = [
         "CREATE INDEX IF NOT EXISTS idx_jobs_status ON job_applications(status);",
         "CREATE INDEX IF NOT EXISTS idx_jobs_score ON job_applications(match_score);",
-        "CREATE INDEX IF NOT EXISTS idx_jobs_ats ON job_applications(ats_type);"
+        "CREATE INDEX IF NOT EXISTS idx_jobs_ats ON job_applications(ats_type);",
     ]
 
     with get_db_connection() as conn:
@@ -104,7 +107,7 @@ def init_db() -> None:
         logger.info("Base de datos SQLite inicializada exitosamente en modo WAL.")
 
 
-def insert_job(job_data: Dict[str, Any]) -> bool:
+def insert_job(job_data: dict[str, Any]) -> bool:
     """
     Inserta una vacante si no existe por hash.
     Retorna True si fue insertada, False si ya existía (duplicada).
@@ -112,7 +115,7 @@ def insert_job(job_data: Dict[str, Any]) -> bool:
     job_hash = job_data.get("job_hash") or compute_job_hash(
         company=job_data["company"],
         title=job_data["title"],
-        description_snippet=job_data.get("description", "")[:250]
+        description_snippet=job_data.get("description", "")[:250],
     )
     job_data["job_hash"] = job_hash
 
@@ -129,7 +132,11 @@ def insert_job(job_data: Dict[str, Any]) -> bool:
         cursor = conn.execute(query, job_data)
         inserted = cursor.rowcount > 0
         if inserted:
-            logger.debug(f"Vacante insertada: {job_data['title']} en {job_data['company']} ({job_hash[:8]}...)")
+            logger.debug(
+                f"Vacante insertada: {job_data['title']} en {job_data['company']} ({job_hash[:8]}...)"
+            )
         else:
-            logger.debug(f"Vacante duplicada descartada: {job_data['title']} en {job_data['company']}")
+            logger.debug(
+                f"Vacante duplicada descartada: {job_data['title']} en {job_data['company']}"
+            )
         return inserted

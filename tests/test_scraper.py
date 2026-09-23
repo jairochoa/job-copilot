@@ -1,4 +1,4 @@
-﻿"""
+"""
 Tests unitarios para la clasificación de ATS y lógica de scraping.
 """
 
@@ -17,6 +17,7 @@ def test_classify_ats_modern_agile():
     assert ats_lev == "LEVER"
     assert req_login_lev == 0
 
+
 def test_classify_ats_corporate_heavy():
     """Valida reconocimiento de ATS pesados con requires_login = 1."""
     url_workday = "https://bancolombia.wd3.myworkdayjobs.com/Bancolombia/job/Senior-DS"
@@ -24,15 +25,21 @@ def test_classify_ats_corporate_heavy():
     assert ats == "WORKDAY"
     assert req_login == 1
 
+
 def test_detect_target_profile():
     """Valida la asignación automática del perfil CO o VE."""
-    pais_ve, perfil_ve = detect_target_profile("Mérida, Venezuela", "Vacante presencial de analítica")
+    pais_ve, perfil_ve = detect_target_profile(
+        "Mérida, Venezuela", "Vacante presencial de analítica"
+    )
     assert perfil_ve == "VE"
     assert pais_ve == "Venezuela"
 
-    pais_co, perfil_co = detect_target_profile("Medellín, Colombia", "Python, SQL, Databricks")
+    pais_co, perfil_co = detect_target_profile(
+        "Medellín, Colombia", "Python, SQL, Databricks"
+    )
     assert perfil_co == "CO"
     assert pais_co == "Colombia"
+
 
 def test_resolve_sites_filtering():
     """Valida que Glassdoor y ZipRecruiter no se invoquen para regiones no soportadas."""

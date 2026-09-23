@@ -1,0 +1,801 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "metadata": {
+        "version": "1.0.0",
+        "last_updated": "2026-09-23",
+        "author": "Jairo Julián Ochoa",
+        "target_roles": [
+            "Senior Data Scientist",
+            "Applied AI Engineer",
+            "Senior Statistician",
+            "Machine Learning Engineer",
+            "Analytics Engineer"
+        ]
+    },
+    "profiles": {
+        "CO": {
+            "country_code": "CO",
+            "target_geography": "Colombia & Worldwide Remote",
+            "full_name": "Jairo Julián Ochoa",
+            "professional_title": {
+                "es": "Estadístico Senior | Científico de Datos & IA Aplicada",
+                "en": "Senior Statistician | Data Scientist & Applied AI"
+            },
+            "location": "Envigado, Antioquia, Colombia (Available for Worldwide Remote)",
+            "phone": "+57 350 764 3501",
+            "email": "jairochoa@gmail.com",
+            "linkedin": "https://linkedin.com/in/jjochoa",
+            "github": "https://github.com/jairochoa",
+            "website": "https://rypython.blogspot.com"
+        },
+        "VE": {
+            "country_code": "VE",
+            "target_geography": "Venezuela Local",
+            "full_name": "Jairo Julián Ochoa",
+            "professional_title": {
+                "es": "Estadístico Senior | Científico de Datos & IA Aplicada",
+                "en": "Senior Statistician | Data Scientist & Applied AI"
+            },
+            "location": "Mérida, Venezuela (Disponible para Trabajo Remoto / Presencial)",
+            "phone": "+58 422 417 0416",
+            "email": "jairochoa@gmail.com",
+            "linkedin": "https://linkedin.com/in/jjochoa",
+            "github": "https://github.com/jairochoa",
+            "website": "https://rypython.blogspot.com"
+        }
+    },
+    "education": [
+        {
+            "id": "edu_01",
+            "status": "in_progress",
+            "degree": {
+                "es": "Ingeniería en Inteligencia Artificial y Ciencia de Datos",
+                "en": "Bachelor of Science in Artificial Intelligence & Data Science"
+            },
+            "institution": "Universidad Nacional Abierta y a Distancia (UNAD)",
+            "location": "Colombia",
+            "period": {
+                "es": "2024 – En curso (Graduación esperada: Jun 2028)",
+                "en": "2024 – Present (Expected Graduation: Jun 2028)"
+            },
+            "details": {
+                "es": "Formación integral en sistemas autónomos, deep learning, arquitecturas de software y analítica avanzada.",
+                "en": "Core focus on autonomous systems, deep learning architectures, software engineering, and advanced analytics."
+            }
+        },
+        {
+            "id": "edu_02",
+            "status": "completed",
+            "degree": {
+                "es": "Magíster en Estadística",
+                "en": "Master of Science in Statistics"
+            },
+            "institution": "Universidad de Los Andes (ULA)",
+            "location": "Mérida, Venezuela",
+            "period": {
+                "es": "Graduado en 2015",
+                "en": "Graduated 2015"
+            },
+            "details": {
+                "es": "Tesis de Grado: Reconocimiento facial a partir del procesamiento estadístico de imágenes mediante Modelos Ocultos de Markov (HMM).",
+                "en": "Master's Thesis: Facial recognition via statistical image processing using Hidden Markov Models (HMM)."
+            }
+        },
+        {
+            "id": "edu_03",
+            "status": "completed",
+            "degree": {
+                "es": "Licenciado en Estadística",
+                "en": "Bachelor of Science in Statistics"
+            },
+            "institution": "Universidad de Los Andes (ULA)",
+            "location": "Mérida, Venezuela",
+            "period": {
+                "es": "Graduado en 2006",
+                "en": "Graduated 2006"
+            },
+            "details": {
+                "es": "Enfoque riguroso en probabilidad, inferencia estadística, muestreo probabilístico y modelado multivariado.",
+                "en": "Rigorous training in probability theory, mathematical inference, sampling design, and multivariate analysis."
+            }
+        }
+    ],
+    "certifications": [
+        {
+            "id": "cert_01",
+            "name": {
+                "es": "AI Associate Engineer Career Track",
+                "en": "AI Associate Engineer Career Track"
+            },
+            "issuer": "DataCamp",
+            "year": 2026,
+            "status": "in_progress",
+            "progress_percentage": 51,
+            "url": ""
+        },
+        {
+            "id": "cert_02",
+            "name": {
+                "es": "Programa para Desarrolladores de Google (Nivel Premium)",
+                "en": "Google Developers Program (Premium Level)"
+            },
+            "issuer": "Google",
+            "year": 2026,
+            "status": "verified",
+            "progress_percentage": 100,
+            "url": ""
+        },
+        {
+            "id": "cert_03",
+            "name": {
+                "es": "Python for Data Science",
+                "en": "Python for Data Science"
+            },
+            "issuer": "IBM",
+            "year": 2026,
+            "status": "verified",
+            "progress_percentage": 100,
+            "badge_id": "3166106b-f052-4d02-b4dc-a8a10b61e4d3",
+            "url": "https://www.credly.com/earner/earned/badge/3166106b-f052-4d02-b4dc-a8a10b61e4d3"
+        },
+        {
+            "id": "cert_04",
+            "name": {
+                "es": "Artificial Intelligence Fundamentals",
+                "en": "Artificial Intelligence Fundamentals"
+            },
+            "issuer": "IBM Guayerd (120 horas)",
+            "year": 2025,
+            "status": "verified",
+            "progress_percentage": 100,
+            "badge_id": "2a92bf71-1fa6-443c-bb28-0a9c715bde63",
+            "url": "https://www.credly.com/earner/earned/badge/2a92bf71-1fa6-443c-bb28-0a9c715bde63"
+        },
+        {
+            "id": "cert_05",
+            "name": {
+                "es": "Ingeniero de Datos Asociado en SQL",
+                "en": "Associate Data Engineer in SQL"
+            },
+            "issuer": "DataCamp",
+            "year": 2024,
+            "status": "verified",
+            "progress_percentage": 100,
+            "url": ""
+        },
+        {
+            "id": "cert_06",
+            "name": {
+                "es": "Ingeniero de Datos Asociado en Python",
+                "en": "Associate Data Engineer in Python"
+            },
+            "issuer": "DataCamp",
+            "year": 2024,
+            "status": "verified",
+            "progress_percentage": 100,
+            "url": ""
+        },
+        {
+            "id": "cert_07",
+            "name": {
+                "es": "Agile Explorer",
+                "en": "Agile Explorer"
+            },
+            "issuer": "IBM",
+            "year": 2024,
+            "status": "verified",
+            "progress_percentage": 100,
+            "badge_id": "9be83bf2-9b5a-41c7-b2d6-2d5277c8cf21",
+            "url": "https://www.credly.com/earner/earned/badge/9be83bf2-9b5a-41c7-b2d6-2d5277c8cf21"
+        },
+        {
+            "id": "cert_08",
+            "name": {
+                "es": "Data Science For All (DS4A) Colombia",
+                "en": "Data Science For All (DS4A) Colombia"
+            },
+            "issuer": "Correlation One / MinTIC (200 horas)",
+            "year": 2021,
+            "status": "verified",
+            "progress_percentage": 100,
+            "url": "https://www.credential.net/ba932016-33ca-4f9a-b2d7-e0fc3ad478ce"
+        },
+        {
+            "id": "cert_09",
+            "name": {
+                "es": "Azure Databricks Core Technical Training",
+                "en": "Azure Databricks Core Technical Training"
+            },
+            "issuer": "Databricks",
+            "year": 2021,
+            "status": "verified",
+            "progress_percentage": 100,
+            "url": ""
+        },
+        {
+            "id": "cert_10",
+            "name": {
+                "es": "Bot Builder Rocketbot Expert 1",
+                "en": "Bot Builder Rocketbot Expert 1"
+            },
+            "issuer": "Rocketbot",
+            "year": 2021,
+            "status": "verified",
+            "progress_percentage": 100,
+            "badge_id": "db53237f-117f-6e3c-1189-56e8ead884f3",
+            "url": "https://certificate.rocketbot.co/badges/db53237f-117f-6e3c-1189-56e8ead884f3"
+        }
+    ],
+    "skills": {
+        "languages": [
+            "Python",
+            "SQL",
+            "R",
+            "SAS",
+            "Bash",
+            "JavaScript"
+        ],
+        "machine_learning_ai": [
+            "Scikit-learn",
+            "PyTorch",
+            "TensorFlow",
+            "LightGBM",
+            "XGBoost",
+            "Generative AI",
+            "RAG",
+            "AI Agents",
+            "Computer Vision",
+            "Deep Learning",
+            "NLP",
+            "OCR",
+            "Recommender Systems",
+            "LSTM",
+            "Modelos Ocultos de Markov (HMM)",
+            "SHAP",
+            "LIME"
+        ],
+        "data_engineering_cloud": [
+            "Databricks",
+            "PySpark",
+            "Apache Spark",
+            "ETL/ELT",
+            "Delta Lake",
+            "Azure Data Factory",
+            "Azure Data Lake",
+            "Azure Machine Learning",
+            "MLflow",
+            "DataFlow",
+            "PostgreSQL",
+            "SQL Server",
+            "MongoDB",
+            "Neo4j"
+        ],
+        "statistical_modeling": [
+            "Series de Tiempo (ARIMA/SARIMAX)",
+            "Inferencia Estadística",
+            "Pruebas de Hipótesis",
+            "A/B Testing",
+            "Análisis Multivariante",
+            "Bioestadística",
+            "Análisis de Supervivencia",
+            "Diseño Experimental"
+        ],
+        "devops_tools": [
+            "Git",
+            "GitHub",
+            "Docker",
+            "VS Code",
+            "LaTeX",
+            "HTML5",
+            "CSS3"
+        ],
+        "soft_skills": [
+            {
+                "id": "soft_01",
+                "name": {
+                    "es": "Liderazgo técnico y mentoría en equipos de datos",
+                    "en": "Technical leadership and data team mentorship"
+                }
+            },
+            {
+                "id": "soft_02",
+                "name": {
+                    "es": "Comunicación con stakeholders y presentación a comités directivos",
+                    "en": "Cross-functional stakeholder communication & executive reporting"
+                }
+            },
+            {
+                "id": "soft_03",
+                "name": {
+                    "es": "Resolución analítica de problemas complejos y pensamiento crítico",
+                    "en": "Analytical problem-solving and critical hypothesis testing"
+                }
+            },
+            {
+                "id": "soft_04",
+                "name": {
+                    "es": "Metodologías ágiles (Scrum, Kanban) y entrega continua",
+                    "en": "Agile collaboration and continuous delivery (Scrum / Kanban)"
+                }
+            },
+            {
+                "id": "soft_05",
+                "name": {
+                    "es": "Gobernanza ética de IA y cumplimiento normativo de datos",
+                    "en": "AI ethics governance and regulatory data compliance"
+                }
+            }
+        ]
+    },
+    "languages": [
+        {
+            "language": {
+                "es": "Español",
+                "en": "Spanish"
+            },
+            "level": {
+                "es": "Nativo",
+                "en": "Native"
+            }
+        },
+        {
+            "language": {
+                "es": "Inglés",
+                "en": "English"
+            },
+            "level": {
+                "es": "Competencia Profesional Operativa (B2 - Certificado APTIS)",
+                "en": "Professional Working Proficiency (B2 - APTIS Certified)"
+            }
+        },
+        {
+            "language": {
+                "es": "Alemán",
+                "en": "German"
+            },
+            "level": {
+                "es": "Básico (A1)",
+                "en": "Elementary (A1)"
+            }
+        }
+    ],
+    "honors_awards": [
+        {
+            "id": "rec_01",
+            "title": {
+                "es": "Medalla Oro Integridad (2023)",
+                "en": "Gold Medal for Integrity (2023)"
+            },
+            "issuer": "Bancolombia",
+            "year": 2023
+        },
+        {
+            "id": "rec_02",
+            "title": {
+                "es": "Reconocimiento a la Excelencia Docente (2022)",
+                "en": "Teaching Excellence Recognition (2022)"
+            },
+            "issuer": "Universidad EAFIT",
+            "year": 2022
+        }
+    ],
+    "teaching_experience": [
+        {
+            "role": {
+                "es": "Docente de Cátedra (Científico de Datos Nivel Básico)",
+                "en": "Lecturer (Data Science Fundamentals)"
+            },
+            "institution": "Universidad EAFIT",
+            "location": "Medellín, Colombia",
+            "period": "Jul 2021 – Sep 2021"
+        },
+        {
+            "role": {
+                "es": "Asistente Académico de Estadística I",
+                "en": "Academic Teaching Assistant (Statistics I)"
+            },
+            "institution": "Universidad de Los Andes (ULA)",
+            "location": "Mérida, Venezuela",
+            "period": "Sep 2009 – Nov 2010"
+        }
+    ],
+    "experience_bullets_pool": [
+        {
+            "id": "exp_free_01",
+            "company": "Consultoría Independiente / Software",
+            "official_title": "Consultor Freelancer",
+            "standard_role": {
+                "es": "Ingeniero de IA Aplicada & Desarrollador Full-Stack (Consultor Freelancer)",
+                "en": "Applied AI Engineer & Full-Stack Developer (Freelance Consultant)"
+            },
+            "period": "Ene 2026 – Actualidad",
+            "tags": [
+                "GenAI",
+                "Python",
+                "FastAPI",
+                "Chainlit",
+                "Ollama",
+                "LangGraph",
+                "MCP"
+            ],
+            "text": {
+                "es": "Desarrollé un asistente inteligente con MCP, FastAPI y Ollama local, acelerando el tiempo de resolución de tareas rutinarias en un 25%.",
+                "en": "Built an intelligent assistant using MCP, FastAPI, and local Ollama models, speeding up routine task resolution time by 25%."
+            }
+        },
+        {
+            "id": "exp_free_02",
+            "company": "Consultoría Independiente / Software",
+            "official_title": "Consultor Freelancer",
+            "standard_role": {
+                "es": "Ingeniero de IA Aplicada & Desarrollador Full-Stack (Consultor Freelancer)",
+                "en": "Applied AI Engineer & Full-Stack Developer (Freelance Consultant)"
+            },
+            "period": "Ene 2026 – Actualidad",
+            "tags": [
+                "Python",
+                "Healthcare",
+                "Desktop App",
+                "Automation",
+                "Software Architecture"
+            ],
+            "text": {
+                "es": "Desarrollé un sistema de historias clínicas en Python y librerías visuales para gestión médica, eliminando en un 100% el registro manual en papel.",
+                "en": "Built a clinical records desktop app in Python with UI libraries for healthcare management, eliminating manual paper documentation by 100%."
+            }
+        },
+        {
+            "id": "exp_idata_01",
+            "company": "IDATA",
+            "official_title": "Consultor",
+            "standard_role": {
+                "es": "Consultor Senior en Inteligencia Artificial & Machine Learning (Consultor)",
+                "en": "Senior AI & Machine Learning Consultant (Consultor)"
+            },
+            "period": "Oct 2024 – Nov 2025",
+            "tags": [
+                "Computer Vision",
+                "Deep Learning",
+                "PyTorch",
+                "Healthcare",
+                "Databricks",
+                "Swin Transformer"
+            ],
+            "text": {
+                "es": "Clasifiqué fracturas óseas en imágenes RX alcanzando 85.4% de sensibilidad al recalibrar modelos de visión Microsoft Swin con PyTorch.",
+                "en": "Classified bone fractures in X-ray images, reaching 85.4% sensitivity by fine-tuning Microsoft Swin vision models with PyTorch."
+            }
+        },
+        {
+            "id": "exp_idata_02",
+            "company": "IDATA",
+            "official_title": "Consultor",
+            "standard_role": {
+                "es": "Consultor Senior en Inteligencia Artificial & Machine Learning (Consultor)",
+                "en": "Senior AI & Machine Learning Consultant (Consultor)"
+            },
+            "period": "Oct 2024 – Nov 2025",
+            "tags": [
+                "NLP",
+                "OCR",
+                "AI Agents",
+                "Automation",
+                "Python"
+            ],
+            "text": {
+                "es": "Automaticé el procesamiento de facturas y tutelas reduciendo la carga manual en más del 70% mediante agentes de IA y pipelines de OCR.",
+                "en": "Automated invoice and legal parsing, slashing manual effort by over 70% using custom AI agents and OCR pipelines in Python."
+            }
+        },
+        {
+            "id": "exp_idata_03",
+            "company": "IDATA",
+            "official_title": "Consultor",
+            "standard_role": {
+                "es": "Consultor Senior en Inteligencia Artificial & Machine Learning (Consultor)",
+                "en": "Senior AI & Machine Learning Consultant (Consultor)"
+            },
+            "period": "Oct 2024 – Nov 2025",
+            "tags": [
+                "Recommender Systems",
+                "Embeddings",
+                "NLP",
+                "Python"
+            ],
+            "text": {
+                "es": "Aumenté la satisfacción de usuarios en un 15% desplegando un motor de recomendación híbrido basado en embeddings de texto y metadata.",
+                "en": "Lifted user satisfaction by 15% deploying a hybrid recommendation engine based on text embeddings and metadata algorithms."
+            }
+        },
+        {
+            "id": "exp_idata_04",
+            "company": "IDATA",
+            "official_title": "Consultor",
+            "standard_role": {
+                "es": "Consultor Senior en Inteligencia Artificial & Machine Learning (Consultor)",
+                "en": "Senior AI & Machine Learning Consultant (Consultor)"
+            },
+            "period": "Oct 2024 – Nov 2025",
+            "tags": [
+                "Time Series",
+                "LSTM",
+                "PyTorch",
+                "Deep Learning",
+                "PySpark",
+                "Databricks"
+            ],
+            "text": {
+                "es": "Pronostiqué el consumo energético reduciendo el RMSE a menos del 3% mediante redes neuronales recurrentes LSTM en PyTorch.",
+                "en": "Forecasted energy demand, cutting RMSE to under 3% through recurrent LSTM neural network architectures in PyTorch."
+            }
+        },
+        {
+            "id": "exp_idata_05",
+            "company": "IDATA",
+            "official_title": "Consultor",
+            "standard_role": {
+                "es": "Consultor Senior en Inteligencia Artificial & Machine Learning (Consultor)",
+                "en": "Senior AI & Machine Learning Consultant (Consultor)"
+            },
+            "period": "Oct 2024 – Nov 2025",
+            "tags": [
+                "MLOps",
+                "Azure ML",
+                "MLflow",
+                "Production",
+                "Databricks"
+            ],
+            "text": {
+                "es": "Automaticé el 100% de la inferencia de gastos médicos desplegando pipelines analíticos productivos en Azure Machine Learning y MLflow.",
+                "en": "Automated 100% of medical expense forecasting by deploying production ML pipelines on Azure Machine Learning and MLflow."
+            }
+        },
+        {
+            "id": "exp_banco_01",
+            "company": "Bancolombia",
+            "official_title": "Analítico",
+            "standard_role": {
+                "es": "Científico de Datos Senior & Ingeniero de MLOps (Analítico)",
+                "en": "Senior Data Scientist & MLOps Engineer (Analítico)"
+            },
+            "period": "Sep 2023 – Jun 2024",
+            "tags": [
+                "Data Engineering",
+                "ETL",
+                "Python",
+                "SQL",
+                "Banking"
+            ],
+            "text": {
+                "es": "Optimicé la extracción de datos bancarios reduciendo en un 50% los tiempos de ingesta mediante flujos ETL estructurados en Python y SQL.",
+                "en": "Optimized core banking data extraction, cutting ingestion runtime by 50% via high-throughput ETL pipelines in Python and SQL."
+            }
+        },
+        {
+            "id": "exp_banco_02",
+            "company": "Bancolombia",
+            "official_title": "Analista II",
+            "standard_role": {
+                "es": "Científico de Datos & Ingeniero de Analítica (Analista II)",
+                "en": "Data Scientist & Analytics Engineer (Analista II)"
+            },
+            "period": "Jun 2022 – Sep 2023",
+            "tags": [
+                "Risk Modeling",
+                "Python",
+                "Decision Science",
+                "Banking",
+                "Supervised Learning"
+            ],
+            "text": {
+                "es": "Reduje en un 20% los falsos positivos en bloqueo de cupos de divisas calibrando algoritmos y reglas sobre modelos analíticos en Python.",
+                "en": "Reduced FX quota false positives by 20%, tuning decision boundaries and algorithmic rules on credit models using Python."
+            }
+        },
+        {
+            "id": "exp_banco_03",
+            "company": "Bancolombia",
+            "official_title": "Analista II",
+            "standard_role": {
+                "es": "Científico de Datos & Ingeniero de Analítica (Analista II)",
+                "en": "Data Scientist & Analytics Engineer (Analista II)"
+            },
+            "period": "Jun 2022 – Sep 2023",
+            "tags": [
+                "SQL",
+                "Data Marts",
+                "Optimization",
+                "Reporting"
+            ],
+            "text": {
+                "es": "Agilicé en un 35% la generación de reportes técnicos corporativos implementando consultas SQL avanzadas y vistas particionadas.",
+                "en": "Accelerated corporate reporting cycles by 35% by implementing advanced SQL procedures and partitioned views on data marts."
+            }
+        },
+        {
+            "id": "exp_banco_04",
+            "company": "Bancolombia",
+            "official_title": "Analista II",
+            "standard_role": {
+                "es": "Científico de Datos & Ingeniero de Analítica (Analista II)",
+                "en": "Data Scientist & Analytics Engineer (Analista II)"
+            },
+            "period": "Jun 2022 – Sep 2023",
+            "tags": [
+                "Unsupervised Learning",
+                "Clustering",
+                "Analytics",
+                "Customer Insights",
+                "Python"
+            ],
+            "text": {
+                "es": "Mejoré en un 20% el perfilamiento de clientes de divisas aplicando técnicas de clustering y modelado predictivo multivariado.",
+                "en": "Improved international customer profiling by 20% by applying unsupervised clustering and predictive multivariate analysis."
+            }
+        },
+        {
+            "id": "exp_idata_06",
+            "company": "IDATA",
+            "official_title": "Analista Datamining III",
+            "standard_role": {
+                "es": "Científico de Datos Senior & Especialista en Big Data (Analista Datamining III)",
+                "en": "Senior Data Scientist & Big Data Specialist (Analista Datamining III)"
+            },
+            "period": "Sep 2018 – Jun 2022",
+            "tags": [
+                "Spatial Analytics",
+                "Machine Learning",
+                "Retail",
+                "Python",
+                "Databricks"
+            ],
+            "text": {
+                "es": "Incrementé las ventas de retail en un 7.5% diseñando un modelo predictivo de recomendación basado en georreferenciación y POIs en Python.",
+                "en": "Boosted retail sales by 7.5% by architecting a spatial shopper recommendation model based on POI georeferencing in Python."
+            }
+        },
+        {
+            "id": "exp_idata_07",
+            "company": "IDATA",
+            "official_title": "Analista Datamining III",
+            "standard_role": {
+                "es": "Científico de Datos Senior & Especialista en Big Data (Analista Datamining III)",
+                "en": "Senior Data Scientist & Big Data Specialist (Analista Datamining III)"
+            },
+            "period": "Sep 2018 – Jun 2022",
+            "tags": [
+                "Big Data",
+                "PySpark",
+                "Databricks",
+                "Distributed Computing"
+            ],
+            "text": {
+                "es": "Reduje los tiempos de ejecución analítica en un 81% (de 54h a 10h) migrando y paralelizando rutinas numéricas de R a PySpark en Databricks.",
+                "en": "Slashed runtime by 81% (from 54h to 10h) by refactoring and distributedly scaling numerical workloads from R to PySpark on Databricks."
+            }
+        },
+        {
+            "id": "exp_idata_08",
+            "company": "IDATA",
+            "official_title": "Analista Datamining III",
+            "standard_role": {
+                "es": "Científico de Datos Senior & Especialista en Big Data (Analista Datamining III)",
+                "en": "Senior Data Scientist & Big Data Specialist (Analista Datamining III)"
+            },
+            "period": "Sep 2018 – Jun 2022",
+            "tags": [
+                "Cloud Migration",
+                "Azure",
+                "Refactoring",
+                "Data Lake"
+            ],
+            "text": {
+                "es": "Aceleré en un 15% los flujos analíticos legacy liderando la refactorización y migración hacia arquitecturas de datos en la nube de Azure.",
+                "en": "Accelerated legacy analytical workloads by 15% by leading the code refactoring and cloud migration into Azure Data Lake."
+            }
+        },
+        {
+            "id": "exp_syn_01",
+            "company": "Synapsis Research",
+            "official_title": "Científico de Datos",
+            "standard_role": {
+                "es": "Científico de Datos & Investigador Estadístico (Científico de Datos)",
+                "en": "Data Scientist & Statistical Researcher (Científico de Datos)"
+            },
+            "period": "Mar 2018 – Ago 2018",
+            "tags": [
+                "Experimental Design",
+                "Regression",
+                "R",
+                "Industrial Analytics"
+            ],
+            "text": {
+                "es": "Aumenté un 3% la resistencia a la tracción en cementos formulando diseños experimentales factoriales y modelos de regresión en R.",
+                "en": "Increased cement tensile strength by 3% by executing factorial experimental designs and predictive regression models in R."
+            }
+        },
+        {
+            "id": "exp_syn_02",
+            "company": "Synapsis Research",
+            "official_title": "Científico de Datos",
+            "standard_role": {
+                "es": "Científico de Datos & Investigador Estadístico (Científico de Datos)",
+                "en": "Data Scientist & Statistical Researcher (Científico de Datos)"
+            },
+            "period": "Mar 2018 – Ago 2018",
+            "tags": [
+                "Feature Engineering",
+                "Statistics",
+                "R",
+                "SQL"
+            ],
+            "text": {
+                "es": "Optimicé en un 20% el proceso de ingeniería de variables analizando bases de datos mineralógicas complejas con técnicas estadísticas en R.",
+                "en": "Enhanced feature engineering pipelines by 20% through statistical exploration of complex mineralogical data in R and SQL."
+            }
+        },
+        {
+            "id": "exp_med_01",
+            "company": "Educación y Salud (Independiente)",
+            "official_title": "Consultor Estadístico",
+            "standard_role": {
+                "es": "Consultor Estadístico Principal & Asesor Metodológico (Consultor Estadístico)",
+                "en": "Principal Statistical Consultant & Methodological Advisor (Statistical Consultant)"
+            },
+            "period": "Ene 2014 – Mar 2018",
+            "tags": [
+                "Biostatistics",
+                "Survival Analysis",
+                "R",
+                "SPSS",
+                "SAS",
+                "Healthcare"
+            ],
+            "text": {
+                "es": "Conduje el análisis estadístico de supervivencia y bioestadística en más de 20 investigaciones médicas empleando SAS, R y SPSS.",
+                "en": "Led survival analysis and bio-statistical modeling across 20+ clinical research studies using SAS, R, and advanced SPSS routines."
+            }
+        },
+        {
+            "id": "exp_banesco_01",
+            "company": "Banesco Banco Universal",
+            "official_title": "Especialista de Modelos Estadísticos I",
+            "standard_role": {
+                "es": "Especialista en Modelado Estadístico Financiero (Especialista de Modelos Estadísticos I)",
+                "en": "Financial Statistical Modeling Specialist (Especialista de Modelos Estadísticos I)"
+            },
+            "period": "Sep 2012 – Dic 2013",
+            "tags": [
+                "Time Series",
+                "ARIMA",
+                "SAS",
+                "Banking",
+                "Financial Forecasting"
+            ],
+            "text": {
+                "es": "Pronostiqué volúmenes transaccionales bancarios logrando un error menor al 7% mediante modelos de series de tiempo ARIMA, SARIMAX y SAS.",
+                "en": "Forecasted banking transaction volumes with under 7% error by building ARIMA/SARIMAX time series models in SAS and SQL."
+            }
+        },
+        {
+            "id": "exp_banesco_02",
+            "company": "Banesco Banco Universal",
+            "official_title": "Especialista de Modelos Estadísticos I",
+            "standard_role": {
+                "es": "Especialista en Modelado Estadístico Financiero (Especialista de Modelos Estadísticos I)",
+                "en": "Financial Statistical Modeling Specialist (Especialista de Modelos Estadísticos I)"
+            },
+            "period": "Sep 2012 – Dic 2013",
+            "tags": [
+                "ETL",
+                "SAS Macros",
+                "SQL",
+                "Reporting Automation"
+            ],
+            "text": {
+                "es": "Recorté en un 50% el ciclo de reportes de comportamiento de clientes implementando flujos ETL optimizados en SQL y macros SAS.",
+                "en": "Cut monthly customer analytics reporting cycles by 50% by building automated ETL pipelines in SQL and enterprise SAS macros."
+            }
+        }
+    ]
+}

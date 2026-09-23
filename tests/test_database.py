@@ -1,4 +1,4 @@
-﻿"""
+"""
 Tests unitarios para el módulo de persistencia y utilidades de deduplicación.
 """
 
@@ -12,16 +12,17 @@ def test_compute_job_hash_normalization():
     hash_1 = compute_job_hash(
         company="Bancolombia S.A.S.",
         title="Senior Data Scientist",
-        description_snippet="Liderar iniciativas analíticas y modelos de ML en Python."
+        description_snippet="Liderar iniciativas analíticas y modelos de ML en Python.",
     )
     hash_2 = compute_job_hash(
         company="bancolombia",
         title="senior data scientist",
-        description_snippet="Liderar iniciativas analíticas y modelos de ML en Python."
+        description_snippet="Liderar iniciativas analíticas y modelos de ML en Python.",
     )
-    
+
     assert hash_1 == hash_2
     assert len(hash_1) == 64  # Longitud estándar de un hash SHA-256 en hexadecimal
+
 
 def test_database_lifecycle_and_deduplication(tmp_path, monkeypatch):
     """Verifica creación de tablas, modo WAL y descarte transaccional de registros duplicados."""
@@ -47,7 +48,7 @@ def test_database_lifecycle_and_deduplication(tmp_path, monkeypatch):
         "description": "Desarrollo de modelos predictivos en PyTorch.",
         "ats_type": "UNKNOWN",
         "requires_login": 0,
-        "status": "SCRAPED"
+        "status": "SCRAPED",
     }
 
     # 4. Primera inserción -> True

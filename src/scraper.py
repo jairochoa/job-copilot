@@ -1,4 +1,4 @@
-﻿"""
+"""
 Módulo de Ingesta Automatizada y Clasificación de Portales ATS (JobSpy).
 - Parámetros dinámicos y desacoplados sin valores fijos en el código fuente.
 - Detección de portales compatibles según región geográfica.
@@ -26,7 +26,6 @@ ATS_PATTERNS = {
     "bamboohr": (r"bamboohr\.com/careers|bamboohr\.com/jobs", False),
     "breezy": (r"breezy\.hr", False),
     "workable": (r"apply\.workable\.com", False),
-
     # Corporativos pesados / Legacy (alta fricción, requieren registro previo)
     "workday": (r"myworkdayjobs\.com|wd\d+\.myworkdaysite\.com", True),
     "successfactors": (r"successfactors\.(eu|com)|jobs\.sap\.com", True),
@@ -37,8 +36,16 @@ ATS_PATTERNS = {
 
 # Regiones donde Glassdoor y ZipRecruiter operan nativamente
 NORTH_AMERICA_EUROPE = {
-    "united states", "usa", "us", "united kingdom", "uk",
-    "canada", "australia", "germany", "france", "netherlands"
+    "united states",
+    "usa",
+    "us",
+    "united kingdom",
+    "uk",
+    "canada",
+    "australia",
+    "germany",
+    "france",
+    "netherlands",
 }
 
 
@@ -62,7 +69,9 @@ def detect_target_profile(location: str, description: str) -> tuple[str, str]:
     if re.search(r"\b(venezuela|merida|caracas|maracaibo|valencia)\b", text_corpus):
         return "Venezuela", "VE"
 
-    if re.search(r"\b(colombia|medellin|bogota|cali|antioquia|envigado)\b", text_corpus):
+    if re.search(
+        r"\b(colombia|medellin|bogota|cali|antioquia|envigado)\b", text_corpus
+    ):
         return "Colombia", "CO"
 
     return "Global / Remote", "CO"
@@ -95,7 +104,11 @@ def resolve_sites_for_location(
 ) -> list[str]:
     """Filtra y devuelve sitios compatibles según la región geográfica."""
     default_sites = requested_sites or [
-        "linkedin", "indeed", "glassdoor", "zip_recruiter", "google",
+        "linkedin",
+        "indeed",
+        "glassdoor",
+        "zip_recruiter",
+        "google",
     ]
     loc_lower = location.lower().strip()
     is_na_eu = any(c in loc_lower for c in NORTH_AMERICA_EUROPE)
@@ -125,9 +138,7 @@ def run_job_search(
     """Ejecuta el scraping dinámico y persiste los resultados en SQLite."""
     logger.info(f"Iniciando búsqueda de empleos: '{search_term}' en '{location}'...")
 
-    active_sites = resolve_sites_for_location(
-        location=location, requested_sites=sites
-    )
+    active_sites = resolve_sites_for_location(location=location, requested_sites=sites)
     logger.info(f"Portales habilitados para la consulta: {active_sites}")
 
     collected_dfs = []
@@ -152,11 +163,15 @@ def run_job_search(
             logger.warning(f"Error consultando portal {site}: {e}")
 
     if not collected_dfs:
-        logger.warning(f"No se obtuvieron resultados para '{search_term}' en '{location}'.")
+        logger.warning(
+            f"No se obtuvieron resultados para '{search_term}' en '{location}'."
+        )
         return []
 
     jobs_df = pd.concat(collected_dfs, ignore_index=True)
-    logger.info(f"JobSpy recuperó {len(jobs_df)} ofertas en total. Procesando y deduplicando...")
+    logger.info(
+        f"JobSpy recuperó {len(jobs_df)} ofertas en total. Procesando y deduplicando..."
+    )
 
     saved_jobs = []
     for _, row in jobs_df.iterrows():
