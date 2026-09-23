@@ -1,7 +1,7 @@
 """
 Módulo de Compilación de CVs (HU-05).
 Mapea el esquema canónico de data/master_cv.json hacia PDF y DOCX.
-Incluye localización de fechas, traducción técnica polimórfica, idiomas y soft skills.
+Incluye localización de fechas, traducción técnica polimórfica, extracción robusta de idiomas y soft skills.
 """
 
 import json
@@ -28,12 +28,12 @@ SKILLS_ES_TO_EN = {
     "analisis multivariante": "Multivariate Analysis",
     "bioestadística": "Biostatistics",
     "bioestadistica": "Biostatistics",
+    "series de tiempo": "Time Series Forecasting",
     "análisis de supervivencia": "Survival Analysis",
     "analisis de supervivencia": "Survival Analysis",
     "diseño experimental": "Design of Experiments (DoE)",
     "diseno experimental": "Design of Experiments (DoE)",
     "inferencia bayesiana": "Bayesian Inference",
-    "series de tiempo": "Time Series Forecasting",
     "series temporales": "Time Series Forecasting",
     "aprendizaje supervisado": "Supervised Learning",
     "aprendizaje no supervisado": "Unsupervised Learning",
@@ -78,11 +78,12 @@ def load_master_cv() -> dict[str, Any]:
 
 
 def resolve_bilingual_field(field_val: Any, lang: str) -> str:
-    """Extrae la cadena según el idioma si es diccionario o contiene campos 'name'."""
     if isinstance(field_val, dict):
         if "name" in field_val and isinstance(field_val["name"], dict):
             return resolve_bilingual_field(field_val["name"], lang)
-        return field_val.get(lang) or field_val.get("en") or field_val.get("es") or ""
+        return str(
+            field_val.get(lang) or field_val.get("en") or field_val.get("es") or ""
+        )
     return str(field_val) if field_val is not None else ""
 
 
@@ -101,7 +102,6 @@ def localize_period_str(period: str, lang: str) -> str:
 
 
 def localize_skill_name(skill_val: Any, lang: str) -> str:
-    """Extrae el valor del skill independientemente de si es dict o str, y lo traduce si aplica."""
     resolved_text = resolve_bilingual_field(skill_val, lang)
     if not resolved_text:
         return ""
@@ -197,18 +197,18 @@ def prepare_cv_context(
     raw_skills = master_cv.get("skills", {})
     if isinstance(raw_skills, dict):
         mapping_es = {
+            "languages": "Lenguajes de Programación",
             "machine_learning_ai": "Modelado e IA",
             "data_engineering_cloud": "Datos y Cloud",
             "statistical_modeling": "Estadística Avanzada",
-            "languages": "Lenguajes de Programación",
             "devops_tools": "DevOps & MLOps",
             "soft_skills": "Liderazgo & Metodologías",
         }
         mapping_en = {
+            "languages": "Programming Languages",
             "machine_learning_ai": "ML & Applied AI",
             "data_engineering_cloud": "Data & Cloud",
             "statistical_modeling": "Statistical Modeling",
-            "languages": "Programming Languages",
             "devops_tools": "DevOps & MLOps",
             "soft_skills": "Leadership & Collaboration",
         }
@@ -225,11 +225,30 @@ def prepare_cv_context(
                 if translated_items:
                     skills_dict[cat_label] = ", ".join(translated_items)
 
+    # Extracción tolerante y bilingüe para idiomas
     languages_spoken = []
     for l_item in master_cv.get("languages", []):
-        l_name = resolve_bilingual_field(l_item.get("name"), lang)
-        l_prof = resolve_bilingual_field(l_item.get("proficiency"), lang)
-        languages_spoken.append({"language": l_name, "proficiency": l_prof})
+        if isinstance(l_item, dict):
+            # Intentar claves 'language', 'name', 'idioma'
+            l_val = l_item.get("language") or l_item.get("name") or l_item.get("idioma")
+            # Intentar claves 'proficiency', 'level', 'nivel'
+            p_val = (
+                l_item.get("proficiency") or l_item.get("level") or l_item.get("nivel")
+            )
+
+            l_name = resolve_bilingual_field(l_val, lang)
+            l_prof = resolve_bilingual_field(p_val, lang)
+
+            if l_name:
+                languages_spoken.append(
+                    {
+                        "language": l_name,
+                        "proficiency": l_prof
+                        or ("Native" if lang == "en" else "Nativo"),
+                    }
+                )
+        elif isinstance(l_item, str):
+            languages_spoken.append({"language": l_item, "proficiency": ""})
 
     return {
         "language": lang,
@@ -284,7 +303,7 @@ def compile_docx(context: dict[str, Any], output_path: Path) -> None:
 
     h_p = doc.add_paragraph()
     r_head = h_p.add_run(context.get("tailored_headline", ""))
-    r_head.font.size = Pt(10.5)
+    r_head.font.size = Pt(10)
     r_head.font.bold = True
     r_head.font.color.rgb = RGBColor(29, 78, 216)
     h_p.paragraph_format.space_after = Pt(3)
@@ -298,7 +317,7 @@ def compile_docx(context: dict[str, Any], output_path: Path) -> None:
         "github.com/jairochoa",
     ]
     r_cont = c_p.add_run(" | ".join([p for p in contact_parts if p]))
-    r_cont.font.size = Pt(8.8)
+    r_cont.font.size = Pt(8.6)
     r_cont.font.color.rgb = RGBColor(71, 85, 105)
     c_p.paragraph_format.space_after = Pt(8)
 
@@ -366,7 +385,9 @@ def build_applications_batch() -> int:
         logger.info("No hay vacantes calificadas para compilar.")
         return 0
 
-    logger.info(f"Recompilando {len(jobs_to_compile)} CVs con esquema completo...")
+    logger.info(
+        f"Recompilando {len(jobs_to_compile)} CVs con tipografía y secciones homologadas..."
+    )
     count = 0
 
     for job in jobs_to_compile:
