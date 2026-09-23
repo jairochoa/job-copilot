@@ -68,7 +68,7 @@
             "status": "completed",
             "degree": {
                 "es": "Licenciado en Estadística",
-                "en": "Bachelor of Science in Statistics"
+                "en": "B.Sc. in Statistics"
             },
             "institution": "Universidad de Los Andes (ULA)",
             "location": "Mérida, Venezuela",
@@ -86,9 +86,9 @@
             "status": "in_progress",
             "degree": {
                 "es": "Ingeniería en Inteligencia Artificial y Ciencia de Datos",
-                "en": "Bachelor of Science in Artificial Intelligence & Data Science"
+                "en": "B.Sc. in Artificial Intelligence & Data Science"
             },
-            "institution": "Universidad Nacional Abierta y a Distancia (UNAD)",
+            "institution": "UNAD",
             "location": "Colombia",
             "period": {
                 "es": "En curso (Graduación: 2028)",

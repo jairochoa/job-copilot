@@ -1,7 +1,7 @@
 """
 Módulo de Compilación de CVs (HU-05).
 Mapea el esquema canónico de data/master_cv.json hacia PDF y DOCX.
-Incluye localización de fechas, traducción técnica polimórfica, extracción robusta de idiomas y soft skills.
+Garantiza traducción técnica estricta, localización de fechas e integridad ATS.
 """
 
 import json
@@ -23,18 +23,26 @@ OUTPUT_DIR = BASE_DIR / "output"
 MASTER_CV_PATH = BASE_DIR / "data" / "master_cv.json"
 TEMPLATE_HTML_PATH = BASE_DIR / "templates" / "cv_template.html"
 
+# Diccionario exhaustivo para evitar spanglish técnico en documentos en inglés
 SKILLS_ES_TO_EN = {
     "análisis multivariante": "Multivariate Analysis",
     "analisis multivariante": "Multivariate Analysis",
     "bioestadística": "Biostatistics",
     "bioestadistica": "Biostatistics",
-    "series de tiempo": "Time Series Forecasting",
     "análisis de supervivencia": "Survival Analysis",
     "analisis de supervivencia": "Survival Analysis",
     "diseño experimental": "Design of Experiments (DoE)",
     "diseno experimental": "Design of Experiments (DoE)",
     "inferencia bayesiana": "Bayesian Inference",
-    "series temporales": "Time Series Forecasting",
+    "inferencia estadística": "Statistical Inference",
+    "inferencia estadistica": "Statistical Inference",
+    "pruebas de hipótesis": "Hypothesis Testing",
+    "pruebas de hipotesis": "Hypothesis Testing",
+    "series de tiempo": "Time Series Forecasting (ARIMA/SARIMAX)",
+    "series temporales": "Time Series Forecasting (ARIMA/SARIMAX)",
+    "series de tiempo (arima/sarimax)": "Time Series Forecasting (ARIMA/SARIMAX)",
+    "modelos ocultos de markov (hmm)": "Hidden Markov Models (HMM)",
+    "modelos ocultos de markov": "Hidden Markov Models (HMM)",
     "aprendizaje supervisado": "Supervised Learning",
     "aprendizaje no supervisado": "Unsupervised Learning",
     "modelado estadístico": "Statistical Modeling",
@@ -53,7 +61,7 @@ MONTHS_ES_TO_EN = {
     "ene": "Jan",
     "feb": "Feb",
     "mar": "Mar",
-    "abr": "Abr",
+    "abr": "Apr",
     "may": "May",
     "jun": "Jun",
     "jul": "Jul",
@@ -65,6 +73,9 @@ MONTHS_ES_TO_EN = {
     "dic": "Dec",
     "actualidad": "Present",
     "presente": "Present",
+    "en curso": "In Progress",
+    "esperado": "Expected",
+    "graduado en": "Graduated",
 }
 
 
@@ -96,8 +107,6 @@ def localize_period_str(period: str, lang: str) -> str:
         pattern = re.compile(rf"\b{es_term}\b", re.IGNORECASE)
         result = pattern.sub(en_term, result)
 
-    result = re.sub(r"\bactualidad\b", "Present", result, flags=re.IGNORECASE)
-    result = re.sub(r"\bpresente\b", "Present", result, flags=re.IGNORECASE)
     return result
 
 
@@ -225,20 +234,15 @@ def prepare_cv_context(
                 if translated_items:
                     skills_dict[cat_label] = ", ".join(translated_items)
 
-    # Extracción tolerante y bilingüe para idiomas
     languages_spoken = []
     for l_item in master_cv.get("languages", []):
         if isinstance(l_item, dict):
-            # Intentar claves 'language', 'name', 'idioma'
             l_val = l_item.get("language") or l_item.get("name") or l_item.get("idioma")
-            # Intentar claves 'proficiency', 'level', 'nivel'
             p_val = (
                 l_item.get("proficiency") or l_item.get("level") or l_item.get("nivel")
             )
-
             l_name = resolve_bilingual_field(l_val, lang)
             l_prof = resolve_bilingual_field(p_val, lang)
-
             if l_name:
                 languages_spoken.append(
                     {
@@ -313,7 +317,7 @@ def compile_docx(context: dict[str, Any], output_path: Path) -> None:
         personal.get("location", ""),
         personal.get("phone", ""),
         personal.get("email", ""),
-        "linkedin.com/in/jairochoa",
+        "linkedin.com/in/jjochoa",
         "github.com/jairochoa",
     ]
     r_cont = c_p.add_run(" | ".join([p for p in contact_parts if p]))
@@ -385,9 +389,7 @@ def build_applications_batch() -> int:
         logger.info("No hay vacantes calificadas para compilar.")
         return 0
 
-    logger.info(
-        f"Recompilando {len(jobs_to_compile)} CVs con tipografía y secciones homologadas..."
-    )
+    logger.info(f"Recompilando {len(jobs_to_compile)} CVs con calidad ATS estricta...")
     count = 0
 
     for job in jobs_to_compile:

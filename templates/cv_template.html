@@ -6,40 +6,41 @@
     <style>
         @page {
             size: letter portrait;
-            margin: 1.1cm 1.3cm;
+            margin: 1.2cm 1.4cm;
         }
         * {
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            color: #0f172a;
-            line-height: 1.32;
-            font-size: 9.3pt;
+            font-family: Arial, sans-serif;
+            color: #111827;
+            line-height: 1.35;
+            font-size: 9pt;
             margin: 0;
             padding: 0;
         }
         header {
             text-align: center;
-            border-bottom: 1.5px solid #0f172a;
-            padding-bottom: 6px;
-            margin-bottom: 8px;
+            border-bottom: 1.5px solid #111827;
+            padding-bottom: 5px;
+            margin-bottom: 7px;
         }
         h1 {
-            font-size: 17pt;
-            letter-spacing: 0.5px;
+            font-size: 16pt;
+            letter-spacing: 0.3px;
             margin: 0 0 2px 0;
             color: #0f172a;
             font-weight: 700;
         }
         .headline {
-            font-size: 10pt;
+            font-size: 9.8pt;
             font-weight: 600;
             color: #1d4ed8;
             margin-bottom: 3px;
         }
         .contact {
-            font-size: 8.6pt;
+            font-size: 8.5pt;
             color: #475569;
         }
         .contact a {
@@ -47,33 +48,55 @@
             text-decoration: none;
         }
         .section-title {
-            font-size: 10pt;
+            font-size: 9.5pt;
             text-transform: uppercase;
             font-weight: 700;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
             border-bottom: 1px solid #334155;
-            margin: 7px 0 4px 0;
+            margin: 8px 0 4px 0;
             padding-bottom: 1px;
             color: #0f172a;
+            page-break-after: avoid;
+            break-after: avoid;
         }
         .summary {
             text-align: justify;
             margin-bottom: 6px;
+            font-size: 9pt;
         }
         .job-entry {
             margin-bottom: 6px;
             page-break-inside: avoid;
+            break-inside: avoid;
         }
-        .job-header {
-            display: flex;
-            justify-content: space-between;
+        table.row-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            font-size: 9pt;
+        }
+        table.row-table td {
+            padding: 0;
+            vertical-align: top;
+            font-size: 9pt;
+            line-height: 1.35;
+        }
+        .job-title {
             font-weight: 700;
-            font-size: 9.4pt;
             color: #0f172a;
+            font-size: 9pt;
+        }
+        .job-period {
+            font-weight: 600;
+            color: #0f172a;
+            text-align: right;
+            white-space: nowrap;
+            font-size: 8.8pt;
         }
         .job-company {
             font-style: italic;
-            font-size: 9pt;
+            font-size: 8.8pt;
             color: #334155;
             margin-bottom: 2px;
         }
@@ -84,41 +107,53 @@
         li {
             margin-bottom: 2px;
             text-align: justify;
+            font-size: 9pt;
         }
         .edu-entry {
-            display: flex;
-            justify-content: space-between;
             margin-bottom: 2.5px;
-            font-size: 9.3pt;
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
         .edu-degree {
-            font-weight: 600;
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 9pt;
+        }
+        .edu-inst {
+            font-size: 9pt;
+            color: #111827;
         }
         .cert-list, .lang-list {
             margin-top: 2px;
             text-align: justify;
-            font-size: 9.1pt;
+            font-size: 8.8pt;
             line-height: 1.35;
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
         .skills-table {
             width: 100%;
             margin-top: 2px;
             border-collapse: collapse;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            font-size: 8.8pt;
         }
         .skill-category {
-            font-weight: 600;
+            font-weight: 700;
             color: #0f172a;
             white-space: nowrap;
             width: 25%;
             vertical-align: top;
             padding: 1.5px 6px 1.5px 0;
-            font-size: 9.1pt;
+            font-size: 8.8pt;
         }
         .skill-items {
             vertical-align: top;
             padding: 1.5px 0;
-            font-size: 9.1pt;
+            font-size: 8.8pt;
             text-align: justify;
+            line-height: 1.32;
         }
     </style>
 </head>
@@ -147,10 +182,12 @@
         </div>
         {% for exp in experience %}
         <div class="job-entry">
-            <div class="job-header">
-                <span>{{ exp.title }}</span>
-                <span>{{ exp.period }}</span>
-            </div>
+            <table class="row-table">
+                <tr>
+                    <td style="width: 80%;" class="job-title">{{ exp.title }}</td>
+                    <td style="width: 20%;" class="job-period">{{ exp.period }}</td>
+                </tr>
+            </table>
             <div class="job-company">{{ exp.company }}</div>
             <ul>
                 {% for bullet in exp.bullets %}
@@ -161,20 +198,26 @@
         {% endfor %}
     </section>
 
-    <section>
+    <section style="page-break-inside: avoid; break-inside: avoid;">
         <div class="section-title">
             {% if language == 'es' %}Educación Superior{% else %}Higher Education{% endif %}
         </div>
         {% for edu in education %}
         <div class="edu-entry">
-            <div><span class="edu-degree">{{ edu.degree }}</span> — {{ edu.institution }}</div>
-            <div>{{ edu.period }}</div>
+            <table class="row-table">
+                <tr>
+                    <td style="width: 78%; font-size: 9pt;">
+                        <span class="edu-degree">{{ edu.degree }}</span> &mdash; <span class="edu-inst">{{ edu.institution }}</span>
+                    </td>
+                    <td style="width: 22%;" class="job-period">{{ edu.period }}</td>
+                </tr>
+            </table>
         </div>
         {% endfor %}
     </section>
 
     {% if certifications %}
-    <section>
+    <section style="page-break-inside: avoid; break-inside: avoid;">
         <div class="section-title">
             {% if language == 'es' %}Certificaciones Relevantes{% else %}Key Certifications{% endif %}
         </div>
@@ -187,7 +230,7 @@
     {% endif %}
 
     {% if skills %}
-    <section>
+    <section style="page-break-inside: avoid; break-inside: avoid;">
         <div class="section-title">
             {% if language == 'es' %}Competencias Técnicas y Profesionales{% else %}Technical & Professional Competencies{% endif %}
         </div>
@@ -203,7 +246,7 @@
     {% endif %}
 
     {% if languages_spoken %}
-    <section>
+    <section style="page-break-inside: avoid; break-inside: avoid;">
         <div class="section-title">
             {% if language == 'es' %}Idiomas{% else %}Languages{% endif %}
         </div>
