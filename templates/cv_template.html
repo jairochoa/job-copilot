@@ -6,37 +6,37 @@
     <style>
         @page {
             size: letter portrait;
-            margin: 1.2cm 1.4cm;
+            margin: 1.1cm 1.3cm;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             color: #111827;
-            line-height: 1.35;
-            font-size: 9.5pt;
+            line-height: 1.32;
+            font-size: 9.3pt;
             margin: 0;
             padding: 0;
         }
         header {
             text-align: center;
             border-bottom: 2px solid #0f172a;
-            padding-bottom: 8px;
-            margin-bottom: 10px;
+            padding-bottom: 6px;
+            margin-bottom: 8px;
         }
         h1 {
-            font-size: 19pt;
+            font-size: 18pt;
             letter-spacing: 0.5px;
-            margin: 0 0 3px 0;
+            margin: 0 0 2px 0;
             color: #0f172a;
             font-weight: 700;
         }
         .headline {
-            font-size: 10.5pt;
+            font-size: 10.2pt;
             font-weight: 600;
             color: #1d4ed8;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .contact {
-            font-size: 8.8pt;
+            font-size: 8.6pt;
             color: #475569;
         }
         .contact a {
@@ -44,54 +44,54 @@
             text-decoration: none;
         }
         .section-title {
-            font-size: 10.5pt;
+            font-size: 10pt;
             text-transform: uppercase;
             font-weight: 700;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.7px;
             border-bottom: 1px solid #94a3b8;
-            margin: 10px 0 5px 0;
+            margin: 8px 0 4px 0;
             padding-bottom: 1px;
             color: #0f172a;
         }
         .summary {
             text-align: justify;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .job-entry {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             page-break-inside: avoid;
         }
         .job-header {
             display: flex;
             justify-content: space-between;
             font-weight: 700;
-            font-size: 9.8pt;
+            font-size: 9.5pt;
             color: #0f172a;
         }
         .job-company {
             font-style: italic;
-            font-size: 9.2pt;
+            font-size: 9pt;
             color: #334155;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         ul {
             margin: 2px 0 4px 16px;
             padding: 0;
         }
         li {
-            margin-bottom: 2.5px;
+            margin-bottom: 2px;
             text-align: justify;
         }
         .edu-entry {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 3px;
+            margin-bottom: 2.5px;
         }
         .edu-degree {
             font-weight: 600;
         }
-        .cert-list {
-            margin-top: 3px;
+        .cert-list, .lang-list {
+            margin-top: 2px;
             text-align: justify;
         }
         .skills-table {
@@ -104,11 +104,11 @@
             white-space: nowrap;
             width: 25%;
             vertical-align: top;
-            padding-bottom: 3px;
+            padding-bottom: 2.5px;
         }
         .skill-items {
             vertical-align: top;
-            padding-bottom: 3px;
+            padding-bottom: 2.5px;
         }
     </style>
 </head>
@@ -179,7 +179,7 @@
     {% if skills %}
     <section>
         <div class="section-title">
-            {% if language == 'es' %}Competencias Técnicas{% else %}Technical Competencies{% endif %}
+            {% if language == 'es' %}Competencias Técnicas y Profesionales{% else %}Technical & Professional Competencies{% endif %}
         </div>
         <table class="skills-table">
             {% for cat_name, cat_skills in skills.items() %}
@@ -189,6 +189,19 @@
             </tr>
             {% endfor %}
         </table>
+    </section>
+    {% endif %}
+
+    {% if languages_spoken %}
+    <section>
+        <div class="section-title">
+            {% if language == 'es' %}Idiomas{% else %}Languages{% endif %}
+        </div>
+        <div class="lang-list">
+            {% for lang_item in languages_spoken %}
+            <strong>{{ lang_item.language }}</strong>: {{ lang_item.proficiency }}{% if not loop.last %} &bull; {% endif %}
+            {% endfor %}
+        </div>
     </section>
     {% endif %}
 </body>

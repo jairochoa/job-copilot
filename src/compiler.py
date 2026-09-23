@@ -1,8 +1,7 @@
 """
 Módulo de Compilación de CVs (HU-05).
-Mapea el esquema canónico de data/master_cv.json (profiles, experience_bullets_pool,
-education, certifications, skills) hacia PDF (Playwright) y DOCX (python-docx).
-Incluye localización estricta de fechas y traducción técnica bilingüe de skills.
+Mapea el esquema canónico de data/master_cv.json hacia PDF y DOCX.
+Incluye localización de fechas, traducción técnica polimórfica, idiomas y soft skills.
 """
 
 import json
@@ -24,7 +23,6 @@ OUTPUT_DIR = BASE_DIR / "output"
 MASTER_CV_PATH = BASE_DIR / "data" / "master_cv.json"
 TEMPLATE_HTML_PATH = BASE_DIR / "templates" / "cv_template.html"
 
-# Diccionario de traducción técnica para habilidades
 SKILLS_ES_TO_EN = {
     "análisis multivariante": "Multivariate Analysis",
     "analisis multivariante": "Multivariate Analysis",
@@ -43,14 +41,19 @@ SKILLS_ES_TO_EN = {
     "modelado estadistico": "Statistical Modeling",
     "aprendizaje automático": "Machine Learning",
     "aprendizaje automatico": "Machine Learning",
+    "liderazgo técnico": "Technical Leadership",
+    "pensamiento crítico": "Critical Thinking",
+    "comunicación asertiva": "Cross-functional Communication",
+    "resolución de problemas complejos": "Complex Problem Solving",
+    "trabajo en equipo interdisciplinario": "Cross-disciplinary Collaboration",
+    "gestión de proyectos analíticos": "Analytical Project Management",
 }
 
-# Diccionario para localización de fechas
 MONTHS_ES_TO_EN = {
     "ene": "Jan",
     "feb": "Feb",
     "mar": "Mar",
-    "abr": "Apr",
+    "abr": "Abr",
     "may": "May",
     "jun": "Jun",
     "jul": "Jul",
@@ -66,7 +69,6 @@ MONTHS_ES_TO_EN = {
 
 
 def sanitize_filename(name: str) -> str:
-    """Limpia caracteres inválidos para rutas de archivo."""
     return re.sub(r"[^\w\-_\. ]", "_", name).strip()
 
 
@@ -76,14 +78,15 @@ def load_master_cv() -> dict[str, Any]:
 
 
 def resolve_bilingual_field(field_val: Any, lang: str) -> str:
-    """Extrae la cadena correcta según el idioma si es diccionario {'es':..., 'en':...}."""
+    """Extrae la cadena según el idioma si es diccionario o contiene campos 'name'."""
     if isinstance(field_val, dict):
+        if "name" in field_val and isinstance(field_val["name"], dict):
+            return resolve_bilingual_field(field_val["name"], lang)
         return field_val.get(lang) or field_val.get("en") or field_val.get("es") or ""
     return str(field_val) if field_val is not None else ""
 
 
 def localize_period_str(period: str, lang: str) -> str:
-    """Traduce meses y términos de vigencia al idioma objetivo."""
     if not period or lang == "es":
         return period
 
@@ -92,30 +95,31 @@ def localize_period_str(period: str, lang: str) -> str:
         pattern = re.compile(rf"\b{es_term}\b", re.IGNORECASE)
         result = pattern.sub(en_term, result)
 
-    # Reemplazo de palabras clave
     result = re.sub(r"\bactualidad\b", "Present", result, flags=re.IGNORECASE)
     result = re.sub(r"\bpresente\b", "Present", result, flags=re.IGNORECASE)
     return result
 
 
-def localize_skill_name(skill: str, lang: str) -> str:
-    """Traduce un skill técnico si el idioma es inglés."""
+def localize_skill_name(skill_val: Any, lang: str) -> str:
+    """Extrae el valor del skill independientemente de si es dict o str, y lo traduce si aplica."""
+    resolved_text = resolve_bilingual_field(skill_val, lang)
+    if not resolved_text:
+        return ""
     if lang == "es":
-        return skill
-    clean_k = skill.strip().lower()
-    return SKILLS_ES_TO_EN.get(clean_k, skill)
+        return resolved_text
+
+    clean_k = resolved_text.strip().lower()
+    return SKILLS_ES_TO_EN.get(clean_k, resolved_text)
 
 
 def prepare_cv_context(
     job_record: dict[str, Any], master_cv: dict[str, Any]
 ) -> dict[str, Any]:
-    """Ensambla y normaliza todos los bloques para Jinja2 y python-docx."""
     lang = job_record.get("language", "en")
 
     profiles = master_cv.get("profiles", {})
-    profile = profiles.get("CO") or list(profiles.values())[0]
+    profile = profiles.get("CO") or (list(profiles.values())[0] if profiles else {})
 
-    # Parsing de viñetas seleccionadas por Gemini
     raw_bullets_json = job_record.get("selected_bullet_ids")
     selected_bullet_ids = set()
     if raw_bullets_json:
@@ -134,7 +138,6 @@ def prepare_cv_context(
         except Exception:
             pass
 
-    # Procesar experience_bullets_pool agrupando por empresa
     bullets_pool = master_cv.get("experience_bullets_pool", [])
     grouped_jobs: dict[str, dict[str, Any]] = OrderedDict()
 
@@ -162,14 +165,12 @@ def prepare_cv_context(
         if not selected_bullet_ids or item.get("id") in selected_bullet_ids:
             grouped_jobs[key]["bullets"].append(bullet_text)
 
-    # Fallback si un rol no tiene viñetas elegidas
     experience_list = []
     for job_data in grouped_jobs.values():
         if not job_data["bullets"]:
             job_data["bullets"] = job_data["all_available_bullets"][:2]
         experience_list.append(job_data)
 
-    # Educación con periodos localizados
     education_list = []
     for edu in master_cv.get("education", []):
         edu_period = resolve_bilingual_field(edu.get("period"), lang)
@@ -181,7 +182,6 @@ def prepare_cv_context(
             }
         )
 
-    # Certificaciones relevantes
     cert_list = []
     for c in master_cv.get("certifications", []):
         c_name = resolve_bilingual_field(c.get("name"), lang)
@@ -193,7 +193,6 @@ def prepare_cv_context(
             }
         )
 
-    # Competencias técnicas con traducción profunda
     skills_dict = {}
     raw_skills = master_cv.get("skills", {})
     if isinstance(raw_skills, dict):
@@ -201,25 +200,36 @@ def prepare_cv_context(
             "machine_learning_ai": "Modelado e IA",
             "data_engineering_cloud": "Datos y Cloud",
             "statistical_modeling": "Estadística Avanzada",
-            "languages": "Lenguajes",
+            "languages": "Lenguajes de Programación",
             "devops_tools": "DevOps & MLOps",
+            "soft_skills": "Liderazgo & Metodologías",
         }
         mapping_en = {
             "machine_learning_ai": "ML & Applied AI",
             "data_engineering_cloud": "Data & Cloud",
             "statistical_modeling": "Statistical Modeling",
-            "languages": "Languages",
+            "languages": "Programming Languages",
             "devops_tools": "DevOps & MLOps",
+            "soft_skills": "Leadership & Collaboration",
         }
         mapping = mapping_es if lang == "es" else mapping_en
 
         for k, items in raw_skills.items():
-            if k == "soft_skills":
-                continue
             cat_label = mapping.get(k, k.replace("_", " ").title())
             if isinstance(items, list):
-                translated_items = [localize_skill_name(it, lang) for it in items]
-                skills_dict[cat_label] = ", ".join(translated_items)
+                translated_items = [
+                    localize_skill_name(it, lang)
+                    for it in items
+                    if localize_skill_name(it, lang)
+                ]
+                if translated_items:
+                    skills_dict[cat_label] = ", ".join(translated_items)
+
+    languages_spoken = []
+    for l_item in master_cv.get("languages", []):
+        l_name = resolve_bilingual_field(l_item.get("name"), lang)
+        l_prof = resolve_bilingual_field(l_item.get("proficiency"), lang)
+        languages_spoken.append({"language": l_name, "proficiency": l_prof})
 
     return {
         "language": lang,
@@ -231,11 +241,11 @@ def prepare_cv_context(
         "education": education_list,
         "certifications": cert_list[:8],
         "skills": skills_dict,
+        "languages_spoken": languages_spoken,
     }
 
 
 def compile_pdf_with_playwright(html_content: str, output_path: Path) -> None:
-    """Renderiza PDF limpio y listo para ATS con Playwright."""
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
@@ -245,24 +255,22 @@ def compile_pdf_with_playwright(html_content: str, output_path: Path) -> None:
             format="Letter",
             print_background=True,
             margin={
-                "top": "1.2cm",
-                "bottom": "1.2cm",
-                "left": "1.4cm",
-                "right": "1.4cm",
+                "top": "1.1cm",
+                "bottom": "1.1cm",
+                "left": "1.3cm",
+                "right": "1.3cm",
             },
         )
         browser.close()
 
 
 def compile_docx(context: dict[str, Any], output_path: Path) -> None:
-    """Genera documento DOCX compatible con parsers ATS."""
     doc = Document()
-
     for s in doc.sections:
-        s.top_margin = Inches(0.55)
-        s.bottom_margin = Inches(0.55)
-        s.left_margin = Inches(0.65)
-        s.right_margin = Inches(0.65)
+        s.top_margin = Inches(0.5)
+        s.bottom_margin = Inches(0.5)
+        s.left_margin = Inches(0.6)
+        s.right_margin = Inches(0.6)
 
     personal = context["personal"]
     lang = context["language"]
@@ -297,7 +305,7 @@ def compile_docx(context: dict[str, Any], output_path: Path) -> None:
     def add_section_header(title: str):
         sec_p = doc.add_paragraph()
         r_sec = sec_p.add_run(title.upper())
-        r_sec.font.size = Pt(10.5)
+        r_sec.font.size = Pt(10)
         r_sec.font.bold = True
         r_sec.font.color.rgb = RGBColor(15, 23, 42)
         sec_p.paragraph_format.space_before = Pt(6)
@@ -327,11 +335,20 @@ def compile_docx(context: dict[str, Any], output_path: Path) -> None:
     for edu in context.get("education", []):
         doc.add_paragraph(f"{edu['degree']} — {edu['institution']} ({edu['period']})")
 
+    if context.get("languages_spoken"):
+        add_section_header("IDIOMAS" if lang == "es" else "LANGUAGES")
+        lang_str = " | ".join(
+            [
+                f"{l['language']}: {l['proficiency']}"
+                for l in context["languages_spoken"]
+            ]
+        )
+        doc.add_paragraph(lang_str)
+
     doc.save(str(output_path))
 
 
 def build_applications_batch() -> int:
-    """Compila PDFs y DOCXs para vacantes en estado 'SCORED' o 'GENERATED'."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     master_cv = load_master_cv()
 
@@ -349,7 +366,7 @@ def build_applications_batch() -> int:
         logger.info("No hay vacantes calificadas para compilar.")
         return 0
 
-    logger.info(f"Recompilando {len(jobs_to_compile)} CVs con localización completa...")
+    logger.info(f"Recompilando {len(jobs_to_compile)} CVs con esquema completo...")
     count = 0
 
     for job in jobs_to_compile:
