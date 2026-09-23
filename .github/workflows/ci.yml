@@ -1,0 +1,39 @@
+﻿name: CI & Quality Checks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validar integridad y sintaxis de master_cv.json
+        run: |
+          python -m json.tool data/master_cv.json > /dev/null
+          echo "✅ data/master_cv.json validado con éxito."
+
+      - name: Linter con Ruff
+        run: |
+          ruff check src/ tests/
+
+      - name: Ejecutar Tests con Pytest
+        run: |
+          pytest tests/ -v
