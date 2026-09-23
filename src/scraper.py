@@ -1,14 +1,15 @@
 ﻿"""
 Módulo de Ingesta Automatizada y Clasificación de Portales ATS (JobSpy).
-- Extrae ofertas de LinkedIn, Indeed, Glassdoor y ZipRecruiter.
-- Clasifica el tipo de ATS (Greenhouse, Lever, Workday, Taleo, etc.).
-- Identifica nivel de fricción (requires_login) y asigna perfil dual (CO/VE).
-- Deduplica y persiste en SQLite en modo WAL.
+- Parámetros dinámicos y desacoplados sin valores fijos en el código fuente.
+- Detección de portales compatibles según región geográfica.
+- Clasificación de ATS y cálculo de huella digital única (SHA-256).
+- Persistencia tolerante a fallos en SQLite en modo WAL.
 """
 
 import re
 from typing import Any
 
+import pandas as pd
 import requests
 from jobspy import scrape_jobs
 
@@ -34,12 +35,15 @@ ATS_PATTERNS = {
     "oracle_cloud": (r"oraclecloud\.com.*job", True),
 }
 
+# Regiones donde Glassdoor y ZipRecruiter operan nativamente
+NORTH_AMERICA_EUROPE = {
+    "united states", "usa", "us", "united kingdom", "uk",
+    "canada", "australia", "germany", "france", "netherlands"
+}
+
 
 def classify_ats(url: str) -> tuple[str, int]:
-    """
-    Identifica el tipo de ATS examinando el dominio de la URL.
-    Retorna una tupla: (nombre_ats, requires_login_0_o_1).
-    """
+    """Identifica el tipo de ATS examinando el dominio de la URL."""
     if not url:
         return "UNKNOWN", 0
 
@@ -52,11 +56,7 @@ def classify_ats(url: str) -> tuple[str, int]:
 
 
 def detect_target_profile(location: str, description: str) -> tuple[str, str]:
-    """
-    Determina si la oferta corresponde a target local Venezuela (VE)
-    o a Colombia / Remoto Internacional (CO).
-    Retorna (pais_detectado, codigo_perfil).
-    """
+    """Determina si la oferta corresponde a target local VE o CO/Global."""
     text_corpus = f"{location} {description}".lower()
 
     if re.search(r"\b(venezuela|merida|caracas|maracaibo|valencia)\b", text_corpus):
@@ -69,55 +69,94 @@ def detect_target_profile(location: str, description: str) -> tuple[str, str]:
 
 
 def resolve_redirect_url(raw_url: str, timeout: int = 5) -> str:
-    """
-    Resuelve redirecciones HTTP en URLs cortas o de seguimiento para
-    revelar el dominio ATS real detrás de agregadores.
-    """
+    """Resuelve redirecciones HTTP en URLs para obtener el ATS real."""
     if not raw_url:
         return raw_url
 
     try:
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/124.0.0.0 Safari/537.36"
+            )
         }
-        response = requests.head(raw_url, allow_redirects=True, timeout=timeout, headers=headers)
+        response = requests.head(
+            raw_url, allow_redirects=True, timeout=timeout, headers=headers
+        )
         return response.url
-    except Exception as e:
+    except requests.RequestException as e:
         logger.debug(f"No se pudo resolver redirección para {raw_url}: {e}")
         return raw_url
 
 
+def resolve_sites_for_location(
+    location: str, requested_sites: list[str] | None = None
+) -> list[str]:
+    """Filtra y devuelve sitios compatibles según la región geográfica."""
+    default_sites = requested_sites or [
+        "linkedin", "indeed", "glassdoor", "zip_recruiter", "google",
+    ]
+    loc_lower = location.lower().strip()
+    is_na_eu = any(c in loc_lower for c in NORTH_AMERICA_EUROPE)
+
+    resolved = []
+    for site in default_sites:
+        site_name = site.lower().strip()
+        if site_name in ("glassdoor", "zip_recruiter") and not is_na_eu:
+            logger.debug(
+                f"Excluyendo {site_name}: no cuenta con soporte regional para '{location}'."
+            )
+            continue
+        resolved.append(site_name)
+
+    return resolved
+
+
 def run_job_search(
-    search_term: str = "Senior Data Scientist",
-    location: str = "Colombia",
+    search_term: str,
+    location: str,
     results_wanted: int = 15,
     hours_old: int = 72,
-    country_indeed: str = "colombia"
+    country_indeed: str | None = None,
+    sites: list[str] | None = None,
+    is_remote: bool = False,
 ) -> list[dict[str, Any]]:
-    """
-    Ejecuta el scraping con python-jobspy, procesa metadatos y persiste en SQLite.
-    """
+    """Ejecuta el scraping dinámico y persiste los resultados en SQLite."""
     logger.info(f"Iniciando búsqueda de empleos: '{search_term}' en '{location}'...")
 
-    try:
-        jobs_df = scrape_jobs(
-            site_name=["linkedin", "indeed", "glassdoor"],
-            search_term=search_term,
-            location=location,
-            results_wanted=results_wanted,
-            hours_old=hours_old,
-            country_indeed=country_indeed,
-            is_remote=False
-        )
-    except Exception as e:
-        logger.error(f"Error durante la recolección con JobSpy: {e}", exc_info=True)
+    active_sites = resolve_sites_for_location(
+        location=location, requested_sites=sites
+    )
+    logger.info(f"Portales habilitados para la consulta: {active_sites}")
+
+    collected_dfs = []
+    for site in active_sites:
+        try:
+            logger.info(f"Consultando portal: {site}...")
+            scrape_kwargs: dict[str, Any] = {
+                "site_name": [site],
+                "search_term": search_term,
+                "location": location,
+                "results_wanted": results_wanted,
+                "hours_old": hours_old,
+                "is_remote": is_remote,
+            }
+            if country_indeed:
+                scrape_kwargs["country_indeed"] = country_indeed
+
+            df = scrape_jobs(**scrape_kwargs)
+            if df is not None and not df.empty:
+                collected_dfs.append(df)
+        except Exception as e:  # noqa: BLE001
+            logger.warning(f"Error consultando portal {site}: {e}")
+
+    if not collected_dfs:
+        logger.warning(f"No se obtuvieron resultados para '{search_term}' en '{location}'.")
         return []
 
-    if jobs_df is None or jobs_df.empty:
-        logger.warning(f"No se encontraron ofertas para '{search_term}' en '{location}'.")
-        return []
-
-    logger.info(f"JobSpy recuperó {len(jobs_df)} ofertas en crudo. Procesando y clasificando...")
+    jobs_df = pd.concat(collected_dfs, ignore_index=True)
+    logger.info(f"JobSpy recuperó {len(jobs_df)} ofertas en total. Procesando y deduplicando...")
 
     saved_jobs = []
     for _, row in jobs_df.iterrows():
@@ -131,18 +170,16 @@ def run_job_search(
         if not title or not company or not job_url:
             continue
 
-        # Resolver enlace final y clasificar ATS
         resolved_url = resolve_redirect_url(job_url)
         ats_type, requires_login = classify_ats(resolved_url)
+        country_detected, target_profile = detect_target_profile(
+            raw_location, description
+        )
 
-        # Detectar geografía y perfil dual
-        country_detected, target_profile = detect_target_profile(raw_location, description)
-
-        # Calcular huella digital
         job_hash = compute_job_hash(
             company=company,
             title=title,
-            description_snippet=description[:250]
+            description_snippet=description[:250],
         )
 
         job_record = {
@@ -158,12 +195,13 @@ def run_job_search(
             "ats_type": ats_type,
             "requires_login": requires_login,
             "description": description,
-            "status": "SCRAPED"
+            "status": "SCRAPED",
         }
 
-        # Inserción con deduplicación
         if insert_job(job_record):
             saved_jobs.append(job_record)
 
-    logger.info(f"Proceso de ingesta finalizado: {len(saved_jobs)} ofertas nuevas guardadas en la base de datos.")
+    logger.info(
+        f"Proceso finalizado: {len(saved_jobs)} ofertas nuevas registradas en la base de datos."
+    )
     return saved_jobs
