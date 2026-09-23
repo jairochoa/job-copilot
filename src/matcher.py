@@ -1,4 +1,4 @@
-﻿"""
+"""
 Módulo de Evaluación Semántica y Matching.
 - HU-04 / Actividad 4.1: Prefiltro booleano por reglas duras locales (costo $0).
 - HU-04 / Actividad 4.2: Evaluación semántica con Gemini API, control de tasa (15 RPM)
@@ -11,10 +11,11 @@ import re
 import time
 import unicodedata
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 try:
     from dotenv import load_dotenv
+
     load_dotenv()
 except ImportError:
     pass
@@ -34,48 +35,49 @@ DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
 
 class CompanyBulletsSelection(BaseModel):
     """Mapeo fuertemente tipado para evitar additionalProperties en la API."""
+
     company_id: str = Field(..., description="ID de la empresa según master_cv.json")
-    bullet_ids: List[str] = Field(
+    bullet_ids: list[str] = Field(
         default_factory=list,
-        description="Lista de IDs de viñetas seleccionadas de esa empresa"
+        description="Lista de IDs de viñetas seleccionadas de esa empresa",
     )
 
 
 class JobMatchEvaluation(BaseModel):
     """Esquema estructurado generado por Gemini para cada vacante."""
+
     match_score: int = Field(
         ...,
         ge=0,
         le=100,
-        description="Puntaje de afinidad técnica global entre 0 y 100."
+        description="Puntaje de afinidad técnica global entre 0 y 100.",
     )
     language_detected: str = Field(
         ...,
-        description="Idioma principal de la vacante: 'es' para español o 'en' para inglés."
+        description="Idioma principal de la vacante: 'es' para español o 'en' para inglés.",
     )
-    hard_skills_matched: List[str] = Field(
+    hard_skills_matched: list[str] = Field(
         default_factory=list,
-        description="Habilidades y herramientas requeridas presentes en el perfil."
+        description="Habilidades y herramientas requeridas presentes en el perfil.",
     )
-    missing_skills_gaps: List[str] = Field(
+    missing_skills_gaps: list[str] = Field(
         default_factory=list,
-        description="Requisitos técnicos o herramientas que el candidato no domina."
+        description="Requisitos técnicos o herramientas que el candidato no domina.",
     )
     tailored_headline: str = Field(
-        ...,
-        description="Titular profesional de alto impacto adaptado a la vacante."
+        ..., description="Titular profesional de alto impacto adaptado a la vacante."
     )
     tailored_summary: str = Field(
         ...,
-        description="Resumen profesional de 3-4 líneas calibrado con los años de experiencia ideales."
+        description="Resumen profesional de 3-4 líneas calibrado con los años de experiencia ideales.",
     )
-    selected_bullets: List[CompanyBulletsSelection] = Field(
+    selected_bullets: list[CompanyBulletsSelection] = Field(
         default_factory=list,
-        description="Lista de selecciones de viñetas agrupadas por empresa."
+        description="Lista de selecciones de viñetas agrupadas por empresa.",
     )
     strategic_fit_rationale: str = Field(
         ...,
-        description="Breve justificación de cómo la experiencia cubre las necesidades del rol."
+        description="Breve justificación de cómo la experiencia cubre las necesidades del rol.",
     )
 
 
@@ -116,7 +118,7 @@ DISQUALIFYING_PATTERNS = [
 ]
 
 
-def apply_boolean_prefilter(title: str, description: str) -> Tuple[bool, str]:
+def apply_boolean_prefilter(title: str, description: str) -> tuple[bool, str]:
     """Evalúa si una vacante supera las reglas duras locales sin invocar LLM."""
     raw_title = title.lower()
     raw_corpus = f"{title}\n{description}".lower()
@@ -203,16 +205,18 @@ def run_heuristic_filter_batch() -> int:
     return filtered_out_count
 
 
-def load_master_cv() -> Dict[str, Any]:
+def load_master_cv() -> dict[str, Any]:
     """Carga la base de verdad curricular data/master_cv.json."""
     if not MASTER_CV_PATH.exists():
-        raise FileNotFoundError(f"No se encontró el archivo maestro en: {MASTER_CV_PATH}")
+        raise FileNotFoundError(
+            f"No se encontró el archivo maestro en: {MASTER_CV_PATH}"
+        )
     with open(MASTER_CV_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def build_evaluation_prompt(
-    job_title: str, company: str, description: str, master_cv: Dict[str, Any]
+    job_title: str, company: str, description: str, master_cv: dict[str, Any]
 ) -> str:
     """Construye el prompt con contexto completo, anti-alucinación y calibración de seniority."""
     profile_summary = {
@@ -267,11 +271,11 @@ Descripción y Requisitos:
 
 
 def evaluate_single_job(
-    job_record: Dict[str, Any],
-    api_key: Optional[str] = None,
-    model_name: Optional[str] = None,
+    job_record: dict[str, Any],
+    api_key: str | None = None,
+    model_name: str | None = None,
     max_retries: int = 3,
-) -> Optional[JobMatchEvaluation]:
+) -> JobMatchEvaluation | None:
     """Evalúa una vacante individual llamando a Gemini con reintentos."""
     gemini_key = api_key or os.getenv("GEMINI_API_KEY")
     if not gemini_key:
@@ -340,7 +344,9 @@ def run_gemini_evaluation_batch(
         pending_jobs = [dict(row) for row in cursor.fetchall()]
 
     if not pending_jobs:
-        logger.info("No hay vacantes pendientes en estado 'SCRAPED' para evaluar con Gemini.")
+        logger.info(
+            "No hay vacantes pendientes en estado 'SCRAPED' para evaluar con Gemini."
+        )
         return 0
 
     current_model = os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL)
