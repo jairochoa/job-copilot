@@ -1,7 +1,8 @@
 ﻿"""
 Módulo de Evaluación Semántica y Matching.
 - HU-04 / Actividad 4.1: Prefiltro booleano por reglas duras locales (costo $0).
-- HU-04 / Actividad 4.2: Evaluación semántica con Gemini API (Optimizado para Flash Lite con 15 RPM / 500 RPD).
+- HU-04 / Actividad 4.2: Evaluación semántica con Gemini API, control de tasa (15 RPM)
+  y calibración de años de experiencia para mitigación de sobrecualificación.
 """
 
 import json
@@ -66,7 +67,7 @@ class JobMatchEvaluation(BaseModel):
     )
     tailored_summary: str = Field(
         ...,
-        description="Resumen profesional de 3-4 líneas en el idioma de la oferta."
+        description="Resumen profesional de 3-4 líneas calibrado con los años de experiencia ideales."
     )
     selected_bullets: List[CompanyBulletsSelection] = Field(
         default_factory=list,
@@ -213,7 +214,7 @@ def load_master_cv() -> Dict[str, Any]:
 def build_evaluation_prompt(
     job_title: str, company: str, description: str, master_cv: Dict[str, Any]
 ) -> str:
-    """Construye el prompt con contexto completo y control anti-alucinación."""
+    """Construye el prompt con contexto completo, anti-alucinación y calibración de seniority."""
     profile_summary = {
         "candidate": master_cv.get("personal_info", {}).get("name"),
         "education": master_cv.get("education", []),
@@ -249,12 +250,19 @@ Descripción y Requisitos:
 1. Calcula 'match_score' de 0 a 100 evaluando compatibilidad con la experiencia demostrable.
 2. Identifica 'hard_skills_matched' y 'missing_skills_gaps' (tecnologías de la vacante ausentes en el candidato).
 3. Determina el idioma dominante de la vacante: 'es' o 'en'.
-4. Redacta 'tailored_headline' y 'tailored_summary' en el idioma detectado, con énfasis técnico.
-5. POLÍTICA ESTRICTA ANTI-ALUCINACIÓN PARA VIÑETAS:
+4. Redacta 'tailored_headline' y 'tailored_summary' en el idioma detectado, con enfoque técnico de alto impacto.
+
+5. CALIBRACIÓN ESTRICTA DE AÑOS DE EXPERIENCIA (ANTI-SOBRECUALIFICACIÓN):
+   - Si la vacante especifica un requisito mínimo (ej. 3+, 5+ o 7+ años), alinea el resumen exactamente a ese requerimiento o ligeramente superior (ej. "Con más de 5 años de trayectoria..." o "With 6+ years of experience...").
+   - Para cargos Senior, Lead o Especialista donde no se especifique o se pida 5+, utiliza el estándar óptimo de la industria tech: "8+ years" o "10+ years" (o "8+ años" / "10+ años" en español).
+   - REGLA DE ORO PROHIBITIVA: NUNCA menciones "15+", "20+" ni frases como "más de 15 años de experiencia". Evita detonar sesgos de sobrecualificación, pretensiones salariales desbordadas o encasillamiento en roles puramente directivos/gerenciales.
+
+6. POLÍTICA ESTRICTA ANTI-ALUCINACIÓN PARA VIÑETAS:
    - Para cada empresa en 'selected_bullets', utiliza ÚNICAMENTE los strings exactos de los 'id' presentes en el perfil maestro.
    - Selecciona de 2 a 4 viñetas relevantes por empresa según los requerimientos del cargo.
    - NUNCA inventes nuevos identificadores de viñeta.
-6. Redacta 'strategic_fit_rationale' justificando objetivamente el encaje.
+
+7. Redacta 'strategic_fit_rationale' justificando objetivamente el encaje.
 """
 
 
@@ -322,7 +330,6 @@ def run_gemini_evaluation_batch(
 ) -> int:
     """
     Evalúa con Gemini las vacantes SCRAPED respetando la cuota de 15 RPM.
-    delay_between_calls: 4.5 segundos (~13 peticiones por minuto máximo).
     """
     with get_db_connection() as conn:
         cursor = conn.cursor()
