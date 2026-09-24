@@ -1,3 +1,4 @@
+from src.exporter import sync_jobs_to_excel
 """
 Orquestador Principal y CLI de Postulación (HU-06).
 Coordina el pipeline end-to-end:
@@ -160,6 +161,11 @@ def main() -> None:
         help="Lanzar asistente interactivo de postulación",
     )
     parser.add_argument(
+        "--export-excel",
+        action="store_true",
+        help="Sincroniza vacantes evaluadas hacia output/pipeline_vacantes.xlsx incrementalmente",
+    )
+    parser.add_argument(
         "--stats", action="store_true", help="Ver métricas del embudo de conversión"
     )
 
@@ -169,7 +175,12 @@ def main() -> None:
         run_pipeline()
     elif args.apply:
         interactive_apply_assistant()
-    elif args.stats:
+    elif args.export_excel:
+        added = sync_jobs_to_excel()
+        print(f"[OK] Sincronización finalizada. Vacantes nuevas agregadas: {added}")
+        return
+
+    if args.stats:
         show_funnel_metrics()
     else:
         parser.print_help()
