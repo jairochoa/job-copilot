@@ -193,11 +193,10 @@ def load_master_cv() -> dict[str, Any]:
     with open(MASTER_CV_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
-
 def build_evaluation_prompt(
     job_title: str, company: str, description: str, master_cv: dict[str, Any]
 ) -> str:
-    """Construye el prompt con contexto completo, directivas ejecutivas estrictas y ejemplos few-shot."""
+    """Construye el prompt con contexto completo, directivas ejecutivas estrictas y ponderación cuantitativa."""
     profile_summary = {
         "candidate": master_cv.get("personal_info", {}).get("name"),
         "education": master_cv.get("education", []),
@@ -228,8 +227,26 @@ Descripción y Requisitos:
 === PERFIL MAESTRO DEL CANDIDATO (ÚNICA FUENTE DE VERDAD) ===
 {json.dumps(profile_summary, ensure_ascii=False, indent=2)}
 
+=== RÚBRICA DE EVALUACIÓN Y CÁLCULO DE SCORE (ESCALA 0-100 CON PESOS ESTRICTOS) ===
+Debes calcular el campo `match_score` como un entero (0 a 100) aplicando estrictamente la siguiente suma ponderada:
+
+1. Alineación Técnica y Stack Requerido (Peso: 40% | Máximo: 40 puntos):
+   - Coincidencia demostrable en herramientas y lenguajes clave requeridos por la vacante (Python, SQL, PySpark, scikit-learn, LightGBM, XGBoost, Databricks, Azure ML, arquitecturas LLM, cloud pipelines).
+   - Penalización drástica (-20 a -25 pts) si la vacante exige como requisito excluyente tecnologías totalmente ajenas al perfil (ej. desarrollo frontend React/Angular, desarrollo móvil nativo en iOS/Android o soporte administrativo no analítico).
+
+2. Nivel Académico y Rigor Cuantitativo (Peso: 25% | Máximo: 25 puntos):
+   - 25 pts: La oferta demanda o valora formación avanzada de posgrado en áreas cuantitativas (Magíster en Estadística / M.Sc. in Statistics, Matemáticas Aplicadas, Ciencia de Datos cuantitativa).
+   - 10 a 15 pts: La oferta requiere únicamente pregrado estándar con análisis descriptivo genérico.
+   - 0 pts: Rol estrictamente desalineado del perfil cuantitativo/estadístico.
+
+3. Seniority y Alcance del Cargo (Peso: 20% | Máximo: 20 puntos):
+   - Calce entre la trayectoria senior demostrada del candidato (liderazgo técnico de iniciativas de datos, consultoría analítica estratégica, diseño de sistemas de machine learning en producción) y el nivel jerárquico demandado por el puesto vs. tareas puramente operativas de soporte junior.
+
+4. Impacto de Negocio y Casos de Éxito Cuantificables (Peso: 15% | Máximo: 15 puntos):
+   - Afinidad entre los retos del rol y los logros documentados del candidato con impacto económico y operativo medible (optimización de costos, reducción de tiempos computacionales, modelos predictivos y detección de anomalías).
+
 === INSTRUCCIONES MANDATORIAS Y EXCLUYENTES ===
-1. match_score: Entero del 0 al 100 según afinidad técnica comprobable.
+1. match_score: Entero del 0 al 100 resultante de la suma matemática exacta de los 4 ejes de la rúbrica anterior.
 2. hard_skills_matched y missing_skills_gaps: Extrae stacks específicos (ej. "PySpark", "Databricks", "MLflow", "Azure ML").
 3. language_detected: 'es' si la vacante está en español, 'en' si está en inglés.
 4. tailored_headline: Titular corporativo de alto impacto alineado al cargo (ej. "Senior Data Scientist | Statistical Modeling & Applied AI").
@@ -248,8 +265,9 @@ Descripción y Requisitos:
 "Senior Data Scientist and Master of Science in Statistics with 8+ years of experience leading advanced predictive modeling, machine learning, and quantitative analytics. Proficient in engineering distributed data pipelines and deploying AI solutions using Python, PySpark, Databricks, Azure ML, and SQL. Proven impact delivering end-to-end ML architectures that reduced data processing runtimes by up to 81% and automated 100% of corporate forecasting workflows."
 
 6. selected_bullets: Selecciona entre 2 y 4 IDs EXACTOS de viñetas por empresa que mejor resuenen con los requerimientos técnicos. NUNCA inventes IDs.
-7. strategic_fit_rationale: Justificación técnica y concisa del encaje para el reclutador.
+7. strategic_fit_rationale: Justificación técnica y concisa que detalle el desglose de los puntos asignados en la rúbrica y el encaje global para el reclutador.
 """
+
 def evaluate_single_job(
     job_record: dict[str, Any],
     api_key: str | None = None,
@@ -283,7 +301,7 @@ def evaluate_single_job(
 
     for attempt in range(1, max_retries + 1):
         try:
-            response = requests.post(url, params=params, headers=headers, json=payload, timeout=45)
+            response = requests.post(url, params=params, headers=headers, json=payload, timeout=90)
             if response.status_code in (429, 503) and attempt < max_retries:
                 wait_time = 5 * attempt
                 logger.warning(f"Servidor ocupado ({response.status_code}). Reintentando en {wait_time}s...")
@@ -353,6 +371,7 @@ def run_gemini_evaluation_batch(
                 """
                 UPDATE job_applications
                 SET match_score = ?,
+                    score_rationale = ?,
                     tailored_headline = ?,
                     tailored_summary = ?,
                     selected_bullet_ids = ?,
@@ -364,6 +383,7 @@ def run_gemini_evaluation_batch(
                 """,
                 (
                     eval_result.match_score,
+                    getattr(eval_result, 'strategic_fit_rationale', getattr(eval_result, 'score_rationale', '')),
                     eval_result.tailored_headline,
                     eval_result.tailored_summary,
                     json.dumps(bullets_map, ensure_ascii=False),

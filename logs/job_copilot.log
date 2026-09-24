@@ -576,3 +576,1641 @@ tailored_headline
 2026-09-23 21:29:44 [INFO] [job_copilot:evaluate_single_job:303] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Test Co - Data Scientist | Score: 85/100
 2026-09-23 21:29:44 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
 2026-09-23 21:29:44 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 07:39:40 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 07:39:40 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-24 07:39:40 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-24 07:39:40 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-24 07:39:40 [INFO] [job_copilot:evaluate_single_job:305] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Test Co - Data Scientist | Score: 85/100
+2026-09-24 07:39:40 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 07:39:40 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:11:26 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 08:11:26 [INFO] [job_copilot:<module>:94] Fase 1: Extracción de vacantes...
+2026-09-24 08:11:26 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Data Scientist' en 'Colombia'...
+2026-09-24 08:11:26 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Data Scientist' en 'Colombia'...
+2026-09-24 08:11:26 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:11:26 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:11:26 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:11:26 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:11:33 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:11:33 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:11:34 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:11:35 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Analista III - Estrategia de Datos en Centro de Empleo y Talento (f3a647de...)
+2026-09-24 08:11:36 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 08:11:37 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Science Engineer en StoneX Group Inc. (e538c27f...)
+2026-09-24 08:11:38 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 08:11:39 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: ANALYTICS CONSULTANT en Experian Spanish Latam (da789b7a...)
+2026-09-24 08:11:40 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Científico/a de Datos Espaciales y MEL (Monitoreo, Evaluación y Aprendizaje) en The Nature Conservancy (f76c4b8c...)
+2026-09-24 08:11:41 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías (998d089d...)
+2026-09-24 08:11:42 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Especialista de Modelos de Riesgo en Lulo bank (db7fa10d...)
+2026-09-24 08:11:43 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Data Scientist en hiberus (a260f544...)
+2026-09-24 08:11:44 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Data Scientist en Inspire (3bd0d6ce...)
+2026-09-24 08:11:46 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Analyst I, Data Science en Liberty Specialty Markets Latam (37a647c2...)
+2026-09-24 08:11:47 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Analyst II, Data Science en Liberty Specialty Markets Latam (eaba54da...)
+2026-09-24 08:11:48 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Manager - Data Science en NielsenIQ (c102d6cf...)
+2026-09-24 08:11:49 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Computer Scientist - Remote Work en BairesDev (0d6394bc...)
+2026-09-24 08:11:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist - Remote Work en BairesDev
+2026-09-24 08:11:50 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 12 ofertas nuevas registradas en la base de datos.
+2026-09-24 08:11:50 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 08:11:50 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 08:11:50 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:11:50 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:11:50 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:11:50 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:11:57 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:11:58 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:11:59 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 30 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:12:00 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Computer Scientist, Senior en Booz Allen Hamilton (f1f240df...)
+2026-09-24 08:12:02 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist (Look-2-Book) en Emerging Travel Group (242dd0b8...)
+2026-09-24 08:12:03 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist - QuantumBlack, AI by McKinsey en QuantumBlack, AI by McKinsey (5443de9d...)
+2026-09-24 08:12:04 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Data Scientist, Senior en Booz Allen Hamilton (b3ace56c...)
+2026-09-24 08:12:05 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist en Grupo Rumos (e1487ba5...)
+2026-09-24 08:12:06 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Sr Advanced Data Scientist en Honeywell Technologies (10be1756...)
+2026-09-24 08:12:08 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist en Lead Forensics (eca25b3d...)
+2026-09-24 08:12:09 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist en Women in Data® (f6edddf4...)
+2026-09-24 08:12:10 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist (Trust & Fraud) en Grab (fc31157a...)
+2026-09-24 08:12:11 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist en Rumos (71b29228...)
+2026-09-24 08:12:12 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist - Care AI en Back Market (e4da8568...)
+2026-09-24 08:12:13 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist - Pricing en Back Market (23d3cc1c...)
+2026-09-24 08:12:14 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Cientista de Dados Sênior en levva (bf2082a6...)
+2026-09-24 08:12:15 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: (Senior) Data Scientist en Continental (0593a5cc...)
+2026-09-24 08:12:16 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: GenAI Senior Data Scientist en SILVARE (6755206e...)
+2026-09-24 08:12:17 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Product Manager: Recall en Constructor (8a95800c...)
+2026-09-24 08:12:17 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist (Remote) en Maximus (fe4f458f...)
+2026-09-24 08:12:18 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Sr. Data Engineer en eHealth (0dd88f31...)
+2026-09-24 08:12:18 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran (a1bbdf19...)
+2026-09-24 08:12:19 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran (3ed57c73...)
+2026-09-24 08:12:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:12:20 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:12:20 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:12:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:12:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:12:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:12:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:12:23 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:12:23 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Medical Scientist Liaison (MSL)- South Texas en Gilead Sciences (dc8078f9...)
+2026-09-24 08:12:24 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist en BV Teck (4ed32013...)
+2026-09-24 08:12:24 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 22 ofertas nuevas registradas en la base de datos.
+2026-09-24 08:12:24 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Machine Learning Engineer' en 'Remote'...
+2026-09-24 08:12:24 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Machine Learning Engineer' en 'Remote'...
+2026-09-24 08:12:24 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:12:24 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:12:24 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:12:24 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:12:32 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:12:33 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:12:34 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 30 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:12:35 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en Everfit (c36bf23e...)
+2026-09-24 08:12:37 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en Kalyptus, It & Digital Executive Search (19a43dd0...)
+2026-09-24 08:12:38 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Software Engineer, Machine Learning en Karrot (d5ef753a...)
+2026-09-24 08:12:39 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Machine Learning Engineer - Applied AI en SAP (32871ed4...)
+2026-09-24 08:12:40 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Machine Learning Engineer en Trainline (4cb7bb22...)
+2026-09-24 08:12:41 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Software Engineer, Machine Learning en Ema (fd9e3f58...)
+2026-09-24 08:12:43 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Machine Learning Engineer en athenahealth (273da362...)
+2026-09-24 08:12:44 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Staff Machine Learning Engineer, Financial Connections en Stripe (0ff71335...)
+2026-09-24 08:12:45 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Staff Machine Learning Engineer, Financial Connections en Stripe
+2026-09-24 08:12:46 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Machine Learning Engineer - Trust Platform en Grab (6261b726...)
+2026-09-24 08:12:47 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: AI/ML Engineer en Air Apps (72692469...)
+2026-09-24 08:12:48 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior  Machine Learning Engineer en Prezzee (2bbfb0d3...)
+2026-09-24 08:12:49 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Machine Learning Engineer en ShopBack (b9fde6d0...)
+2026-09-24 08:12:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en Prezzee
+2026-09-24 08:12:52 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en Evlo AI (b58e8919...)
+2026-09-24 08:12:52 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Agentic AI Systems Engineer Intern | AI Agents & Automation en Walletgyde (b0488f9a...)
+2026-09-24 08:12:53 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Machine Learning Engineer: Search Quality en Constructor (41fcd6a3...)
+2026-09-24 08:12:53 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Product Manager: Recall en Constructor
+2026-09-24 08:12:54 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Backend Engineer: Ranking en Constructor (1f3e1a41...)
+2026-09-24 08:12:54 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Engineering Manager: Personalization en Constructor (2c14ea4c...)
+2026-09-24 08:12:54 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer: Personalization en Constructor (0c205fdf...)
+2026-09-24 08:12:55 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Machine Learning Engineer: ML Recall en Constructor (6befded5...)
+2026-09-24 08:12:55 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Backend Engineer: Machine Learning Infrastructure en Constructor (f171f143...)
+2026-09-24 08:12:56 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: AI Systems & Evaluation Engineer Intern en Walletgyde (2955eca2...)
+2026-09-24 08:12:56 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Data Scientist (Remote) en Maximus (e66a9006...)
+2026-09-24 08:12:57 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Data Scientist II (Remote) en Maximus (2a5b5df5...)
+2026-09-24 08:12:57 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr. Data Engineer en eHealth
+2026-09-24 08:12:58 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en BV Teck
+2026-09-24 08:12:58 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Security Engineering Manager, Integrity Investigations en Meta (e76b6215...)
+2026-09-24 08:12:59 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Research Engineer - Embedded Systems en Meta (6b6a31dd...)
+2026-09-24 08:12:59 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 25 ofertas nuevas registradas en la base de datos.
+2026-09-24 08:12:59 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Statistician' en 'Colombia'...
+2026-09-24 08:12:59 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Statistician' en 'Colombia'...
+2026-09-24 08:12:59 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:12:59 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:12:59 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:12:59 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:13:06 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:13:06 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:13:07 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:13:08 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista III - Estrategia de Datos en Centro de Empleo y Talento
+2026-09-24 08:13:09 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 08:13:10 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: ANALYTICS CONSULTANT en Experian Spanish Latam
+2026-09-24 08:13:11 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Analista Senior de Datos en Banco Santander Colombia (59519e80...)
+2026-09-24 08:13:13 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Asesor Estadístico de Licitaciones en Alliance Risk & Protection (e0bab12b...)
+2026-09-24 08:13:14 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 08:13:15 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: DATA ANALYST en Agencia de Seguros Falabella (bde9c8d7...)
+2026-09-24 08:13:16 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista de Modelos de Riesgo en Lulo bank
+2026-09-24 08:13:17 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Research Analyst en NielsenIQ (dfc714c2...)
+2026-09-24 08:13:18 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías
+2026-09-24 08:13:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst I, Data Science en Liberty Specialty Markets Latam
+2026-09-24 08:13:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager - Data Science en NielsenIQ
+2026-09-24 08:13:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst II, Data Science en Liberty Specialty Markets Latam
+2026-09-24 08:13:23 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en Inspire
+2026-09-24 08:13:24 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Manager, Visa Consulting and Analytics (VCA), Risk Practice en Visa (c80e9732...)
+2026-09-24 08:13:24 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 5 ofertas nuevas registradas en la base de datos.
+2026-09-24 08:13:24 [INFO] [job_copilot:<module>:97] Fase 2: Prefiltro booleano ($0)...
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:163] Aplicando prefiltro booleano a 65 vacantes...
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [EPAM Systems - Senior Python Developer] -> Descartada por rol antagónico en título: 'senior python developer'
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Centro de Empleo y Talento - Analista III - Estrategia de Datos] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [StoneX Group Inc. - Senior Data Science Engineer] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Experian Spanish Latam - ANALYTICS CONSULTANT] -> Aprobada para LLM. Términos detectados: analytics
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [The Nature Conservancy - Científico/a de Datos Espaciales y MEL (Monitoreo, Evaluación y Aprendizaje)] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Porvenir Pensiones y Cesantías - Científico/a de Datos Databricks] -> Aprobada para LLM. Términos detectados: databricks
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Lulo bank - Especialista de Modelos de Riesgo] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [hiberus - Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Inspire - Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Liberty Specialty Markets Latam - Analyst I, Data Science] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Liberty Specialty Markets Latam - Analyst II, Data Science] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [NielsenIQ - Manager - Data Science] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [BairesDev - Computer Scientist - Remote Work] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Booz Allen Hamilton - Computer Scientist, Senior] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Emerging Travel Group - Senior Data Scientist (Look-2-Book)] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [QuantumBlack, AI by McKinsey - Senior Data Scientist - QuantumBlack, AI by McKinsey] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Booz Allen Hamilton - Data Scientist, Senior] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Grupo Rumos - Senior Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Honeywell Technologies - Sr Advanced Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Lead Forensics - Senior Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Women in Data® - Senior Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Grab - Senior Data Scientist (Trust & Fraud)] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Rumos - Senior Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Back Market - Senior Data Scientist - Care AI] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Back Market - Senior Data Scientist - Pricing] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [levva - Cientista de Dados Sênior] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Continental - (Senior) Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [SILVARE - GenAI Senior Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Constructor - Senior Product Manager: Recall] -> Aprobada para LLM. Términos detectados: machine learning, llm
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Maximus - Senior Data Scientist (Remote)] -> Aprobada para LLM. Términos detectados: analytics, machine learning, data scientist, statistics, data and analytics
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [eHealth - Sr. Data Engineer] -> Aprobada para LLM. Términos detectados: analytics, databricks, machine learning, data engineer, power bi
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Woodard & Curran - Drinking Water Technical Manager | Ownership Opportunity] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:24 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Woodard & Curran - Drinking Water Project Manager | Ownership Opportunity] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Gilead Sciences - Senior Medical Scientist Liaison (MSL)- South Texas] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [BV Teck - Senior Data Scientist] -> Aprobada para LLM. Términos detectados: analytics, databricks, business intelligence, computer vision, machine learning, data scientist, statistics, scikit-learn
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Everfit - Machine Learning Engineer] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Kalyptus, It & Digital Executive Search - Machine Learning Engineer] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Karrot - Software Engineer, Machine Learning] -> Descartada por rol antagónico en título: 'software engineer'
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [SAP - Senior Machine Learning Engineer - Applied AI] -> Aprobada para LLM. Términos detectados: machine learning, applied ai
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Trainline - Senior Machine Learning Engineer] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Ema - Software Engineer, Machine Learning] -> Descartada por rol antagónico en título: 'software engineer'
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [athenahealth - Senior Machine Learning Engineer] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Stripe - Staff Machine Learning Engineer, Financial Connections] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Grab - Senior Machine Learning Engineer - Trust Platform] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Air Apps - AI/ML Engineer] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Prezzee - Senior  Machine Learning Engineer] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [ShopBack - Senior Machine Learning Engineer] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Evlo AI - Machine Learning Engineer] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Walletgyde - Agentic AI Systems Engineer Intern | AI Agents & Automation] -> Aprobada para LLM. Términos detectados: machine learning, llm, applied ai
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Constructor - Senior Machine Learning Engineer: Search Quality] -> Aprobada para LLM. Términos detectados: machine learning, pytorch, llm
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Constructor - Backend Engineer: Ranking] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Constructor - Engineering Manager: Personalization] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Constructor - Machine Learning Engineer: Personalization] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Constructor - Senior Machine Learning Engineer: ML Recall] -> Aprobada para LLM. Términos detectados: machine learning, deep learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Constructor - Senior Backend Engineer: Machine Learning Infrastructure] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Walletgyde - AI Systems & Evaluation Engineer Intern] -> Aprobada para LLM. Términos detectados: machine learning, llm
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Maximus - Data Scientist (Remote)] -> Aprobada para LLM. Términos detectados: analytics, deep learning, databricks, machine learning, powerbi, data analytics, data scientist, statistics, nlp
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Maximus - Data Scientist II (Remote)] -> Aprobada para LLM. Términos detectados: analytics, deep learning, databricks, machine learning, powerbi, data analytics, data scientist, statistics, nlp
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Meta - Security Engineering Manager, Integrity Investigations] -> Descartada por término antagónico detectado: 'php'
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Meta - Research Engineer - Embedded Systems] -> Aprobada para LLM. Términos detectados: machine learning
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [Banco Santander Colombia - Analista Senior de Datos] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Alliance Risk & Protection - Asesor Estadístico de Licitaciones] -> Aprobada para LLM. Términos detectados: estadistico
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Agencia de Seguros Falabella - DATA ANALYST] -> Aprobada para LLM. Términos detectados: data analyst
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:180] 🚫 [NielsenIQ - Research Analyst] -> Descartada: no contiene términos del núcleo de datos/analítica.
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Visa - Manager, Visa Consulting and Analytics (VCA), Risk Practice] -> Aprobada para LLM. Términos detectados: analytics
+2026-09-24 08:13:25 [INFO] [job_copilot:run_heuristic_filter_batch:186] Prefiltro completado: 45 aprobadas, 20 descartadas ().
+2026-09-24 08:13:25 [INFO] [job_copilot:<module>:100] Fase 3: Evaluación semántica con Gemini...
+2026-09-24 08:13:25 [INFO] [job_copilot:run_gemini_evaluation_batch:350] Evaluando lote de 10 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-24 08:13:30 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Experian Spanish Latam - ANALYTICS CONSULTANT | Score: 75/100
+2026-09-24 08:13:30 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:14:16 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Porvenir Pensiones y Cesantías - Científico/a de Datos Databricks | Score: 65/100
+2026-09-24 08:14:16 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:14:27 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): hiberus - Data Scientist | Score: 75/100
+2026-09-24 08:14:27 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:14:38 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Inspire - Data Scientist | Score: 65/100
+2026-09-24 08:14:38 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:15:22 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Emerging Travel Group - Senior Data Scientist (Look-2-Book) | Score: 65/100
+2026-09-24 08:15:22 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:15:31 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): QuantumBlack, AI by McKinsey - Senior Data Scientist - QuantumBlack, AI by McKinsey | Score: 60/100
+2026-09-24 08:15:31 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:15:39 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Booz Allen Hamilton - Data Scientist, Senior | Score: 65/100
+2026-09-24 08:15:39 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:15:48 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Grupo Rumos - Senior Data Scientist | Score: 60/100
+2026-09-24 08:15:48 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:15:55 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Honeywell Technologies - Sr Advanced Data Scientist | Score: 60/100
+2026-09-24 08:15:55 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:16:02 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Lead Forensics - Senior Data Scientist | Score: 65/100
+2026-09-24 08:16:02 [INFO] [job_copilot:run_gemini_evaluation_batch:396] Lote finalizado: 10 vacantes evaluadas y persistidas.
+2026-09-24 08:16:02 [INFO] [job_copilot:<module>:103] Fase 4: Compilación ATS (PDF & DOCX)...
+2026-09-24 08:16:02 [INFO] [job_copilot:build_applications_batch:392] Recompilando 13 CVs con calidad ATS estricta...
+2026-09-24 08:16:12 [INFO] [job_copilot:build_applications_batch:419] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-24 08:16:21 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-24 08:16:29 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_a5c9b8.pdf
+2026-09-24 08:16:38 [INFO] [job_copilot:build_applications_batch:419] ✅ [Experian Spanish Latam] -> CV_Jairo_Ochoa_Experian Spanish Latam_da789b.pdf
+2026-09-24 08:16:47 [INFO] [job_copilot:build_applications_batch:419] ✅ [Porvenir Pensiones y Cesantías] -> CV_Jairo_Ochoa_Porvenir Pensiones y Cesantías_998d08.pdf
+2026-09-24 08:16:55 [INFO] [job_copilot:build_applications_batch:419] ✅ [hiberus] -> CV_Jairo_Ochoa_hiberus_a260f5.pdf
+2026-09-24 08:17:04 [INFO] [job_copilot:build_applications_batch:419] ✅ [Inspire] -> CV_Jairo_Ochoa_Inspire_3bd0d6.pdf
+2026-09-24 08:17:13 [INFO] [job_copilot:build_applications_batch:419] ✅ [Emerging Travel Group] -> CV_Jairo_Ochoa_Emerging Travel Group_242dd0.pdf
+2026-09-24 08:17:22 [INFO] [job_copilot:build_applications_batch:419] ✅ [QuantumBlack, AI by McKinsey] -> CV_Jairo_Ochoa_QuantumBlack_ AI by McKinsey_5443de.pdf
+2026-09-24 08:17:31 [INFO] [job_copilot:build_applications_batch:419] ✅ [Booz Allen Hamilton] -> CV_Jairo_Ochoa_Booz Allen Hamilton_b3ace5.pdf
+2026-09-24 08:17:41 [INFO] [job_copilot:build_applications_batch:419] ✅ [Grupo Rumos] -> CV_Jairo_Ochoa_Grupo Rumos_e1487b.pdf
+2026-09-24 08:17:50 [INFO] [job_copilot:build_applications_batch:419] ✅ [Honeywell Technologies] -> CV_Jairo_Ochoa_Honeywell Technologies_10be17.pdf
+2026-09-24 08:17:58 [INFO] [job_copilot:build_applications_batch:419] ✅ [Lead Forensics] -> CV_Jairo_Ochoa_Lead Forensics_eca25b.pdf
+2026-09-24 08:17:58 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Data Scientist' en 'Colombia'...
+2026-09-24 08:17:58 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Data Scientist' en 'Colombia'...
+2026-09-24 08:17:58 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:17:58 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:17:58 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:17:58 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:18:05 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:18:06 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:18:06 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:18:07 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista III - Estrategia de Datos en Centro de Empleo y Talento
+2026-09-24 08:18:09 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 08:18:10 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Science Engineer en StoneX Group Inc.
+2026-09-24 08:18:11 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 08:18:12 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: ANALYTICS CONSULTANT en Experian Spanish Latam
+2026-09-24 08:18:13 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Espaciales y MEL (Monitoreo, Evaluación y Aprendizaje) en The Nature Conservancy
+2026-09-24 08:18:14 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías
+2026-09-24 08:18:15 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista de Modelos de Riesgo en Lulo bank
+2026-09-24 08:18:16 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en hiberus
+2026-09-24 08:18:17 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en Inspire
+2026-09-24 08:18:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst I, Data Science en Liberty Specialty Markets Latam
+2026-09-24 08:18:20 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst II, Data Science en Liberty Specialty Markets Latam
+2026-09-24 08:18:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager - Data Science en NielsenIQ
+2026-09-24 08:18:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist - Remote Work en BairesDev
+2026-09-24 08:18:23 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist - Remote Work en BairesDev
+2026-09-24 08:18:23 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 08:18:23 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 08:18:23 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 08:18:23 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:18:23 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:18:23 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:18:23 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:18:28 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:18:29 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:18:30 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 30 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:18:31 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist, Senior en Booz Allen Hamilton
+2026-09-24 08:18:32 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (Look-2-Book) en Emerging Travel Group
+2026-09-24 08:18:33 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist - QuantumBlack, AI by McKinsey en QuantumBlack, AI by McKinsey
+2026-09-24 08:18:34 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist, Senior en Booz Allen Hamilton
+2026-09-24 08:18:35 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Grupo Rumos
+2026-09-24 08:18:36 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr Advanced Data Scientist en Honeywell Technologies
+2026-09-24 08:18:37 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Lead Forensics
+2026-09-24 08:18:38 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Women in Data®
+2026-09-24 08:18:39 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (Trust & Fraud) en Grab
+2026-09-24 08:18:40 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Rumos
+2026-09-24 08:18:41 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist - Care AI en Back Market
+2026-09-24 08:18:43 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist - Pricing en Back Market
+2026-09-24 08:18:44 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Cientista de Dados Sênior en levva
+2026-09-24 08:18:45 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: (Senior) Data Scientist en Continental
+2026-09-24 08:18:46 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: GenAI Senior Data Scientist en SILVARE
+2026-09-24 08:18:46 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Product Manager: Recall en Constructor
+2026-09-24 08:18:47 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (Remote) en Maximus
+2026-09-24 08:18:47 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr. Data Engineer en eHealth
+2026-09-24 08:18:48 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:48 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:49 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:49 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:51 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:51 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:52 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:52 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 08:18:53 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Medical Scientist Liaison (MSL)- South Texas en Gilead Sciences
+2026-09-24 08:18:53 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en BV Teck
+2026-09-24 08:18:53 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 08:18:53 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Machine Learning Engineer' en 'Remote'...
+2026-09-24 08:18:53 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Machine Learning Engineer' en 'Remote'...
+2026-09-24 08:18:53 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:18:53 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:18:53 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:18:53 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:18:59 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:19:00 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:19:01 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 30 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:19:02 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en Everfit
+2026-09-24 08:19:03 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en Kalyptus, It & Digital Executive Search
+2026-09-24 08:19:04 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Software Engineer, Machine Learning en Karrot
+2026-09-24 08:19:05 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer - Applied AI en SAP
+2026-09-24 08:19:06 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en Trainline
+2026-09-24 08:19:07 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Software Engineer, Machine Learning en Ema
+2026-09-24 08:19:08 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en athenahealth
+2026-09-24 08:19:09 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Staff Machine Learning Engineer, Financial Connections en Stripe
+2026-09-24 08:19:11 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Staff Machine Learning Engineer, Financial Connections en Stripe
+2026-09-24 08:19:12 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer - Trust Platform en Grab
+2026-09-24 08:19:13 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: AI/ML Engineer en Air Apps
+2026-09-24 08:19:14 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior  Machine Learning Engineer en Prezzee
+2026-09-24 08:19:15 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en ShopBack
+2026-09-24 08:19:16 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en Prezzee
+2026-09-24 08:19:17 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en Evlo AI
+2026-09-24 08:19:18 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Agentic AI Systems Engineer Intern | AI Agents & Automation en Walletgyde
+2026-09-24 08:19:18 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer: Search Quality en Constructor
+2026-09-24 08:19:18 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Product Manager: Recall en Constructor
+2026-09-24 08:19:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Backend Engineer: Ranking en Constructor
+2026-09-24 08:19:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Engineering Manager: Personalization en Constructor
+2026-09-24 08:19:20 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer: Personalization en Constructor
+2026-09-24 08:19:20 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer: ML Recall en Constructor
+2026-09-24 08:19:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Backend Engineer: Machine Learning Infrastructure en Constructor
+2026-09-24 08:19:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: AI Systems & Evaluation Engineer Intern en Walletgyde
+2026-09-24 08:19:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist (Remote) en Maximus
+2026-09-24 08:19:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist II (Remote) en Maximus
+2026-09-24 08:19:23 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr. Data Engineer en eHealth
+2026-09-24 08:19:23 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en BV Teck
+2026-09-24 08:19:24 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Security Engineering Manager, Integrity Investigations en Meta
+2026-09-24 08:19:24 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Research Engineer - Embedded Systems en Meta
+2026-09-24 08:19:24 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 08:19:24 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Statistician' en 'Colombia'...
+2026-09-24 08:19:24 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Statistician' en 'Colombia'...
+2026-09-24 08:19:24 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:19:24 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:19:24 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:19:24 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:19:30 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:19:31 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:19:32 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:19:33 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista III - Estrategia de Datos en Centro de Empleo y Talento
+2026-09-24 08:19:34 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 08:19:35 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: ANALYTICS CONSULTANT en Experian Spanish Latam
+2026-09-24 08:19:36 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista Senior de Datos en Banco Santander Colombia
+2026-09-24 08:19:37 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Asesor Estadístico de Licitaciones en Alliance Risk & Protection
+2026-09-24 08:19:38 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 08:19:39 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: DATA ANALYST en Agencia de Seguros Falabella
+2026-09-24 08:19:40 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista de Modelos de Riesgo en Lulo bank
+2026-09-24 08:19:41 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Research Analyst en NielsenIQ
+2026-09-24 08:19:43 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías
+2026-09-24 08:19:44 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst I, Data Science en Liberty Specialty Markets Latam
+2026-09-24 08:19:45 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager - Data Science en NielsenIQ
+2026-09-24 08:19:46 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst II, Data Science en Liberty Specialty Markets Latam
+2026-09-24 08:19:47 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en Inspire
+2026-09-24 08:19:48 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager, Visa Consulting and Analytics (VCA), Risk Practice en Visa
+2026-09-24 08:19:48 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 08:22:21 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 08:22:21 [INFO] [job_copilot:<module>:94] Fase 1: Extracción de vacantes...
+2026-09-24 08:22:21 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Data Scientist' en 'Colombia'...
+2026-09-24 08:22:21 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Data Scientist' en 'Colombia'...
+2026-09-24 08:22:21 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:22:21 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:22:21 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:22:21 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:22:27 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:22:27 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:22:28 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:22:29 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista III - Estrategia de Datos en Centro de Empleo y Talento
+2026-09-24 08:22:30 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 08:22:32 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Science Engineer en StoneX Group Inc.
+2026-09-24 08:22:33 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 08:22:34 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: ANALYTICS CONSULTANT en Experian Spanish Latam
+2026-09-24 08:22:35 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Espaciales y MEL (Monitoreo, Evaluación y Aprendizaje) en The Nature Conservancy
+2026-09-24 08:22:36 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías
+2026-09-24 08:22:38 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista de Modelos de Riesgo en Lulo bank
+2026-09-24 08:22:39 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en hiberus
+2026-09-24 08:22:40 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en Inspire
+2026-09-24 08:22:41 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst I, Data Science en Liberty Specialty Markets Latam
+2026-09-24 08:22:42 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst II, Data Science en Liberty Specialty Markets Latam
+2026-09-24 08:22:44 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager - Data Science en NielsenIQ
+2026-09-24 08:22:45 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist - Remote Work en BairesDev
+2026-09-24 08:22:46 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist - Remote Work en BairesDev
+2026-09-24 08:22:46 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 08:22:46 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 08:22:46 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 08:22:46 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:22:46 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Remote'.
+2026-09-24 08:22:46 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:22:46 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:22:52 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:22:54 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:22:55 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 30 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:22:56 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist, Senior en Booz Allen Hamilton
+2026-09-24 08:23:35 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 08:23:35 [INFO] [job_copilot:<module>:94] Fase 1: Extracción de vacantes...
+2026-09-24 08:23:35 [INFO] [job_copilot:execute_scraping_workflow:86] ==> Iniciando prospección: 'Data Scientist' en 'Colombia'...
+2026-09-24 08:23:35 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Data Scientist' en 'Colombia'...
+2026-09-24 08:23:35 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:23:35 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 08:23:35 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 08:23:35 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 08:23:41 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 08:23:42 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 08:23:42 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 08:23:44 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista III - Estrategia de Datos en Centro de Empleo y Talento
+2026-09-24 08:23:45 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 08:23:46 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Science Engineer en StoneX Group Inc.
+2026-09-24 08:23:47 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 08:23:49 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: ANALYTICS CONSULTANT en Experian Spanish Latam
+2026-09-24 08:23:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Espaciales y MEL (Monitoreo, Evaluación y Aprendizaje) en The Nature Conservancy
+2026-09-24 08:23:51 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías
+2026-09-24 08:23:52 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista de Modelos de Riesgo en Lulo bank
+2026-09-24 08:25:58 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 08:25:58 [INFO] [job_copilot:run_export_flow:51] ==> Sincronizando con Excel...
+2026-09-24 08:26:07 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 08:26:16 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 08:26:17 [INFO] [job_copilot:run_evaluation_flow:41] ==> Evaluando vacantes con Gemini (Rúbrica 40/25/20/15)...
+2026-09-24 08:26:17 [INFO] [job_copilot:run_gemini_evaluation_batch:350] Evaluando lote de 10 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-24 08:26:20 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Women in Data® - Senior Data Scientist | Score: 65/100
+2026-09-24 08:26:20 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:26:27 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Grab - Senior Data Scientist (Trust & Fraud) | Score: 65/100
+2026-09-24 08:26:27 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:26:34 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Rumos - Senior Data Scientist | Score: 50/100
+2026-09-24 08:26:34 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:27:00 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Back Market - Senior Data Scientist - Care AI | Score: 65/100
+2026-09-24 08:27:00 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:27:07 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Back Market - Senior Data Scientist - Pricing | Score: 60/100
+2026-09-24 08:27:07 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:27:18 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Continental - (Senior) Data Scientist | Score: 60/100
+2026-09-24 08:27:18 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:27:25 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): SILVARE - GenAI Senior Data Scientist | Score: 40/100
+2026-09-24 08:27:25 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:27:37 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Constructor - Senior Product Manager: Recall | Score: 65/100
+2026-09-24 08:27:37 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:27:45 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Maximus - Senior Data Scientist (Remote) | Score: 60/100
+2026-09-24 08:27:45 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 08:27:52 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): eHealth - Sr. Data Engineer | Score: 50/100
+2026-09-24 08:27:52 [INFO] [job_copilot:run_gemini_evaluation_batch:396] Lote finalizado: 10 vacantes evaluadas y persistidas.
+2026-09-24 09:03:37 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 09:03:38 [INFO] [job_copilot:run_evaluation_flow:41] ==> Evaluando vacantes con Gemini (Rúbrica 40/25/20/15)...
+2026-09-24 09:03:38 [INFO] [job_copilot:run_gemini_evaluation_batch:350] Evaluando lote de 10 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-24 09:03:39 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 09:03:46 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 10s...
+2026-09-24 09:03:58 [ERROR] [job_copilot:evaluate_single_job:312] Error de API Gemini (503): {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-09-24 09:03:58 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:04:04 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 09:04:11 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 10s...
+2026-09-24 09:04:23 [ERROR] [job_copilot:evaluate_single_job:312] Error de API Gemini (503): {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-09-24 09:04:23 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:04:31 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 09:04:40 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 10s...
+2026-09-24 09:04:58 [ERROR] [job_copilot:evaluate_single_job:312] Error de API Gemini (503): {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-09-24 09:04:58 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:05:04 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 09:05:12 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 10s...
+2026-09-24 09:05:25 [ERROR] [job_copilot:evaluate_single_job:312] Error de API Gemini (503): {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-09-24 09:05:25 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:06:08 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Trainline - Senior Machine Learning Engineer | Score: 50/100
+2026-09-24 09:06:08 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:06:50 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): athenahealth - Senior Machine Learning Engineer | Score: 50/100
+2026-09-24 09:06:50 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:07:09 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Stripe - Staff Machine Learning Engineer, Financial Connections | Score: 65/100
+2026-09-24 09:07:09 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:07:40 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Grab - Senior Machine Learning Engineer - Trust Platform | Score: 55/100
+2026-09-24 09:07:40 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:08:30 [ERROR] [job_copilot:evaluate_single_job:329] Error evaluando vacante con Gemini: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=45)
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 542, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 373, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=45)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 304, in evaluate_single_job
+    response = requests.post(url, params=params, headers=headers, json=payload, timeout=45)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 742, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=45)
+2026-09-24 09:08:30 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:08:52 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): ShopBack - Senior Machine Learning Engineer | Score: 65/100
+2026-09-24 09:08:52 [INFO] [job_copilot:run_gemini_evaluation_batch:398] Lote finalizado: 5 vacantes evaluadas y persistidas.
+2026-09-24 09:10:07 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 09:10:09 [INFO] [job_copilot:run_evaluation_flow:41] ==> Evaluando vacantes con Gemini (Rúbrica 40/25/20/15)...
+2026-09-24 09:10:09 [INFO] [job_copilot:run_gemini_evaluation_batch:350] Evaluando lote de 10 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-24 09:10:19 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): BV Teck - Senior Data Scientist | Score: 50/100
+2026-09-24 09:10:19 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:11:54 [ERROR] [job_copilot:evaluate_single_job:329] Error evaluando vacante con Gemini: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 542, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 373, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 304, in evaluate_single_job
+    response = requests.post(url, params=params, headers=headers, json=payload, timeout=90)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 742, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+2026-09-24 09:11:54 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:12:01 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Kalyptus, It & Digital Executive Search - Machine Learning Engineer | Score: 40/100
+2026-09-24 09:12:01 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:12:16 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): SAP - Senior Machine Learning Engineer - Applied AI | Score: 65/100
+2026-09-24 09:12:16 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:12:49 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Prezzee - Senior  Machine Learning Engineer | Score: 40/100
+2026-09-24 09:12:49 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:13:08 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Evlo AI - Machine Learning Engineer | Score: 40/100
+2026-09-24 09:13:08 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:13:17 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Walletgyde - Agentic AI Systems Engineer Intern | AI Agents & Automation | Score: 30/100
+2026-09-24 09:13:17 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:13:40 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Constructor - Senior Machine Learning Engineer: Search Quality | Score: 52/100
+2026-09-24 09:13:40 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:13:48 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Constructor - Backend Engineer: Ranking | Score: 30/100
+2026-09-24 09:13:48 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:14:17 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Constructor - Engineering Manager: Personalization | Score: 60/100
+2026-09-24 09:14:17 [INFO] [job_copilot:run_gemini_evaluation_batch:398] Lote finalizado: 9 vacantes evaluadas y persistidas.
+2026-09-24 09:14:56 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 09:14:57 [INFO] [job_copilot:run_export_flow:51] ==> Sincronizando con Excel...
+2026-09-24 09:15:44 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 09:15:44 [INFO] [job_copilot:run_export_flow:51] ==> Sincronizando con Excel...
+2026-09-24 09:24:02 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 09:24:02 [INFO] [job_copilot:run_export_flow:51] ==> Sincronizando con Excel...
+2026-09-24 09:39:02 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 09:39:03 [INFO] [job_copilot:run_evaluation_flow:41] ==> Evaluando vacantes con Gemini (Rúbrica 40/25/20/15)...
+2026-09-24 09:39:03 [INFO] [job_copilot:run_gemini_evaluation_batch:350] Evaluando lote de 10 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-24 09:39:49 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 09:40:12 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Everfit - Machine Learning Engineer | Score: 60/100
+2026-09-24 09:40:12 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:41:27 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 09:42:10 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Constructor - Machine Learning Engineer: Personalization | Score: 50/100
+2026-09-24 09:42:10 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:42:52 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Constructor - Senior Machine Learning Engineer: ML Recall | Score: 60/100
+2026-09-24 09:42:52 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:44:27 [ERROR] [job_copilot:evaluate_single_job:329] Error evaluando vacante con Gemini: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 542, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 373, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 304, in evaluate_single_job
+    response = requests.post(url, params=params, headers=headers, json=payload, timeout=90)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 742, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+2026-09-24 09:44:27 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:44:45 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Walletgyde - AI Systems & Evaluation Engineer Intern | Score: 68/100
+2026-09-24 09:44:45 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:45:03 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Maximus - Data Scientist (Remote) | Score: 60/100
+2026-09-24 09:45:03 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:45:15 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 09:46:07 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 10s...
+2026-09-24 09:46:19 [ERROR] [job_copilot:evaluate_single_job:312] Error de API Gemini (503): {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-09-24 09:46:19 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:46:45 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 09:48:05 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 10s...
+2026-09-24 09:48:54 [ERROR] [job_copilot:evaluate_single_job:312] Error de API Gemini (503): {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-09-24 09:48:54 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:50:29 [ERROR] [job_copilot:evaluate_single_job:329] Error evaluando vacante con Gemini: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 542, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 373, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 304, in evaluate_single_job
+    response = requests.post(url, params=params, headers=headers, json=payload, timeout=90)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 742, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+2026-09-24 09:50:29 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:52:04 [ERROR] [job_copilot:evaluate_single_job:329] Error evaluando vacante con Gemini: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 542, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 373, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 304, in evaluate_single_job
+    response = requests.post(url, params=params, headers=headers, json=payload, timeout=90)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 742, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+2026-09-24 09:52:04 [INFO] [job_copilot:run_gemini_evaluation_batch:398] Lote finalizado: 5 vacantes evaluadas y persistidas.
+2026-09-24 09:53:37 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 09:53:39 [INFO] [job_copilot:run_evaluation_flow:41] ==> Evaluando vacantes con Gemini (Rúbrica 40/25/20/15)...
+2026-09-24 09:53:39 [INFO] [job_copilot:run_gemini_evaluation_batch:350] Evaluando lote de 6 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-24 09:54:11 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Constructor - Senior Backend Engineer: Machine Learning Infrastructure | Score: 50/100
+2026-09-24 09:54:11 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:54:37 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Maximus - Data Scientist II (Remote) | Score: 77/100
+2026-09-24 09:54:37 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:55:05 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Meta - Research Engineer - Embedded Systems | Score: 10/100
+2026-09-24 09:55:05 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:55:50 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Alliance Risk & Protection - Asesor Estadístico de Licitaciones | Score: 35/100
+2026-09-24 09:55:50 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:55:56 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 09:56:13 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 10s...
+2026-09-24 09:56:34 [ERROR] [job_copilot:evaluate_single_job:312] Error de API Gemini (503): {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-09-24 09:56:34 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 09:58:09 [ERROR] [job_copilot:evaluate_single_job:329] Error evaluando vacante con Gemini: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 542, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 373, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 304, in evaluate_single_job
+    response = requests.post(url, params=params, headers=headers, json=payload, timeout=90)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 742, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+2026-09-24 09:58:09 [INFO] [job_copilot:run_gemini_evaluation_batch:398] Lote finalizado: 4 vacantes evaluadas y persistidas.
+2026-09-24 09:58:32 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 09:58:33 [INFO] [job_copilot:run_export_flow:51] ==> Sincronizando con Excel...
+2026-09-24 10:18:06 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 10:18:06 [INFO] [job_copilot:run_full_pipeline:71] Iniciando Pipeline Completo End-to-End...
+2026-09-24 10:18:09 [INFO] [job_copilot:run_scraping_flow:28] ==> Iniciando prospección: 'Data Scientist' en 'Colombia'...
+2026-09-24 10:18:09 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Data Scientist' en 'Colombia'...
+2026-09-24 10:18:09 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 10:18:09 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 10:18:09 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 10:18:09 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 10:18:17 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 10:18:17 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 10:18:18 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 10:18:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista III - Estrategia de Datos en Centro de Empleo y Talento
+2026-09-24 10:18:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en Inspire
+2026-09-24 10:18:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 10:18:23 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 10:18:25 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: ANALYTICS CONSULTANT en Experian Spanish Latam
+2026-09-24 10:18:26 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Espaciales y MEL (Monitoreo, Evaluación y Aprendizaje) en The Nature Conservancy
+2026-09-24 10:18:28 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías
+2026-09-24 10:18:30 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista de Modelos de Riesgo en Lulo bank
+2026-09-24 10:18:31 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en hiberus
+2026-09-24 10:18:33 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist (ML + GenAI) en SoftServe (c072e926...)
+2026-09-24 10:18:35 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst I, Data Science en Liberty Specialty Markets Latam
+2026-09-24 10:18:37 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst II, Data Science en Liberty Specialty Markets Latam
+2026-09-24 10:18:39 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager - Data Science en NielsenIQ
+2026-09-24 10:18:40 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Lead Data Scientist en SoftServe (f5da5965...)
+2026-09-24 10:18:42 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist - Remote Work en BairesDev
+2026-09-24 10:18:42 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 2 ofertas nuevas registradas en la base de datos.
+2026-09-24 10:18:42 [INFO] [job_copilot:run_scraping_flow:28] ==> Iniciando prospección: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 10:18:42 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 10:18:42 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Remote'.
+2026-09-24 10:18:42 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Remote'.
+2026-09-24 10:18:42 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 10:18:42 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 10:18:48 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 10:18:49 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 10:18:50 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 30 ofertas en total. Procesando y deduplicando...
+2026-09-24 10:18:52 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist, Senior en Booz Allen Hamilton
+2026-09-24 10:18:54 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (Look-2-Book) en Emerging Travel Group
+2026-09-24 10:18:56 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: (Senior) Data Scientist en Continental
+2026-09-24 10:18:57 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist - QuantumBlack, AI by McKinsey en QuantumBlack, AI by McKinsey
+2026-09-24 10:18:58 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist, Senior en Booz Allen Hamilton
+2026-09-24 10:19:03 [DEBUG] [job_copilot:resolve_redirect_url:98] No se pudo resolver redirección para https://www.linkedin.com/jobs/view/4469062830: HTTPSConnectionPool(host='www.linkedin.com', port=443): Read timed out. (read timeout=5)
+2026-09-24 10:19:03 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Grupo Rumos
+2026-09-24 10:19:06 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr Advanced Data Scientist en Honeywell Technologies
+2026-09-24 10:19:07 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Lead Forensics
+2026-09-24 10:19:08 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Women in Data®
+2026-09-24 10:19:13 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (Trust & Fraud) en Grab
+2026-09-24 10:19:15 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Rumos
+2026-09-24 10:19:16 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior Data Scientist en DT (1909261b...)
+2026-09-24 10:19:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist - Care AI en Back Market
+2026-09-24 10:19:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist - Pricing en Back Market
+2026-09-24 10:19:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Cientista de Dados Sênior en levva
+2026-09-24 10:19:23 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Product Manager: Recall en Constructor
+2026-09-24 10:19:24 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (Remote) en Maximus
+2026-09-24 10:19:24 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr. Data Engineer en eHealth
+2026-09-24 10:19:25 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:25 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:26 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:27 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:27 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:28 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:29 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:30 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:30 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:31 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:19:32 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Medical Scientist Liaison (MSL)- South Texas en Gilead Sciences
+2026-09-24 10:19:32 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en BV Teck
+2026-09-24 10:19:32 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 1 ofertas nuevas registradas en la base de datos.
+2026-09-24 10:19:32 [INFO] [job_copilot:run_scraping_flow:28] ==> Iniciando prospección: 'Machine Learning Engineer' en 'Remote'...
+2026-09-24 10:19:32 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Machine Learning Engineer' en 'Remote'...
+2026-09-24 10:19:32 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Remote'.
+2026-09-24 10:19:32 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Remote'.
+2026-09-24 10:19:32 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 10:19:32 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 10:19:37 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 10:19:39 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 10:19:40 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 30 ofertas en total. Procesando y deduplicando...
+2026-09-24 10:19:41 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en Everfit
+2026-09-24 10:19:43 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Software Engineer, Machine Learning en Karrot
+2026-09-24 10:19:44 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer - Applied AI en SAP
+2026-09-24 10:19:50 [DEBUG] [job_copilot:resolve_redirect_url:98] No se pudo resolver redirección para https://www.linkedin.com/jobs/view/4452441332: HTTPSConnectionPool(host='www.linkedin.com', port=443): Read timed out. (read timeout=5)
+2026-09-24 10:19:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en Trainline
+2026-09-24 10:19:55 [DEBUG] [job_copilot:resolve_redirect_url:98] No se pudo resolver redirección para https://www.linkedin.com/jobs/view/4468941390: HTTPSConnectionPool(host='www.linkedin.com', port=443): Read timed out. (read timeout=5)
+2026-09-24 10:19:55 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Software Engineer, Machine Learning en Ema
+2026-09-24 10:19:57 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en athenahealth
+2026-09-24 10:19:58 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Staff Machine Learning Engineer, Financial Connections en Stripe
+2026-09-24 10:20:00 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Staff Machine Learning Engineer, Financial Connections en Stripe
+2026-09-24 10:20:02 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer - Trust Platform en Grab
+2026-09-24 10:20:04 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: AI/ML Engineer en Air Apps
+2026-09-24 10:20:05 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior  Machine Learning Engineer en Prezzee
+2026-09-24 10:20:07 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en ShopBack
+2026-09-24 10:20:09 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en Prezzee
+2026-09-24 10:20:11 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en Evlo AI
+2026-09-24 10:20:12 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior AI Engineer (LLM & Model Training) en VINFAST (370134fa...)
+2026-09-24 10:20:13 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Senior DevOps en AltexSoft (613f03b8...)
+2026-09-24 10:20:14 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Agentic AI Systems Engineer Intern | AI Agents & Automation en Walletgyde
+2026-09-24 10:20:14 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer: Search Quality en Constructor
+2026-09-24 10:20:15 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Product Manager: Recall en Constructor
+2026-09-24 10:20:16 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Backend Engineer: Ranking en Constructor
+2026-09-24 10:20:17 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Engineering Manager: Personalization en Constructor
+2026-09-24 10:20:17 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer: Personalization en Constructor
+2026-09-24 10:20:18 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer: ML Recall en Constructor
+2026-09-24 10:20:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Backend Engineer: Machine Learning Infrastructure en Constructor
+2026-09-24 10:20:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: AI Systems & Evaluation Engineer Intern en Walletgyde
+2026-09-24 10:20:20 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist (Remote) en Maximus
+2026-09-24 10:20:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist II (Remote) en Maximus
+2026-09-24 10:20:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr. Data Engineer en eHealth
+2026-09-24 10:20:23 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Security Engineering Manager, Integrity Investigations en Meta
+2026-09-24 10:20:23 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Research Engineer - Embedded Systems en Meta
+2026-09-24 10:20:23 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 2 ofertas nuevas registradas en la base de datos.
+2026-09-24 10:20:23 [INFO] [job_copilot:run_scraping_flow:28] ==> Iniciando prospección: 'Statistician' en 'Colombia'...
+2026-09-24 10:20:23 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Statistician' en 'Colombia'...
+2026-09-24 10:20:23 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 10:20:23 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 10:20:23 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 10:20:23 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 10:20:31 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 10:20:31 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 10:20:32 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 10:20:33 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista III - Estrategia de Datos en Centro de Empleo y Talento
+2026-09-24 10:20:35 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 10:20:36 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en Inspire
+2026-09-24 10:20:37 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: ANALYTICS CONSULTANT en Experian Spanish Latam
+2026-09-24 10:20:39 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista Senior de Datos en Banco Santander Colombia
+2026-09-24 10:20:40 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Asesor Estadístico de Licitaciones en Alliance Risk & Protection
+2026-09-24 10:20:42 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 10:20:44 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: DATA ANALYST en Agencia de Seguros Falabella
+2026-09-24 10:20:46 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista de Modelos de Riesgo en Lulo bank
+2026-09-24 10:20:48 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Research Analyst en NielsenIQ
+2026-09-24 10:20:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías
+2026-09-24 10:20:52 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst I, Data Science en Liberty Specialty Markets Latam
+2026-09-24 10:20:53 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager - Data Science en NielsenIQ
+2026-09-24 10:20:54 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst II, Data Science en Liberty Specialty Markets Latam
+2026-09-24 10:20:57 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager, Visa Consulting and Analytics (VCA), Risk Practice en Visa
+2026-09-24 10:20:57 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 10:20:58 [INFO] [job_copilot:run_prefilter_flow:36] ==> Aplicando prefiltro booleano ($0)...
+2026-09-24 10:20:58 [INFO] [job_copilot:run_heuristic_filter_batch:163] Aplicando prefiltro booleano a 7 vacantes...
+2026-09-24 10:20:58 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Agencia de Seguros Falabella - DATA ANALYST] -> Aprobada para LLM. Términos detectados: data analyst
+2026-09-24 10:20:58 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Visa - Manager, Visa Consulting and Analytics (VCA), Risk Practice] -> Aprobada para LLM. Términos detectados: analytics
+2026-09-24 10:20:58 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [SoftServe - Senior Data Scientist (ML + GenAI)] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 10:20:58 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [SoftServe - Lead Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 10:20:58 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [DT - Senior Data Scientist] -> Aprobada para LLM. Términos detectados: data scientist
+2026-09-24 10:20:58 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [VINFAST - Senior AI Engineer (LLM & Model Training)] -> Aprobada para LLM. Términos detectados: llm, ai engineer
+2026-09-24 10:20:58 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [AltexSoft - Senior DevOps] -> Aprobada para LLM. Términos detectados: data engineer, databricks
+2026-09-24 10:20:58 [INFO] [job_copilot:run_heuristic_filter_batch:186] Prefiltro completado: 7 aprobadas, 0 descartadas ().
+2026-09-24 10:20:58 [INFO] [job_copilot:run_evaluation_flow:41] ==> Evaluando vacantes con Gemini (Rúbrica 40/25/20/15)...
+2026-09-24 10:20:58 [INFO] [job_copilot:run_gemini_evaluation_batch:350] Evaluando lote de 7 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-24 10:21:00 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 10:21:32 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Agencia de Seguros Falabella - DATA ANALYST | Score: 60/100
+2026-09-24 10:21:32 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 10:23:07 [ERROR] [job_copilot:evaluate_single_job:329] Error evaluando vacante con Gemini: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 542, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 373, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 304, in evaluate_single_job
+    response = requests.post(url, params=params, headers=headers, json=payload, timeout=90)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 742, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+2026-09-24 10:23:08 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 10:23:13 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 10:24:10 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): SoftServe - Senior Data Scientist (ML + GenAI) | Score: 65/100
+2026-09-24 10:24:10 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 10:24:15 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 10:24:23 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 10s...
+2026-09-24 10:24:57 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): SoftServe - Lead Data Scientist | Score: 65/100
+2026-09-24 10:24:57 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 10:25:03 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 10:26:37 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): DT - Senior Data Scientist | Score: 55/100
+2026-09-24 10:26:37 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 10:27:12 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): VINFAST - Senior AI Engineer (LLM & Model Training) | Score: 50/100
+2026-09-24 10:27:12 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 10:27:21 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 10:27:28 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 10s...
+2026-09-24 10:29:09 [ERROR] [job_copilot:evaluate_single_job:329] Error evaluando vacante con Gemini: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 542, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 373, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 304, in evaluate_single_job
+    response = requests.post(url, params=params, headers=headers, json=payload, timeout=90)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 742, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+2026-09-24 10:29:09 [INFO] [job_copilot:run_gemini_evaluation_batch:398] Lote finalizado: 5 vacantes evaluadas y persistidas.
+2026-09-24 10:32:35 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-24 10:32:35 [INFO] [job_copilot:run_full_pipeline:72] Iniciando Pipeline Completo End-to-End...
+2026-09-24 10:32:38 [INFO] [job_copilot:run_scraping_flow:28] ==> Iniciando prospección: 'Data Scientist' en 'Colombia'...
+2026-09-24 10:32:38 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Data Scientist' en 'Colombia'...
+2026-09-24 10:32:38 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 10:32:38 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 10:32:38 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 10:32:38 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 10:32:46 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 10:32:47 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 10:32:47 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 10:32:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista III - Estrategia de Datos en Centro de Empleo y Talento
+2026-09-24 10:32:51 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en Inspire
+2026-09-24 10:32:53 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 10:32:55 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 10:32:56 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: ANALYTICS CONSULTANT en Experian Spanish Latam
+2026-09-24 10:32:59 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Espaciales y MEL (Monitoreo, Evaluación y Aprendizaje) en The Nature Conservancy
+2026-09-24 10:33:01 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías
+2026-09-24 10:33:02 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista de Modelos de Riesgo en Lulo bank
+2026-09-24 10:33:03 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en hiberus
+2026-09-24 10:33:04 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (ML + GenAI) en SoftServe
+2026-09-24 10:33:06 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst I, Data Science en Liberty Specialty Markets Latam
+2026-09-24 10:33:07 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst II, Data Science en Liberty Specialty Markets Latam
+2026-09-24 10:33:08 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager - Data Science en NielsenIQ
+2026-09-24 10:33:09 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Lead Data Scientist en SoftServe
+2026-09-24 10:33:11 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist - Remote Work en BairesDev
+2026-09-24 10:33:11 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 10:33:11 [INFO] [job_copilot:run_scraping_flow:28] ==> Iniciando prospección: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 10:33:11 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Senior Data Scientist' en 'Remote'...
+2026-09-24 10:33:11 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Remote'.
+2026-09-24 10:33:11 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Remote'.
+2026-09-24 10:33:11 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 10:33:11 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 10:33:21 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 10:33:22 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 10:33:23 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 30 ofertas en total. Procesando y deduplicando...
+2026-09-24 10:33:24 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Computer Scientist, Senior en Booz Allen Hamilton
+2026-09-24 10:33:26 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (Look-2-Book) en Emerging Travel Group
+2026-09-24 10:33:28 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: (Senior) Data Scientist en Continental
+2026-09-24 10:33:30 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist - QuantumBlack, AI by McKinsey en QuantumBlack, AI by McKinsey
+2026-09-24 10:33:31 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist, Senior en Booz Allen Hamilton
+2026-09-24 10:33:32 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Grupo Rumos
+2026-09-24 10:33:34 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr Advanced Data Scientist en Honeywell Technologies
+2026-09-24 10:33:35 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Lead Forensics
+2026-09-24 10:33:38 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Women in Data®
+2026-09-24 10:33:39 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (Trust & Fraud) en Grab
+2026-09-24 10:33:40 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en Rumos
+2026-09-24 10:33:42 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en DT
+2026-09-24 10:33:44 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist - Care AI en Back Market
+2026-09-24 10:33:46 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist - Pricing en Back Market
+2026-09-24 10:33:47 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Cientista de Dados Sênior en levva
+2026-09-24 10:33:48 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Product Manager: Recall en Constructor
+2026-09-24 10:33:48 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist (Remote) en Maximus
+2026-09-24 10:33:49 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr. Data Engineer en eHealth
+2026-09-24 10:33:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:51 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:52 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:52 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:53 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Project Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:54 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:54 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:55 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:55 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Drinking Water Technical Manager | Ownership Opportunity en Woodard & Curran
+2026-09-24 10:33:56 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Medical Scientist Liaison (MSL)- South Texas en Gilead Sciences
+2026-09-24 10:33:57 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Data Scientist en BV Teck
+2026-09-24 10:33:57 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 10:33:57 [INFO] [job_copilot:run_scraping_flow:28] ==> Iniciando prospección: 'Machine Learning Engineer' en 'Remote'...
+2026-09-24 10:33:57 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Machine Learning Engineer' en 'Remote'...
+2026-09-24 10:33:57 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Remote'.
+2026-09-24 10:33:57 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Remote'.
+2026-09-24 10:33:57 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 10:33:57 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 10:34:05 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 10:34:07 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 10:34:08 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 30 ofertas en total. Procesando y deduplicando...
+2026-09-24 10:34:09 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en Everfit
+2026-09-24 10:34:11 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Software Engineer, Machine Learning en Karrot
+2026-09-24 10:34:12 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer - Applied AI en SAP
+2026-09-24 10:34:15 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en Trainline
+2026-09-24 10:34:16 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Software Engineer, Machine Learning en Ema
+2026-09-24 10:34:17 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en athenahealth
+2026-09-24 10:34:18 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Staff Machine Learning Engineer, Financial Connections en Stripe
+2026-09-24 10:34:19 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Staff Machine Learning Engineer, Financial Connections en Stripe
+2026-09-24 10:34:21 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer - Trust Platform en Grab
+2026-09-24 10:34:22 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: AI/ML Engineer en Air Apps
+2026-09-24 10:34:24 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior  Machine Learning Engineer en Prezzee
+2026-09-24 10:34:25 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en ShopBack
+2026-09-24 10:34:26 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer en Prezzee
+2026-09-24 10:34:28 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en Evlo AI
+2026-09-24 10:34:29 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior AI Engineer (LLM & Model Training) en VINFAST
+2026-09-24 10:34:29 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior DevOps en AltexSoft
+2026-09-24 10:34:30 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Agentic AI Systems Engineer Intern | AI Agents & Automation en Walletgyde
+2026-09-24 10:34:31 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer: Search Quality en Constructor
+2026-09-24 10:34:31 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Product Manager: Recall en Constructor
+2026-09-24 10:34:32 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Backend Engineer: Ranking en Constructor
+2026-09-24 10:34:33 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Engineering Manager: Personalization en Constructor
+2026-09-24 10:34:33 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer: Personalization en Constructor
+2026-09-24 10:34:34 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Machine Learning Engineer: ML Recall en Constructor
+2026-09-24 10:34:35 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Senior Backend Engineer: Machine Learning Infrastructure en Constructor
+2026-09-24 10:34:35 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: AI Systems & Evaluation Engineer Intern en Walletgyde
+2026-09-24 10:34:36 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist (Remote) en Maximus
+2026-09-24 10:34:37 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist II (Remote) en Maximus
+2026-09-24 10:34:38 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Sr. Data Engineer en eHealth
+2026-09-24 10:34:38 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Security Engineering Manager, Integrity Investigations en Meta
+2026-09-24 10:34:39 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Research Engineer - Embedded Systems en Meta
+2026-09-24 10:34:39 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 10:34:39 [INFO] [job_copilot:run_scraping_flow:28] ==> Iniciando prospección: 'Statistician' en 'Colombia'...
+2026-09-24 10:34:39 [INFO] [job_copilot:run_job_search:139] Iniciando búsqueda de empleos: 'Statistician' en 'Colombia'...
+2026-09-24 10:34:39 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 10:34:39 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-24 10:34:39 [INFO] [job_copilot:run_job_search:142] Portales habilitados para la consulta: ['linkedin', 'indeed', 'google']
+2026-09-24 10:34:39 [INFO] [job_copilot:run_job_search:147] Consultando portal: linkedin...
+2026-09-24 10:34:44 [INFO] [job_copilot:run_job_search:147] Consultando portal: indeed...
+2026-09-24 10:34:44 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
+2026-09-24 10:34:45 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 15 ofertas en total. Procesando y deduplicando...
+2026-09-24 10:34:46 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista III - Estrategia de Datos en Centro de Empleo y Talento
+2026-09-24 10:34:49 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista Senior en Data & Analytics (Foco en Negocio) en CGI
+2026-09-24 10:34:50 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Data Scientist en Inspire
+2026-09-24 10:34:51 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: ANALYTICS CONSULTANT en Experian Spanish Latam
+2026-09-24 10:34:53 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analista Senior de Datos en Banco Santander Colombia
+2026-09-24 10:34:54 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Asesor Estadístico de Licitaciones en Alliance Risk & Protection
+2026-09-24 10:34:56 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico de Datos – Analítica en Cavca - Agencia de Seguros
+2026-09-24 10:34:58 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: DATA ANALYST en Agencia de Seguros Falabella
+2026-09-24 10:35:00 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Especialista de Modelos de Riesgo en Lulo bank
+2026-09-24 10:35:02 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Research Analyst en NielsenIQ
+2026-09-24 10:35:04 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Científico/a de Datos Databricks en Porvenir Pensiones y Cesantías
+2026-09-24 10:35:06 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst I, Data Science en Liberty Specialty Markets Latam
+2026-09-24 10:35:08 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager - Data Science en NielsenIQ
+2026-09-24 10:35:09 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Analyst II, Data Science en Liberty Specialty Markets Latam
+2026-09-24 10:35:11 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Manager, Visa Consulting and Analytics (VCA), Risk Practice en Visa
+2026-09-24 10:35:11 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-24 10:35:12 [INFO] [job_copilot:run_prefilter_flow:36] ==> Aplicando prefiltro booleano ($0)...
+2026-09-24 10:35:12 [INFO] [job_copilot:run_heuristic_filter_batch:163] Aplicando prefiltro booleano a 2 vacantes...
+2026-09-24 10:35:12 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [Visa - Manager, Visa Consulting and Analytics (VCA), Risk Practice] -> Aprobada para LLM. Términos detectados: analytics
+2026-09-24 10:35:12 [INFO] [job_copilot:run_heuristic_filter_batch:183] ✅ [AltexSoft - Senior DevOps] -> Aprobada para LLM. Términos detectados: databricks, data engineer
+2026-09-24 10:35:12 [INFO] [job_copilot:run_heuristic_filter_batch:186] Prefiltro completado: 2 aprobadas, 0 descartadas ().
+2026-09-24 10:35:12 [INFO] [job_copilot:run_evaluation_flow:41] ==> Evaluando vacantes con Gemini (Rúbrica 40/25/20/15)...
+2026-09-24 10:35:12 [INFO] [job_copilot:run_gemini_evaluation_batch:350] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-24 10:35:13 [WARNING] [job_copilot:evaluate_single_job:307] Servidor ocupado (503). Reintentando en 5s...
+2026-09-24 10:36:35 [INFO] [job_copilot:evaluate_single_job:323] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Visa - Manager, Visa Consulting and Analytics (VCA), Risk Practice | Score: 65/100
+2026-09-24 10:36:35 [INFO] [job_copilot:run_gemini_evaluation_batch:358] Pausa de seguridad (4.5s)...
+2026-09-24 10:38:10 [ERROR] [job_copilot:evaluate_single_job:329] Error evaluando vacante con Gemini: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1430, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 542, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\urllib3\connectionpool.py", line 373, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 304, in evaluate_single_job
+    response = requests.post(url, params=params, headers=headers, json=payload, timeout=90)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 134, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\requests\adapters.py", line 742, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=90)
+2026-09-24 10:38:10 [INFO] [job_copilot:run_gemini_evaluation_batch:398] Lote finalizado: 1 vacantes evaluadas y persistidas.
+2026-09-24 10:38:10 [INFO] [job_copilot:run_compile_flow:46] ==> Compilando CVs para vacantes calificadas...
+2026-09-24 10:38:10 [INFO] [job_copilot:build_applications_batch:392] Recompilando 33 CVs con calidad ATS estricta...
+2026-09-24 10:38:22 [INFO] [job_copilot:build_applications_batch:419] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-24 10:38:34 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-24 10:38:48 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_a5c9b8.pdf
+2026-09-24 10:39:01 [INFO] [job_copilot:build_applications_batch:419] ✅ [Experian Spanish Latam] -> CV_Jairo_Ochoa_Experian Spanish Latam_da789b.pdf
+2026-09-24 10:39:15 [INFO] [job_copilot:build_applications_batch:419] ✅ [Porvenir Pensiones y Cesantías] -> CV_Jairo_Ochoa_Porvenir Pensiones y Cesantías_998d08.pdf
+2026-09-24 10:39:28 [INFO] [job_copilot:build_applications_batch:419] ✅ [hiberus] -> CV_Jairo_Ochoa_hiberus_a260f5.pdf
+2026-09-24 10:39:42 [INFO] [job_copilot:build_applications_batch:419] ✅ [Inspire] -> CV_Jairo_Ochoa_Inspire_3bd0d6.pdf
+2026-09-24 10:39:56 [INFO] [job_copilot:build_applications_batch:419] ✅ [Emerging Travel Group] -> CV_Jairo_Ochoa_Emerging Travel Group_242dd0.pdf
+2026-09-24 10:40:09 [INFO] [job_copilot:build_applications_batch:419] ✅ [QuantumBlack, AI by McKinsey] -> CV_Jairo_Ochoa_QuantumBlack_ AI by McKinsey_5443de.pdf
+2026-09-24 10:40:23 [INFO] [job_copilot:build_applications_batch:419] ✅ [Booz Allen Hamilton] -> CV_Jairo_Ochoa_Booz Allen Hamilton_b3ace5.pdf
+2026-09-24 10:40:37 [INFO] [job_copilot:build_applications_batch:419] ✅ [Grupo Rumos] -> CV_Jairo_Ochoa_Grupo Rumos_e1487b.pdf
+2026-09-24 10:40:50 [INFO] [job_copilot:build_applications_batch:419] ✅ [Honeywell Technologies] -> CV_Jairo_Ochoa_Honeywell Technologies_10be17.pdf
+2026-09-24 10:41:06 [INFO] [job_copilot:build_applications_batch:419] ✅ [Lead Forensics] -> CV_Jairo_Ochoa_Lead Forensics_eca25b.pdf
+2026-09-24 10:41:21 [INFO] [job_copilot:build_applications_batch:419] ✅ [Women in Data®] -> CV_Jairo_Ochoa_Women in Data__f6eddd.pdf
+2026-09-24 10:41:35 [INFO] [job_copilot:build_applications_batch:419] ✅ [Grab] -> CV_Jairo_Ochoa_Grab_fc3115.pdf
+2026-09-24 10:41:49 [INFO] [job_copilot:build_applications_batch:419] ✅ [Back Market] -> CV_Jairo_Ochoa_Back Market_e4da85.pdf
+2026-09-24 10:42:03 [INFO] [job_copilot:build_applications_batch:419] ✅ [Back Market] -> CV_Jairo_Ochoa_Back Market_23d3cc.pdf
+2026-09-24 10:42:17 [INFO] [job_copilot:build_applications_batch:419] ✅ [Continental] -> CV_Jairo_Ochoa_Continental_0593a5.pdf
+2026-09-24 10:42:30 [INFO] [job_copilot:build_applications_batch:419] ✅ [Constructor] -> CV_Jairo_Ochoa_Constructor_8a9580.pdf
+2026-09-24 10:42:46 [INFO] [job_copilot:build_applications_batch:419] ✅ [Maximus] -> CV_Jairo_Ochoa_Maximus_fe4f45.pdf
+2026-09-24 10:43:00 [INFO] [job_copilot:build_applications_batch:419] ✅ [Everfit] -> CV_Jairo_Ochoa_Everfit_c36bf2.pdf
+2026-09-24 10:43:14 [INFO] [job_copilot:build_applications_batch:419] ✅ [SAP] -> CV_Jairo_Ochoa_SAP_32871e.pdf
+2026-09-24 10:43:27 [INFO] [job_copilot:build_applications_batch:419] ✅ [Stripe] -> CV_Jairo_Ochoa_Stripe_0ff713.pdf
+2026-09-24 10:43:41 [INFO] [job_copilot:build_applications_batch:419] ✅ [ShopBack] -> CV_Jairo_Ochoa_ShopBack_b9fde6.pdf
+2026-09-24 10:43:55 [INFO] [job_copilot:build_applications_batch:419] ✅ [Constructor] -> CV_Jairo_Ochoa_Constructor_2c14ea.pdf
+2026-09-24 10:44:09 [INFO] [job_copilot:build_applications_batch:419] ✅ [Constructor] -> CV_Jairo_Ochoa_Constructor_6befde.pdf
+2026-09-24 10:44:24 [INFO] [job_copilot:build_applications_batch:419] ✅ [Walletgyde] -> CV_Jairo_Ochoa_Walletgyde_2955ec.pdf
+2026-09-24 10:44:39 [INFO] [job_copilot:build_applications_batch:419] ✅ [Maximus] -> CV_Jairo_Ochoa_Maximus_e66a90.pdf
+2026-09-24 10:44:52 [INFO] [job_copilot:build_applications_batch:419] ✅ [Maximus] -> CV_Jairo_Ochoa_Maximus_2a5b5d.pdf
+2026-09-24 10:45:07 [INFO] [job_copilot:build_applications_batch:419] ✅ [Agencia de Seguros Falabella] -> CV_Jairo_Ochoa_Agencia de Seguros Falabella_bde9c8.pdf
+2026-09-24 10:45:21 [INFO] [job_copilot:build_applications_batch:419] ✅ [Visa] -> CV_Jairo_Ochoa_Visa_c80e97.pdf
+2026-09-24 10:45:34 [INFO] [job_copilot:build_applications_batch:419] ✅ [SoftServe] -> CV_Jairo_Ochoa_SoftServe_c072e9.pdf
+2026-09-24 10:45:47 [INFO] [job_copilot:build_applications_batch:419] ✅ [SoftServe] -> CV_Jairo_Ochoa_SoftServe_f5da59.pdf
+2026-09-24 10:45:47 [INFO] [job_copilot:run_compile_flow:48] ==> Compilación finalizada. CVs procesados: 33
+2026-09-24 10:45:48 [INFO] [job_copilot:run_export_flow:52] ==> Sincronizando con Excel...
+2026-09-24 10:45:48 [INFO] [job_copilot:run_full_pipeline:78] Pipeline completado exitosamente.

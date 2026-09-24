@@ -1,190 +1,119 @@
-from src.exporter import sync_jobs_to_excel
-"""
-Orquestador Principal y CLI de Postulación (HU-06).
-Coordina el pipeline end-to-end:
-1. Scraping de portales configurados.
-2. Prefiltro booleano ($0).
-3. Evaluación semántica con Gemini API.
-4. Compilación ATS (PDF y DOCX).
-5. Asistente interactivo con portapapeles y registro de estado.
-"""
-
-import argparse
-import webbrowser
+﻿import argparse
+import sys
 from pathlib import Path
 
-try:
-    import pyperclip
-except ImportError:
-    pyperclip = None
-
-from src.compiler import build_applications_batch
-from src.database import get_db_connection, init_db
+from src.database import init_db
 from src.logger import logger
-from src.matcher import run_gemini_evaluation_batch, run_heuristic_filter_batch
-from src.scraper import run_job_search
 
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "output"
 
+DEFAULT_SEARCH_TARGETS = [
+    ("Data Scientist", "Colombia"),
+    ("Senior Data Scientist", "Remote"),
+    ("Machine Learning Engineer", "Remote"),
+    ("Statistician", "Colombia"),
+]
 
-def show_funnel_metrics() -> None:
-    """Muestra el embudo de conversión actual en la base de datos."""
-    with get_db_connection() as conn:
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-            SELECT status, COUNT(*) as count 
-            FROM job_applications 
-            GROUP BY status;
-            """
-        )
-        counts = dict(cursor.fetchall())
+def run_scraping_flow(term: str | None = None, loc: str | None = None):
+    from src.scraper import run_job_search
+    if term and loc:
+        targets = [(term, loc)]
+    elif term:
+        targets = [(term, "Remote"), (term, "Colombia")]
+    else:
+        targets = DEFAULT_SEARCH_TARGETS
 
-    total = sum(counts.values())
-    scraped = counts.get("SCRAPED", 0)
-    filtered = counts.get("FILTERED_OUT", 0)
-    discarded = counts.get("DISCARDED", 0)
-    scored = counts.get("SCORED", 0)
-    generated = counts.get("GENERATED", 0)
-    applied = counts.get("APPLIED", 0)
+    for s_term, s_loc in targets:
+        logger.info(f"==> Iniciando prospección: '{s_term}' en '{s_loc}'...")
+        try:
+            run_job_search(search_term=s_term, location=s_loc, results_wanted=15)
+        except Exception as err:
+            logger.error(f"Falla durante la búsqueda de '{s_term}' en '{s_loc}': {err}")
 
-    print("\n" + "=" * 55)
-    print(" 📊 EMBUDO DE CONVERSIÓN - JOB COPILOT")
-    print("=" * 55)
-    print(f" Total vacantes en base de datos: {total}")
-    print(f" 📥 En espera de evaluación (SCRAPED):   {scraped}")
-    print(f" 🚫 Descartadas por reglas duras:        {filtered}")
-    print(f" 📉 Descartadas por score bajo Gemini:   {discarded}")
-    print(f" 🎯 Calificadas con match alto:          {scored}")
-    print(f" 📄 CVs compilados listos (GENERATED):   {generated}")
-    print(f" ✅ Postulaciones enviadas (APPLIED):    {applied}")
-    print("=" * 55 + "\n")
-
-
-def run_pipeline() -> None:
-    """Ejecuta el ciclo de vida batch completo."""
-    logger.info("Iniciando pipeline automatizado...")
-    init_db()
-
-    logger.info("Fase 1: Extracción de vacantes...")
-    run_job_search()
-
-    logger.info("Fase 2: Prefiltro booleano ($0)...")
+def run_prefilter_flow():
+    from src.matcher import run_heuristic_filter_batch
+    logger.info("==> Aplicando prefiltro booleano ($0)...")
     run_heuristic_filter_batch()
 
-    logger.info("Fase 3: Evaluación semántica con Gemini...")
+def run_evaluation_flow():
+    from src.matcher import run_gemini_evaluation_batch
+    logger.info("==> Evaluando vacantes con Gemini (Rúbrica 40/25/20/15)...")
     run_gemini_evaluation_batch()
 
-    logger.info("Fase 4: Compilación ATS (PDF & DOCX)...")
-    build_applications_batch()
+def run_compile_flow():
+    from src.compiler import build_applications_batch
+    logger.info("==> Compilando CVs para vacantes calificadas...")
+    count = build_applications_batch()
+    logger.info(f"==> Compilación finalizada. CVs procesados: {count}")
 
-    show_funnel_metrics()
+def run_export_flow():
+    from src.exporter import sync_jobs_to_excel
+    logger.info("==> Sincronizando con Excel...")
+    added = sync_jobs_to_excel()
+    print(f"[OK] Sincronización finalizada. Vacantes nuevas agregadas: {added}")
 
-
-def interactive_apply_assistant() -> None:
-    """Asistente en consola para postular con asistencia de portapapeles y navegador."""
-    with get_db_connection() as conn:
-        cursor = conn.cursor()
-        cursor.execute(
-            """
-            SELECT job_hash, title, company, url, match_score, tailored_summary, language
-            FROM job_applications
-            WHERE status = 'GENERATED'
-            ORDER BY match_score DESC;
-            """
-        )
-        ready_jobs = [dict(row) for row in cursor.fetchall()]
-
-    if not ready_jobs:
-        print("No hay vacantes en estado 'GENERATED' pendientes de postulación.")
+def run_stats_flow():
+    import sqlite3
+    db_path = BASE_DIR / "data" / "jobs.db"
+    if not db_path.exists():
+        print("Base de datos no encontrada.")
         return
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    rows = cur.execute("SELECT status, count(*) FROM job_applications GROUP BY status").fetchall()
+    conn.close()
+    print("\n--- RESUMEN DEL PIPELINE ---")
+    for status, count in rows:
+        print(f"  {status:<15}: {count}")
+    print("----------------------------\n")
 
-    print(f"\nSe encontraron {len(ready_jobs)} vacantes listas para postular.")
+def run_full_pipeline():
+    logger.info("Iniciando Pipeline Completo End-to-End...")
+    run_scraping_flow()
+    run_prefilter_flow()
+    run_evaluation_flow()
+    run_compile_flow()
+    run_export_flow()
+    logger.info("Pipeline completado exitosamente.")
 
-    for idx, job in enumerate(ready_jobs, start=1):
-        print("\n" + "-" * 60)
-        print(f"[{idx}/{len(ready_jobs)}] {job['company']} — {job['title']}")
-        print(f"Match Score: {job['match_score']}/100 | Idioma: {job['language']}")
-        print(f"URL: {job['url']}")
-        print("-" * 60)
-        print(f"Resumen adaptado:\n{job['tailored_summary']}\n")
+def main():
+    init_db()
 
-        print(
-            "Opciones: [o] Abrir URL y copiar resumen | [a] Marcar como APLICADA | [s] Saltar | [q] Salir"
-        )
-        choice = input("Selecciona una opción (o/a/s/q): ").strip().lower()
-
-        if choice == "o":
-            if pyperclip:
-                pyperclip.copy(job["tailored_summary"] or "")
-                print("📋 Resumen profesional copiado al portapapeles.")
-            if job.get("url"):
-                print("🌐 Abriendo URL en el navegador...")
-                webbrowser.open(job["url"])
-
-            sub_choice = (
-                input("¿Deseas marcarla como enviada ahora? (s/n): ").strip().lower()
-            )
-            if sub_choice == "s":
-                choice = "a"
-
-        if choice == "a":
-            with get_db_connection() as conn:
-                cursor = conn.cursor()
-                cursor.execute(
-                    "UPDATE job_applications SET status = 'APPLIED', updated_at = CURRENT_TIMESTAMP WHERE job_hash = ?;",
-                    (job["job_hash"],),
-                )
-            print("✅ Marcada como APLICADA.")
-        elif choice == "q":
-            print("Saliendo del asistente...")
-            break
-        else:
-            print("⏩ Saltada temporalmente.")
-
-    show_funnel_metrics()
-
-
-def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Job Copilot - Pipeline de postulación inteligente"
+        description="Job-Copilot: Prospección, evaluación semántica y compilación ATS"
     )
-    parser.add_argument(
-        "--run",
-        action="store_true",
-        help="Ejecutar pipeline completo de scraping a compilación",
-    )
-    parser.add_argument(
-        "--apply",
-        action="store_true",
-        help="Lanzar asistente interactivo de postulación",
-    )
-    parser.add_argument(
-        "--export-excel",
-        action="store_true",
-        help="Sincroniza vacantes evaluadas hacia output/pipeline_vacantes.xlsx incrementalmente",
-    )
-    parser.add_argument(
-        "--stats", action="store_true", help="Ver métricas del embudo de conversión"
-    )
+    parser.add_argument("--run", action="store_true", help="Ejecuta todo el pipeline de extremo a extremo")
+    parser.add_argument("--scrape", action="store_true", help="Solo raspa nuevas vacantes")
+    parser.add_argument("--filter", action="store_true", help="Solo corre el prefiltro booleano ($0)")
+    parser.add_argument("--evaluate", action="store_true", help="Solo evalúa vacantes con Gemini")
+    parser.add_argument("--compile", action="store_true", help="Solo compila CVs de vacantes calificadas")
+    parser.add_argument("--export-excel", action="store_true", help="Sincroniza vacantes hacia Excel")
+    parser.add_argument("--stats", action="store_true", help="Muestra estadísticas del pipeline")
+    parser.add_argument("--apply", action="store_true", help="Modo interactivo de postulación asistida")
 
     args = parser.parse_args()
 
-    if args.run:
-        run_pipeline()
-    elif args.apply:
-        interactive_apply_assistant()
+    # Si se pasó una bandera específica, ejecutar solo esa bandera
+    if args.scrape:
+        run_scraping_flow()
+    elif args.filter:
+        run_prefilter_flow()
+    elif args.evaluate:
+        run_evaluation_flow()
+    elif args.compile:
+        run_compile_flow()
     elif args.export_excel:
-        added = sync_jobs_to_excel()
-        print(f"[OK] Sincronización finalizada. Vacantes nuevas agregadas: {added}")
-        return
-
-    if args.stats:
-        show_funnel_metrics()
+        run_export_flow()
+    elif args.stats:
+        run_stats_flow()
+    elif args.apply:
+        from src.copilot import run_copilot_assistant
+        run_copilot_assistant()
+    elif args.run or len(sys.argv) == 1:
+        run_full_pipeline()
     else:
         parser.print_help()
-
 
 if __name__ == "__main__":
     main()
