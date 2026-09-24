@@ -122,7 +122,8 @@ def sync_jobs_to_excel(
         scraped_at,
         applied_at
     FROM job_applications
-    WHERE status IN ('SCORED', 'APPLIED', 'READY_TO_APPLY')
+    -- Incluye todo el pipeline: GENERATED, SCORED, APPLIED, SCRAPED y DISCARDED
+    WHERE 1=1
       AND (match_score >= ? OR match_score IS NULL)
     ORDER BY match_score DESC, scraped_at DESC
     """
