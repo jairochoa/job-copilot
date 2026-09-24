@@ -127,7 +127,7 @@ def prepare_cv_context(
     lang = job_record.get("language", "en")
 
     profiles = master_cv.get("profiles", {})
-    profile = profiles.get("CO") or (list(profiles.values())[0] if profiles else {})
+    profile = profiles.get("CO") or (next(iter(profiles.values())) if profiles else {})
 
     raw_bullets_json = job_record.get("selected_bullet_ids")
     selected_bullet_ids = set()
@@ -144,7 +144,7 @@ def prepare_cv_context(
                         selected_bullet_ids.update(item["bullet_ids"])
                     elif isinstance(item, str):
                         selected_bullet_ids.add(item)
-        except Exception:
+        except Exception:  # noqa: BLE001, S110
             pass
 
     bullets_pool = master_cv.get("experience_bullets_pool", [])

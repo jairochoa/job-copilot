@@ -1,8 +1,10 @@
+try:
+    from google import genai
+except Exception:  # noqa: BLE001
+    genai = None
 """
-Módulo de Evaluación Semántica y Matching.
-- HU-04 / Actividad 4.1: Prefiltro booleano por reglas duras locales (costo $0).
-- HU-04 / Actividad 4.2: Evaluación semántica con Gemini API, control de tasa (15 RPM)
-  y calibración de años de experiencia para mitigación de sobrecualificación.
+Módulo de Evaluación Semántica y Matching (HU-04).
+Prefiltro booleano () + Evaluación con gemini-3.6-flash vía HTTP directa con requests.
 """
 
 import json
@@ -13,16 +15,14 @@ import unicodedata
 from pathlib import Path
 from typing import Any
 
+import requests
+
 try:
     from dotenv import load_dotenv
-
-    load_dotenv()
+    load_dotenv(override=True)
 except ImportError:
     pass
 
-from google import genai
-from google.genai import types
-from google.genai.errors import APIError
 from pydantic import BaseModel, Field
 
 from src.database import get_db_connection
@@ -30,12 +30,10 @@ from src.logger import logger
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 MASTER_CV_PATH = BASE_DIR / "data" / "master_cv.json"
-DEFAULT_GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
+DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite"
 
 
 class CompanyBulletsSelection(BaseModel):
-    """Mapeo fuertemente tipado para evitar additionalProperties en la API."""
-
     company_id: str = Field(..., description="ID de la empresa según master_cv.json")
     bullet_ids: list[str] = Field(
         default_factory=list,
@@ -44,8 +42,7 @@ class CompanyBulletsSelection(BaseModel):
 
 
 class JobMatchEvaluation(BaseModel):
-    """Esquema estructurado generado por Gemini para cada vacante."""
-
+    model_config = {"populate_by_name": True, "extra": "ignore"}
     match_score: int = Field(
         ...,
         ge=0,
@@ -53,7 +50,8 @@ class JobMatchEvaluation(BaseModel):
         description="Puntaje de afinidad técnica global entre 0 y 100.",
     )
     language_detected: str = Field(
-        ...,
+        default='en',
+        alias='language',
         description="Idioma principal de la vacante: 'es' para español o 'en' para inglés.",
     )
     hard_skills_matched: list[str] = Field(
@@ -65,11 +63,18 @@ class JobMatchEvaluation(BaseModel):
         description="Requisitos técnicos o herramientas que el candidato no domina.",
     )
     tailored_headline: str = Field(
-        ..., description="Titular profesional de alto impacto adaptado a la vacante."
+        default='Senior Data Scientist & Applied AI Engineer',
+        description="Titular profesional de alto impacto adaptado a la vacante."
     )
     tailored_summary: str = Field(
         ...,
-        description="Resumen profesional de 3-4 líneas calibrado con los años de experiencia ideales.",
+        description=(
+            "Resumen profesional ejecutivo de exactamente 3 oraciones densas: "
+            "1) Rol Senior/Lead, M.Sc. en Estadística y años calibrados. "
+            "2) Stack técnico clave requerido por la vacante y dominado por el candidato. "
+            "3) 1 o 2 logros cuantitativos comprobables (métricas, % o tiempos) del perfil maestro. "
+            "CERO clichés o adjetivos vacíos (prohibido 'passionate', 'results-driven', 'strong foundation')."
+        ),
     )
     selected_bullets: list[CompanyBulletsSelection] = Field(
         default_factory=list,
@@ -82,7 +87,6 @@ class JobMatchEvaluation(BaseModel):
 
 
 def strip_accents(text: str) -> str:
-    """Elimina tildes y diacríticos para hacer el matching insensible a acentos."""
     nfkd_form = unicodedata.normalize("NFKD", text)
     return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
@@ -119,7 +123,6 @@ DISQUALIFYING_PATTERNS = [
 
 
 def apply_boolean_prefilter(title: str, description: str) -> tuple[bool, str]:
-    """Evalúa si una vacante supera las reglas duras locales sin invocar LLM."""
     raw_title = title.lower()
     raw_corpus = f"{title}\n{description}".lower()
     clean_title = strip_accents(raw_title)
@@ -128,20 +131,12 @@ def apply_boolean_prefilter(title: str, description: str) -> tuple[bool, str]:
     for neg_pattern in DISQUALIFYING_PATTERNS:
         match_title = re.search(neg_pattern, clean_title)
         if match_title:
-            return (
-                False,
-                f"Descartada por rol antagónico en título: '{match_title.group(0)}'",
-            )
+            return False, f"Descartada por rol antagónico en título: '{match_title.group(0)}'"
 
     for neg_pattern in DISQUALIFYING_PATTERNS:
         match_desc = re.search(neg_pattern, text_corpus)
-        if match_desc and not any(
-            re.search(p, clean_title) for p in CORE_POSITIVE_PATTERNS
-        ):
-            return (
-                False,
-                f"Descartada por término antagónico detectado: '{match_desc.group(0)}'",
-            )
+        if match_desc and not any(re.search(p, clean_title) for p in CORE_POSITIVE_PATTERNS):
+            return False, f"Descartada por término antagónico detectado: '{match_desc.group(0)}'"
 
     matched_positives = []
     for pos_pattern in CORE_POSITIVE_PATTERNS:
@@ -150,24 +145,15 @@ def apply_boolean_prefilter(title: str, description: str) -> tuple[bool, str]:
             matched_positives.append(match.group(0))
 
     if not matched_positives:
-        return (
-            False,
-            "Descartada: no contiene términos del núcleo de datos/analítica.",
-        )
+        return False, "Descartada: no contiene términos del núcleo de datos/analítica."
 
-    return (
-        True,
-        f"Aprobada para LLM. Términos detectados: {', '.join(set(matched_positives))}",
-    )
+    return True, f"Aprobada para LLM. Términos detectados: {', '.join(set(matched_positives))}"
 
 
 def run_heuristic_filter_batch() -> int:
-    """Aplica prefiltro booleano a vacantes SCRAPED y actualiza SQLite."""
     with get_db_connection() as conn:
         cursor = conn.cursor()
-        cursor.execute(
-            "SELECT job_hash, title, company, description FROM job_applications WHERE status = 'SCRAPED';"
-        )
+        cursor.execute("SELECT job_hash, title, company, description FROM job_applications WHERE status = 'SCRAPED';")
         pending_jobs = [dict(row) for row in cursor.fetchall()]
 
     if not pending_jobs:
@@ -186,9 +172,7 @@ def run_heuristic_filter_batch() -> int:
                 cursor.execute(
                     """
                     UPDATE job_applications
-                    SET status = 'FILTERED_OUT',
-                        match_score = 0,
-                        updated_at = CURRENT_TIMESTAMP
+                    SET status = 'FILTERED_OUT', match_score = 0, updated_at = CURRENT_TIMESTAMP
                     WHERE job_hash = ?;
                     """,
                     (job["job_hash"],),
@@ -199,18 +183,13 @@ def run_heuristic_filter_batch() -> int:
             logger.info(f"✅ [{job['company']} - {job['title']}] -> {reason}")
             approved_count += 1
 
-    logger.info(
-        f"Prefiltro completado: {approved_count} aprobadas, {filtered_out_count} descartadas ($0)."
-    )
+    logger.info(f"Prefiltro completado: {approved_count} aprobadas, {filtered_out_count} descartadas ().")
     return filtered_out_count
 
 
 def load_master_cv() -> dict[str, Any]:
-    """Carga la base de verdad curricular data/master_cv.json."""
     if not MASTER_CV_PATH.exists():
-        raise FileNotFoundError(
-            f"No se encontró el archivo maestro en: {MASTER_CV_PATH}"
-        )
+        raise FileNotFoundError(f"No se encontró el archivo maestro en: {MASTER_CV_PATH}")
     with open(MASTER_CV_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -218,11 +197,10 @@ def load_master_cv() -> dict[str, Any]:
 def build_evaluation_prompt(
     job_title: str, company: str, description: str, master_cv: dict[str, Any]
 ) -> str:
-    """Construye el prompt con contexto completo, anti-alucinación y calibración de seniority."""
+    """Construye el prompt con contexto completo, directivas ejecutivas estrictas y ejemplos few-shot."""
     profile_summary = {
         "candidate": master_cv.get("personal_info", {}).get("name"),
         "education": master_cv.get("education", []),
-        "certifications": master_cv.get("certifications", []),
         "technical_skills": master_cv.get("technical_skills", {}),
         "experience": [
             {
@@ -238,8 +216,8 @@ def build_evaluation_prompt(
         ],
     }
 
-    return f"""Eres un Tech Recruiter de élite y especialista en optimización de CVs para sistemas ATS.
-Evalúa con máximo rigor técnico el encaje entre la vacante y el perfil del candidato.
+    return f"""Eres un Principal Tech Executive y especialista de élite en optimización de CVs para filtros ATS y comités de contratación de Silicon Valley y LATAM.
+Evalúa el encaje entre la vacante y el perfil profesional con el más alto estándar de exigencia técnica.
 
 === VACANTE DE EMPLEO ===
 Empresa: {company}
@@ -247,36 +225,37 @@ Cargo: {job_title}
 Descripción y Requisitos:
 {description}
 
-=== PERFIL MAESTRO DEL CANDIDATO (VERDAD ABSOLUTA) ===
+=== PERFIL MAESTRO DEL CANDIDATO (ÚNICA FUENTE DE VERDAD) ===
 {json.dumps(profile_summary, ensure_ascii=False, indent=2)}
 
-=== INSTRUCCIONES ESTRICTAS ===
-1. Calcula 'match_score' de 0 a 100 evaluando compatibilidad con la experiencia demostrable.
-2. Identifica 'hard_skills_matched' y 'missing_skills_gaps' (tecnologías de la vacante ausentes en el candidato).
-3. Determina el idioma dominante de la vacante: 'es' o 'en'.
-4. Redacta 'tailored_headline' y 'tailored_summary' en el idioma detectado, con enfoque técnico de alto impacto.
+=== INSTRUCCIONES MANDATORIAS Y EXCLUYENTES ===
+1. match_score: Entero del 0 al 100 según afinidad técnica comprobable.
+2. hard_skills_matched y missing_skills_gaps: Extrae stacks específicos (ej. "PySpark", "Databricks", "MLflow", "Azure ML").
+3. language_detected: 'es' si la vacante está en español, 'en' si está en inglés.
+4. tailored_headline: Titular corporativo de alto impacto alineado al cargo (ej. "Senior Data Scientist | Statistical Modeling & Applied AI").
+5. REGLAS MANDATORIAS PARA tailored_summary (EXACTAMENTE 3 ORACIONES DENSAS, CERO CLICHÉS, CERO HUMO):
+   - ORACIÓN 1 (Perfil de Entrada): Rol Senior de datos + "Magíster en Estadística" (o "Master of Science in Statistics") + "8+ años de experiencia" (o "10+ años" si el cargo es Lead). Si la oferta pide 3+ o 5+, alinear a esa cifra. NUNCA menciones "15+", "20+".
+   - ORACIÓN 2 (Stack de Producción): Enumeración limpia de las tecnologías clave de la oferta que el candidato domina (ej. PySpark, Databricks, PyTorch, Azure ML, SQL, arquitecturas LLM).
+   - ORACIÓN 3 (Impacto Cuantitativo): Cierre con 1 o 2 métricas reales del perfil (ej. "reducción de tiempos de procesamiento en hasta un 81%", "85.4% de sensibilidad en modelos de visión", o "automatización del 100% de pipelines corporativos").
+   - PROHIBICIÓN ABSOLUTA: 
+     * PROHIBIDO presentarlo como "estudiante", "en formación" o mencionar carreras de pregrado en curso. El candidato es un Magíster e investigador sénior.
+     * PROHIBIDO usar clichés vacíos: "apasionado", "sólida base", "orientado a resultados", "transformar datos", "dispuesto a aprender", "proven track record". Solo métricas, stack y hechos concretos.
 
-5. CALIBRACIÓN ESTRICTA DE AÑOS DE EXPERIENCIA (ANTI-SOBRECUALIFICACIÓN):
-   - Si la vacante especifica un requisito mínimo (ej. 3+, 5+ o 7+ años), alinea el resumen exactamente a ese requerimiento o ligeramente superior (ej. "Con más de 5 años de trayectoria..." o "With 6+ years of experience...").
-   - Para cargos Senior, Lead o Especialista donde no se especifique o se pida 5+, utiliza el estándar óptimo de la industria tech: "8+ years" o "10+ years" (o "8+ años" / "10+ años" en español).
-   - REGLA DE ORO PROHIBITIVA: NUNCA menciones "15+", "20+" ni frases como "más de 15 años de experiencia". Evita detonar sesgos de sobrecualificación, pretensiones salariales desbordadas o encasillamiento en roles puramente directivos/gerenciales.
+=== EJEMPLO DE SUMMARY EN ESPAÑOL (MODELO A REPLICAR) ===
+"Científico de Datos Senior y Magíster en Estadística con más de 8 años de trayectoria en modelado predictivo, inferencia y analítica avanzada. Especialista en la construcción de arquitecturas de Machine Learning e ingeniería de datos con Python, SQL, Databricks, PySpark y despliegue en entornos cloud. Ha liderado pipelines de inferencia que optimizaron tiempos de cómputo en un 81% y modelos de clasificación con sensibilidad superior al 85%."
 
-6. POLÍTICA ESTRICTA ANTI-ALUCINACIÓN PARA VIÑETAS:
-   - Para cada empresa en 'selected_bullets', utiliza ÚNICAMENTE los strings exactos de los 'id' presentes en el perfil maestro.
-   - Selecciona de 2 a 4 viñetas relevantes por empresa según los requerimientos del cargo.
-   - NUNCA inventes nuevos identificadores de viñeta.
+=== EJEMPLO DE SUMMARY EN INGLÉS (MODELO A REPLICAR) ===
+"Senior Data Scientist and Master of Science in Statistics with 8+ years of experience leading advanced predictive modeling, machine learning, and quantitative analytics. Proficient in engineering distributed data pipelines and deploying AI solutions using Python, PySpark, Databricks, Azure ML, and SQL. Proven impact delivering end-to-end ML architectures that reduced data processing runtimes by up to 81% and automated 100% of corporate forecasting workflows."
 
-7. Redacta 'strategic_fit_rationale' justificando objetivamente el encaje.
+6. selected_bullets: Selecciona entre 2 y 4 IDs EXACTOS de viñetas por empresa que mejor resuenen con los requerimientos técnicos. NUNCA inventes IDs.
+7. strategic_fit_rationale: Justificación técnica y concisa del encaje para el reclutador.
 """
-
-
 def evaluate_single_job(
     job_record: dict[str, Any],
     api_key: str | None = None,
     model_name: str | None = None,
     max_retries: int = 3,
 ) -> JobMatchEvaluation | None:
-    """Evalúa una vacante individual llamando a Gemini con reintentos."""
     gemini_key = api_key or os.getenv("GEMINI_API_KEY")
     if not gemini_key:
         logger.error("Variable GEMINI_API_KEY no configurada.")
@@ -291,50 +270,52 @@ def evaluate_single_job(
         master_cv=master_cv,
     )
 
-    client = genai.Client(api_key=gemini_key)
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+    headers = {"Content-Type": "application/json"}
+    params = {"key": gemini_key}
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "responseMimeType": "application/json",
+            "temperature": 0.1,
+        },
+    }
 
     for attempt in range(1, max_retries + 1):
         try:
-            response = client.models.generate_content(
-                model=model,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json",
-                    response_schema=JobMatchEvaluation,
-                    temperature=0.1,
-                ),
-            )
-            evaluation = JobMatchEvaluation.model_validate_json(response.text)
+            response = requests.post(url, params=params, headers=headers, json=payload, timeout=45)
+            if response.status_code in (429, 503) and attempt < max_retries:
+                wait_time = 5 * attempt
+                logger.warning(f"Servidor ocupado ({response.status_code}). Reintentando en {wait_time}s...")
+                time.sleep(wait_time)
+                continue
+
+            if response.status_code != 200:
+                logger.error(f"Error de API Gemini ({response.status_code}): {response.text}")
+                return None
+
+            result_data = response.json()
+            candidates = result_data.get("candidates", [])
+            if not candidates:
+                logger.error("Gemini no retornó candidatos.")
+                return None
+
+            raw_text = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+            evaluation = JobMatchEvaluation.model_validate_json(raw_text)
             logger.info(
                 f"Evaluación Gemini exitosa ({model}): {job_record.get('company')} - "
                 f"{job_record.get('title')} | Score: {evaluation.match_score}/100"
             )
             return evaluation
-        except APIError as e:
-            if e.code in (503, 429) and attempt < max_retries:
-                wait_time = 5 * attempt
-                logger.warning(
-                    f"Servidor ocupado o límite ({e.code}). Reintentando en {wait_time}s..."
-                )
-                time.sleep(wait_time)
-            else:
-                logger.error(f"Error de API Gemini: {e}")
-                return None
         except Exception as e:  # noqa: BLE001
             logger.error(f"Error evaluando vacante con Gemini: {e}", exc_info=True)
             return None
-
-    return None
-
 
 def run_gemini_evaluation_batch(
     min_score_threshold: int = 60,
     max_batch_size: int = 10,
     delay_between_calls: float = 4.5,
 ) -> int:
-    """
-    Evalúa con Gemini las vacantes SCRAPED respetando la cuota de 15 RPM.
-    """
     with get_db_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(
@@ -344,12 +325,10 @@ def run_gemini_evaluation_batch(
         pending_jobs = [dict(row) for row in cursor.fetchall()]
 
     if not pending_jobs:
-        logger.info(
-            "No hay vacantes pendientes en estado 'SCRAPED' para evaluar con Gemini."
-        )
+        logger.info("No hay vacantes pendientes en estado 'SCRAPED' para evaluar con Gemini.")
         return 0
 
-    current_model = os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL)
+    current_model = DEFAULT_GEMINI_MODEL
     logger.info(
         f"Evaluando lote de {len(pending_jobs)} vacantes con Gemini ({current_model}) "
         f"[Pausa de seguridad: {delay_between_calls}s entre llamadas]..."
@@ -365,13 +344,8 @@ def run_gemini_evaluation_batch(
         if not eval_result:
             continue
 
-        new_status = (
-            "SCORED" if eval_result.match_score >= min_score_threshold else "DISCARDED"
-        )
-
-        bullets_map = {
-            item.company_id: item.bullet_ids for item in eval_result.selected_bullets
-        }
+        new_status = "SCORED" if eval_result.match_score >= min_score_threshold else "DISCARDED"
+        bullets_map = {item.company_id: item.bullet_ids for item in eval_result.selected_bullets}
 
         with get_db_connection() as conn:
             cursor = conn.cursor()

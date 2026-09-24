@@ -67,3 +67,512 @@
 2026-09-23 13:34:18 [INFO] [job_copilot:evaluate_single_job:308] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Empresa Mock - Senior Data Scientist | Score: 90/100
 2026-09-23 13:34:18 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
 2026-09-23 13:34:18 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 13:57:47 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 13:57:47 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 13:57:47 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 13:57:47 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 13:57:48 [INFO] [job_copilot:evaluate_single_job:308] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Empresa Mock - Senior Data Scientist | Score: 90/100
+2026-09-23 13:57:48 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 13:57:48 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 14:11:22 [INFO] [job_copilot:build_applications_batch:345] Recompilando 4 CVs con calidad ATS estricta...
+2026-09-23 14:11:26 [INFO] [job_copilot:build_applications_batch:372] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 14:11:29 [INFO] [job_copilot:build_applications_batch:372] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 14:11:32 [INFO] [job_copilot:build_applications_batch:372] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 14:11:35 [INFO] [job_copilot:build_applications_batch:372] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 14:13:19 [INFO] [job_copilot:build_applications_batch:345] Recompilando 4 CVs con calidad ATS estricta...
+2026-09-23 14:14:16 [INFO] [job_copilot:build_applications_batch:345] Recompilando 4 CVs con calidad ATS estricta...
+2026-09-23 14:14:18 [INFO] [job_copilot:build_applications_batch:372] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 14:14:21 [INFO] [job_copilot:build_applications_batch:372] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 14:14:23 [INFO] [job_copilot:build_applications_batch:372] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 14:14:25 [INFO] [job_copilot:build_applications_batch:372] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 19:26:00 [INFO] [job_copilot:build_applications_batch:345] Recompilando 4 CVs con calidad ATS estricta...
+2026-09-23 19:26:02 [INFO] [job_copilot:build_applications_batch:372] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 19:26:05 [INFO] [job_copilot:build_applications_batch:372] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 19:26:08 [INFO] [job_copilot:build_applications_batch:372] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 19:26:10 [INFO] [job_copilot:build_applications_batch:372] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 19:28:54 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 19:28:54 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 19:28:54 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 19:28:54 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 19:28:54 [INFO] [job_copilot:evaluate_single_job:308] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Empresa Mock - Senior Data Scientist | Score: 90/100
+2026-09-23 19:28:54 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 19:28:54 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 19:53:57 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 19:53:59 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 19:53:59 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 19:54:04 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'service': 'generativelanguage.googleapis.com', 'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent'}}]}}
+2026-09-23 19:54:04 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 19:55:16 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 19:55:17 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'service': 'generativelanguage.googleapis.com', 'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent'}}]}}
+2026-09-23 19:55:17 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 19:55:23 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 19:55:23 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 19:57:33 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 19:57:35 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 19:57:35 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 19:57:40 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 19:57:40 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 19:58:24 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 19:58:25 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 19:58:25 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 19:58:31 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 19:58:31 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:17:10 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:17:12 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:17:12 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 20:17:17 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:17:17 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:19:09 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:19:10 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:19:10 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 20:19:16 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:19:16 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:20:53 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:20:54 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:20:54 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 20:21:00 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:21:00 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:22:45 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:22:47 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'service': 'generativelanguage.googleapis.com', 'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent'}}]}}
+2026-09-23 20:22:47 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 20:22:53 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:22:53 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:28:58 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:29:00 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:29:00 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 20:29:05 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:29:05 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:30:33 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:30:34 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:30:34 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 20:30:39 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:30:39 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:30:54 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:30:55 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:30:55 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 20:31:01 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:31:01 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:31:26 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:31:28 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'service': 'generativelanguage.googleapis.com', 'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent'}}]}}
+2026-09-23 20:31:28 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 20:31:33 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:31:33 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:31:58 [INFO] [job_copilot:run_gemini_evaluation_batch:365] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:31:59 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:31:59 [INFO] [job_copilot:run_gemini_evaluation_batch:373] Pausa de seguridad (4.5s)...
+2026-09-23 20:32:05 [ERROR] [job_copilot:evaluate_single_job:333] Error de API Gemini: 401 UNAUTHENTICATED. {'error': {'code': 401, 'message': 'Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.', 'status': 'UNAUTHENTICATED', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'ACCESS_TOKEN_TYPE_UNSUPPORTED', 'metadata': {'method': 'google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent', 'service': 'generativelanguage.googleapis.com'}}]}}
+2026-09-23 20:32:05 [INFO] [job_copilot:run_gemini_evaluation_batch:416] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:40:30 [INFO] [job_copilot:run_gemini_evaluation_batch:375] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:40:32 [ERROR] [job_copilot:evaluate_single_job:328] Error de API Gemini: 401 {
+  "error": {
+    "code": 401,
+    "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "ACCESS_TOKEN_TYPE_UNSUPPORTED",
+        "metadata": {
+          "method": "google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent",
+          "service": "generativelanguage.googleapis.com"
+        }
+      }
+    ]
+  }
+}
+
+2026-09-23 20:40:32 [INFO] [job_copilot:run_gemini_evaluation_batch:383] Pausa de seguridad (4.5s)...
+2026-09-23 20:40:37 [ERROR] [job_copilot:evaluate_single_job:328] Error de API Gemini: 401 {
+  "error": {
+    "code": 401,
+    "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "ACCESS_TOKEN_TYPE_UNSUPPORTED",
+        "metadata": {
+          "method": "google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent",
+          "service": "generativelanguage.googleapis.com"
+        }
+      }
+    ]
+  }
+}
+
+2026-09-23 20:40:37 [INFO] [job_copilot:run_gemini_evaluation_batch:426] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:41:19 [INFO] [job_copilot:run_gemini_evaluation_batch:375] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:41:19 [ERROR] [job_copilot:evaluate_single_job:328] Error de API Gemini: 401 {
+  "error": {
+    "code": 401,
+    "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "ACCESS_TOKEN_TYPE_UNSUPPORTED",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com",
+          "method": "google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent"
+        }
+      }
+    ]
+  }
+}
+
+2026-09-23 20:41:19 [INFO] [job_copilot:run_gemini_evaluation_batch:383] Pausa de seguridad (4.5s)...
+2026-09-23 20:41:25 [ERROR] [job_copilot:evaluate_single_job:328] Error de API Gemini: 401 {
+  "error": {
+    "code": 401,
+    "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "ACCESS_TOKEN_TYPE_UNSUPPORTED",
+        "metadata": {
+          "method": "google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent",
+          "service": "generativelanguage.googleapis.com"
+        }
+      }
+    ]
+  }
+}
+
+2026-09-23 20:41:25 [INFO] [job_copilot:run_gemini_evaluation_batch:426] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:44:27 [INFO] [job_copilot:run_gemini_evaluation_batch:375] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:44:28 [ERROR] [job_copilot:evaluate_single_job:328] Error de API Gemini: 401 {
+  "error": {
+    "code": 401,
+    "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "ACCESS_TOKEN_TYPE_UNSUPPORTED",
+        "metadata": {
+          "method": "google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent",
+          "service": "generativelanguage.googleapis.com"
+        }
+      }
+    ]
+  }
+}
+
+2026-09-23 20:44:28 [INFO] [job_copilot:run_gemini_evaluation_batch:383] Pausa de seguridad (4.5s)...
+2026-09-23 20:44:33 [ERROR] [job_copilot:evaluate_single_job:328] Error de API Gemini: 401 {
+  "error": {
+    "code": 401,
+    "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "ACCESS_TOKEN_TYPE_UNSUPPORTED",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com",
+          "method": "google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent"
+        }
+      }
+    ]
+  }
+}
+
+2026-09-23 20:44:33 [INFO] [job_copilot:run_gemini_evaluation_batch:426] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:46:35 [INFO] [job_copilot:run_gemini_evaluation_batch:375] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:46:36 [ERROR] [job_copilot:evaluate_single_job:328] Error de API Gemini: 401 {
+  "error": {
+    "code": 401,
+    "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "ACCESS_TOKEN_TYPE_UNSUPPORTED",
+        "metadata": {
+          "service": "generativelanguage.googleapis.com",
+          "method": "google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent"
+        }
+      }
+    ]
+  }
+}
+
+2026-09-23 20:46:36 [INFO] [job_copilot:run_gemini_evaluation_batch:383] Pausa de seguridad (4.5s)...
+2026-09-23 20:46:41 [ERROR] [job_copilot:evaluate_single_job:328] Error de API Gemini: 401 {
+  "error": {
+    "code": 401,
+    "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+    "status": "UNAUTHENTICATED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "ACCESS_TOKEN_TYPE_UNSUPPORTED",
+        "metadata": {
+          "method": "google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent",
+          "service": "generativelanguage.googleapis.com"
+        }
+      }
+    ]
+  }
+}
+
+2026-09-23 20:46:41 [INFO] [job_copilot:run_gemini_evaluation_batch:426] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:50:01 [INFO] [job_copilot:run_gemini_evaluation_batch:330] Evaluando lote de 2 vacantes con Gemini (gemini-3.6-flash) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:50:01 [ERROR] [job_copilot:evaluate_single_job:288] Error de API Gemini (400): {
+  "error": {
+    "code": 400,
+    "message": "Invalid JSON payload received. Unknown name \"$defs\" at 'generation_config.response_schema': Cannot find field.\nInvalid JSON payload received. Unknown name \"$ref\" at 'generation_config.response_schema.properties[6].value.items': Cannot find field.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.BadRequest",
+        "fieldViolations": [
+          {
+            "field": "generation_config.response_schema",
+            "description": "Invalid JSON payload received. Unknown name \"$defs\" at 'generation_config.response_schema': Cannot find field."
+          },
+          {
+            "field": "generation_config.response_schema.properties[6].value.items",
+            "description": "Invalid JSON payload received. Unknown name \"$ref\" at 'generation_config.response_schema.properties[6].value.items': Cannot find field."
+          }
+        ]
+      }
+    ]
+  }
+}
+
+2026-09-23 20:50:01 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 20:50:07 [ERROR] [job_copilot:evaluate_single_job:288] Error de API Gemini (400): {
+  "error": {
+    "code": 400,
+    "message": "Invalid JSON payload received. Unknown name \"$defs\" at 'generation_config.response_schema': Cannot find field.\nInvalid JSON payload received. Unknown name \"$ref\" at 'generation_config.response_schema.properties[6].value.items': Cannot find field.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.BadRequest",
+        "fieldViolations": [
+          {
+            "field": "generation_config.response_schema",
+            "description": "Invalid JSON payload received. Unknown name \"$defs\" at 'generation_config.response_schema': Cannot find field."
+          },
+          {
+            "field": "generation_config.response_schema.properties[6].value.items",
+            "description": "Invalid JSON payload received. Unknown name \"$ref\" at 'generation_config.response_schema.properties[6].value.items': Cannot find field."
+          }
+        ]
+      }
+    ]
+  }
+}
+
+2026-09-23 20:50:07 [INFO] [job_copilot:run_gemini_evaluation_batch:376] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:51:21 [INFO] [job_copilot:run_gemini_evaluation_batch:330] Evaluando lote de 2 vacantes con Gemini (gemini-3.6-flash) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:51:22 [ERROR] [job_copilot:evaluate_single_job:288] Error de API Gemini (400): {
+  "error": {
+    "code": 400,
+    "message": "Invalid JSON payload received. Unknown name \"$defs\" at 'generation_config.response_schema': Cannot find field.\nInvalid JSON payload received. Unknown name \"$ref\" at 'generation_config.response_schema.properties[6].value.items': Cannot find field.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.BadRequest",
+        "fieldViolations": [
+          {
+            "field": "generation_config.response_schema",
+            "description": "Invalid JSON payload received. Unknown name \"$defs\" at 'generation_config.response_schema': Cannot find field."
+          },
+          {
+            "field": "generation_config.response_schema.properties[6].value.items",
+            "description": "Invalid JSON payload received. Unknown name \"$ref\" at 'generation_config.response_schema.properties[6].value.items': Cannot find field."
+          }
+        ]
+      }
+    ]
+  }
+}
+
+2026-09-23 20:51:22 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 20:51:27 [ERROR] [job_copilot:evaluate_single_job:288] Error de API Gemini (400): {
+  "error": {
+    "code": 400,
+    "message": "Invalid JSON payload received. Unknown name \"$defs\" at 'generation_config.response_schema': Cannot find field.\nInvalid JSON payload received. Unknown name \"$ref\" at 'generation_config.response_schema.properties[6].value.items': Cannot find field.",
+    "status": "INVALID_ARGUMENT",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.BadRequest",
+        "fieldViolations": [
+          {
+            "field": "generation_config.response_schema",
+            "description": "Invalid JSON payload received. Unknown name \"$defs\" at 'generation_config.response_schema': Cannot find field."
+          },
+          {
+            "field": "generation_config.response_schema.properties[6].value.items",
+            "description": "Invalid JSON payload received. Unknown name \"$ref\" at 'generation_config.response_schema.properties[6].value.items': Cannot find field."
+          }
+        ]
+      }
+    ]
+  }
+}
+
+2026-09-23 20:51:27 [INFO] [job_copilot:run_gemini_evaluation_batch:376] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:51:30 [INFO] [job_copilot:build_applications_batch:392] Recompilando 4 CVs con calidad ATS estricta...
+2026-09-23 20:51:33 [INFO] [job_copilot:build_applications_batch:419] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 20:51:36 [INFO] [job_copilot:build_applications_batch:419] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 20:51:38 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 20:51:41 [INFO] [job_copilot:build_applications_batch:419] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 20:53:01 [INFO] [job_copilot:run_gemini_evaluation_batch:329] Evaluando lote de 2 vacantes con Gemini (gemini-3.6-flash) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:53:05 [WARNING] [job_copilot:evaluate_single_job:282] Servidor ocupado (503). Reintentando en 5s...
+2026-09-23 20:53:11 [WARNING] [job_copilot:evaluate_single_job:282] Servidor ocupado (503). Reintentando en 10s...
+2026-09-23 20:53:24 [ERROR] [job_copilot:evaluate_single_job:287] Error de API Gemini (503): {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-09-23 20:53:24 [INFO] [job_copilot:run_gemini_evaluation_batch:337] Pausa de seguridad (4.5s)...
+2026-09-23 20:53:38 [WARNING] [job_copilot:evaluate_single_job:282] Servidor ocupado (503). Reintentando en 5s...
+2026-09-23 20:53:46 [WARNING] [job_copilot:evaluate_single_job:282] Servidor ocupado (503). Reintentando en 10s...
+2026-09-23 20:53:57 [ERROR] [job_copilot:evaluate_single_job:287] Error de API Gemini (503): {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-09-23 20:53:57 [INFO] [job_copilot:run_gemini_evaluation_batch:375] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:54:50 [INFO] [job_copilot:run_gemini_evaluation_batch:329] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:54:53 [ERROR] [job_copilot:evaluate_single_job:305] Error evaluando vacante con Gemini: 2 validation errors for JobMatchEvaluation
+language_detected
+  Field required [type=missing, input_value={'match_score': 68, 'hard...Artificial Generativa.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+tailored_headline
+  Field required [type=missing, input_value={'match_score': 68, 'hard...Artificial Generativa.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 297, in evaluate_single_job
+    evaluation = JobMatchEvaluation.model_validate_json(raw_text)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\pydantic\main.py", line 782, in model_validate_json
+    return cls.__pydantic_validator__.validate_json(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        json_data, strict=strict, extra=extra, context=context, by_alias=by_alias, by_name=by_name
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+pydantic_core._pydantic_core.ValidationError: 2 validation errors for JobMatchEvaluation
+language_detected
+  Field required [type=missing, input_value={'match_score': 68, 'hard...Artificial Generativa.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+tailored_headline
+  Field required [type=missing, input_value={'match_score': 68, 'hard...Artificial Generativa.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-09-23 20:54:53 [INFO] [job_copilot:run_gemini_evaluation_batch:337] Pausa de seguridad (4.5s)...
+2026-09-23 20:55:00 [ERROR] [job_copilot:evaluate_single_job:305] Error evaluando vacante con Gemini: 2 validation errors for JobMatchEvaluation
+language_detected
+  Field required [type=missing, input_value={'match_score': 60, 'lang... en ingeniería de IA.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+tailored_headline
+  Field required [type=missing, input_value={'match_score': 60, 'lang... en ingeniería de IA.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+Traceback (most recent call last):
+  File "C:\Projects\job-copilot\src\matcher.py", line 297, in evaluate_single_job
+    evaluation = JobMatchEvaluation.model_validate_json(raw_text)
+  File "C:\Projects\job-copilot\.venv\Lib\site-packages\pydantic\main.py", line 782, in model_validate_json
+    return cls.__pydantic_validator__.validate_json(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        json_data, strict=strict, extra=extra, context=context, by_alias=by_alias, by_name=by_name
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+pydantic_core._pydantic_core.ValidationError: 2 validation errors for JobMatchEvaluation
+language_detected
+  Field required [type=missing, input_value={'match_score': 60, 'lang... en ingeniería de IA.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+tailored_headline
+  Field required [type=missing, input_value={'match_score': 60, 'lang... en ingeniería de IA.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-09-23 20:55:00 [INFO] [job_copilot:run_gemini_evaluation_batch:375] Lote finalizado: 0 vacantes evaluadas y persistidas.
+2026-09-23 20:58:56 [INFO] [job_copilot:run_gemini_evaluation_batch:332] Evaluando lote de 2 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 20:58:59 [INFO] [job_copilot:evaluate_single_job:301] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Cavca - Agencia de Seguros - Ingeniero de Inteligencia Artificial (AI Engineer)  LLMs, Agentes IA y Soluciones Empresariales | Score: 65/100
+2026-09-23 20:58:59 [INFO] [job_copilot:run_gemini_evaluation_batch:340] Pausa de seguridad (4.5s)...
+2026-09-23 20:59:06 [INFO] [job_copilot:evaluate_single_job:301] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Cavca - Agencia de Seguros - Ingeniero de Inteligencia Artificial (AI Engineer) | Score: 62/100
+2026-09-23 20:59:06 [INFO] [job_copilot:run_gemini_evaluation_batch:378] Lote finalizado: 2 vacantes evaluadas y persistidas.
+2026-09-23 20:59:43 [INFO] [job_copilot:build_applications_batch:392] Recompilando 6 CVs con calidad ATS estricta...
+2026-09-23 20:59:45 [INFO] [job_copilot:build_applications_batch:419] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 20:59:48 [INFO] [job_copilot:build_applications_batch:419] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 20:59:50 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 20:59:53 [INFO] [job_copilot:build_applications_batch:419] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 20:59:55 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_067857.pdf
+2026-09-23 20:59:58 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_a5c9b8.pdf
+2026-09-23 21:08:23 [INFO] [job_copilot:run_gemini_evaluation_batch:330] Evaluando lote de 3 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 21:08:26 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Cavca - Agencia de Seguros - Científico de Datos – Analítica | Score: 75/100
+2026-09-23 21:08:26 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:08:35 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Cavca - Agencia de Seguros - Ingeniero de Inteligencia Artificial (AI Engineer)  LLMs, Agentes IA y Soluciones Empresariales | Score: 60/100
+2026-09-23 21:08:35 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:08:42 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Cavca - Agencia de Seguros - Ingeniero de Inteligencia Artificial (AI Engineer) | Score: 45/100
+2026-09-23 21:08:42 [INFO] [job_copilot:run_gemini_evaluation_batch:376] Lote finalizado: 3 vacantes evaluadas y persistidas.
+2026-09-23 21:09:35 [INFO] [job_copilot:build_applications_batch:392] Recompilando 5 CVs con calidad ATS estricta...
+2026-09-23 21:10:16 [INFO] [job_copilot:build_applications_batch:392] Recompilando 5 CVs con calidad ATS estricta...
+2026-09-23 21:10:19 [INFO] [job_copilot:build_applications_batch:419] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 21:10:22 [INFO] [job_copilot:build_applications_batch:419] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 21:10:24 [INFO] [job_copilot:build_applications_batch:419] ✅ [Amazon.com] -> CV_Jairo_Ochoa_Amazon.com_0edbe2.pdf
+2026-09-23 21:10:27 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 21:10:29 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_067857.pdf
+2026-09-23 21:14:36 [INFO] [job_copilot:run_gemini_evaluation_batch:326] No hay vacantes pendientes en estado 'SCRAPED' para evaluar con Gemini.
+2026-09-23 21:14:36 [INFO] [job_copilot:build_applications_batch:392] Recompilando 5 CVs con calidad ATS estricta...
+2026-09-23 21:14:39 [INFO] [job_copilot:build_applications_batch:419] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 21:16:17 [INFO] [job_copilot:run_gemini_evaluation_batch:330] Evaluando lote de 10 vacantes con Gemini (gemini-3.5-flash-lite) [Pausa de seguridad: 4.5s entre llamadas]...
+2026-09-23 21:16:20 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Bancolombia S.A.S. - Senior Data Scientist | Score: 40/100
+2026-09-23 21:16:20 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:16:27 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Capgemini Engineering - Senior Data Scientist | Score: 75/100
+2026-09-23 21:16:27 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:16:35 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): CGI - Especialista Senior en Data & Analytics (Foco en Negocio) | Score: 75/100
+2026-09-23 21:16:35 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:16:43 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Cavca - Agencia de Seguros - Científico de Datos – Analítica | Score: 60/100
+2026-09-23 21:16:43 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:16:50 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Capgemini - Senior Software Engineer | Score: 15/100
+2026-09-23 21:16:50 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:16:58 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Capgemini Engineering - Senior Software Engineer | Score: 15/100
+2026-09-23 21:16:58 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:17:05 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Amazon.com - Risk Manager (2LoD, Model Risk Validation), Risk and Compliance Solutions | Score: 45/100
+2026-09-23 21:17:05 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:17:12 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Cavca - Agencia de Seguros - Ingeniero de Inteligencia Artificial (AI Engineer)  LLMs, Agentes IA y Soluciones Empresariales | Score: 65/100
+2026-09-23 21:17:12 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:17:19 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Cavca - Agencia de Seguros - Ingeniero de Inteligencia Artificial (AI Engineer) | Score: 85/100
+2026-09-23 21:17:19 [INFO] [job_copilot:run_gemini_evaluation_batch:338] Pausa de seguridad (4.5s)...
+2026-09-23 21:17:26 [INFO] [job_copilot:evaluate_single_job:299] Evaluación Gemini exitosa (gemini-3.5-flash-lite): EPAM Systems - Lead Python Developer | Score: 10/100
+2026-09-23 21:17:26 [INFO] [job_copilot:run_gemini_evaluation_batch:376] Lote finalizado: 10 vacantes evaluadas y persistidas.
+2026-09-23 21:17:26 [INFO] [job_copilot:build_applications_batch:392] Recompilando 5 CVs con calidad ATS estricta...
+2026-09-23 21:17:29 [INFO] [job_copilot:build_applications_batch:419] ✅ [Capgemini Engineering] -> CV_Jairo_Ochoa_Capgemini Engineering_9d33e1.pdf
+2026-09-23 21:17:31 [INFO] [job_copilot:build_applications_batch:419] ✅ [CGI] -> CV_Jairo_Ochoa_CGI_4c2fd7.pdf
+2026-09-23 21:17:34 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_7884db.pdf
+2026-09-23 21:17:36 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_067857.pdf
+2026-09-23 21:17:39 [INFO] [job_copilot:build_applications_batch:419] ✅ [Cavca - Agencia de Seguros] -> CV_Jairo_Ochoa_Cavca - Agencia de Seguros_a5c9b8.pdf
+2026-09-23 21:21:52 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 21:21:52 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 21:21:52 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 21:21:52 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 21:21:53 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 21:21:53 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 21:27:34 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 21:27:34 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 21:27:34 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 21:27:34 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 21:27:35 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 21:27:35 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 21:28:42 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 21:28:42 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 21:28:42 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 21:28:42 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 21:28:43 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 21:28:43 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 21:29:44 [INFO] [job_copilot:init_db:107] Base de datos SQLite inicializada exitosamente en modo WAL.
+2026-09-23 21:29:44 [DEBUG] [job_copilot:insert_job:135] Vacante insertada: Machine Learning Engineer en IDATA (50ab80bc...)
+2026-09-23 21:29:44 [DEBUG] [job_copilot:insert_job:139] Vacante duplicada descartada: Machine Learning Engineer en IDATA
+2026-09-23 21:29:44 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-23 21:29:44 [INFO] [job_copilot:evaluate_single_job:303] Evaluación Gemini exitosa (gemini-3.5-flash-lite): Test Co - Data Scientist | Score: 85/100
+2026-09-23 21:29:44 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-23 21:29:44 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.

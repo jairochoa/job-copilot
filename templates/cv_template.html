@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="{{ language }}">
+
 <head>
     <meta charset="UTF-8">
     <title>{{ personal.full_name }} - {{ tailored_headline }}</title>
@@ -8,10 +9,12 @@
             size: letter portrait;
             margin: 1.2cm 1.4cm;
         }
+
         * {
             box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
         }
+
         body {
             font-family: Arial, sans-serif;
             color: #111827;
@@ -20,12 +23,14 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             text-align: center;
             border-bottom: 1.5px solid #111827;
             padding-bottom: 5px;
             margin-bottom: 7px;
         }
+
         h1 {
             font-size: 16pt;
             letter-spacing: 0.3px;
@@ -33,20 +38,24 @@
             color: #0f172a;
             font-weight: 700;
         }
+
         .headline {
             font-size: 9.8pt;
             font-weight: 600;
             color: #1d4ed8;
             margin-bottom: 3px;
         }
+
         .contact {
             font-size: 8.5pt;
             color: #475569;
         }
+
         .contact a {
             color: #475569;
             text-decoration: none;
         }
+
         .section-title {
             font-size: 9.5pt;
             text-transform: uppercase;
@@ -59,16 +68,19 @@
             page-break-after: avoid;
             break-after: avoid;
         }
+
         .summary {
             text-align: justify;
             margin-bottom: 6px;
             font-size: 9pt;
         }
+
         .job-entry {
             margin-bottom: 6px;
             page-break-inside: avoid;
             break-inside: avoid;
         }
+
         table.row-table {
             width: 100%;
             border-collapse: collapse;
@@ -76,17 +88,20 @@
             padding: 0;
             font-size: 9pt;
         }
+
         table.row-table td {
             padding: 0;
             vertical-align: top;
             font-size: 9pt;
             line-height: 1.35;
         }
+
         .job-title {
             font-weight: 700;
             color: #0f172a;
             font-size: 9pt;
         }
+
         .job-period {
             font-weight: 600;
             color: #0f172a;
@@ -94,36 +109,44 @@
             white-space: nowrap;
             font-size: 8.8pt;
         }
+
         .job-company {
             font-style: italic;
             font-size: 8.8pt;
             color: #334155;
             margin-bottom: 2px;
         }
+
         ul {
             margin: 2px 0 4px 16px;
             padding: 0;
         }
+
         li {
             margin-bottom: 2px;
             text-align: justify;
             font-size: 9pt;
         }
+
         .edu-entry {
             margin-bottom: 2.5px;
             page-break-inside: avoid;
             break-inside: avoid;
         }
+
         .edu-degree {
             font-weight: 700;
             color: #0f172a;
             font-size: 9pt;
         }
+
         .edu-inst {
             font-size: 9pt;
             color: #111827;
         }
-        .cert-list, .lang-list {
+
+        .cert-list,
+        .lang-list {
             margin-top: 2px;
             text-align: justify;
             font-size: 8.8pt;
@@ -131,6 +154,7 @@
             page-break-inside: avoid;
             break-inside: avoid;
         }
+
         .skills-table {
             width: 100%;
             margin-top: 2px;
@@ -139,6 +163,7 @@
             break-inside: avoid;
             font-size: 8.8pt;
         }
+
         .skill-category {
             font-weight: 700;
             color: #0f172a;
@@ -148,6 +173,7 @@
             padding: 1.5px 6px 1.5px 0;
             font-size: 8.8pt;
         }
+
         .skill-items {
             vertical-align: top;
             padding: 1.5px 0;
@@ -157,6 +183,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>{{ personal.full_name }}</h1>
@@ -164,7 +191,7 @@
         <div class="contact">
             {{ personal.location }} &bull; {{ personal.phone }} &bull; {{ personal.email }}
             <br>
-            <a href="{{ personal.linkedin }}">{{ personal.linkedin | replace('https://', '') }}</a> &bull; 
+            <a href="{{ personal.linkedin }}">{{ personal.linkedin | replace('https://', '') }}</a> &bull;
             <a href="{{ personal.github }}">{{ personal.github | replace('https://', '') }}</a>
         </div>
     </header>
@@ -207,7 +234,8 @@
             <table class="row-table">
                 <tr>
                     <td style="width: 78%; font-size: 9pt;">
-                        <span class="edu-degree">{{ edu.degree }}</span> &mdash; <span class="edu-inst">{{ edu.institution }}</span>
+                        <span class="edu-degree">{{ edu.degree }}</span> &mdash; <span class="edu-inst">{{
+                            edu.institution }}</span>
                     </td>
                     <td style="width: 22%;" class="job-period">{{ edu.period }}</td>
                 </tr>
@@ -223,7 +251,8 @@
         </div>
         <div class="cert-list">
             {% for cert in certifications %}
-            <strong>{{ cert.name }}</strong> ({{ cert.issuer }}{% if cert.year %}, {{ cert.year }}{% endif %}){% if not loop.last %} &bull; {% endif %}
+            <strong>{{ cert.name }}</strong> ({{ cert.issuer }}{% if cert.year %}, {{ cert.year }}{% endif %}){% if not
+            loop.last %} &bull; {% endif %}
             {% endfor %}
         </div>
     </section>
@@ -232,7 +261,8 @@
     {% if skills %}
     <section style="page-break-inside: avoid; break-inside: avoid;">
         <div class="section-title">
-            {% if language == 'es' %}Competencias Técnicas y Profesionales{% else %}Technical & Professional Competencies{% endif %}
+            {% if language == 'es' %}Competencias Técnicas y Profesionales{% else %}Technical & Professional
+            Competencies{% endif %}
         </div>
         <table class="skills-table">
             {% for cat_name, cat_skills in skills.items() %}
@@ -252,10 +282,12 @@
         </div>
         <div class="lang-list">
             {% for lang_item in languages_spoken %}
-            <strong>{{ lang_item.language }}</strong>: {{ lang_item.proficiency }}{% if not loop.last %} &bull; {% endif %}
+            <strong>{{ lang_item.language }}</strong>: {{ lang_item.proficiency }}{% if not loop.last %} &bull; {% endif
+            %}
             {% endfor %}
         </div>
     </section>
     {% endif %}
 </body>
+
 </html>

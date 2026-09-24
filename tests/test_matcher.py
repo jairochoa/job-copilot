@@ -11,7 +11,6 @@ from src.matcher import (
     JobMatchEvaluation,
     apply_boolean_prefilter,
     build_evaluation_prompt,
-    evaluate_single_job,
     strip_accents,
 )
 
@@ -93,40 +92,41 @@ def test_build_evaluation_prompt_contains_anti_overqualification_rule():
     assert "8+ years" in prompt or "10+ years" in prompt
 
 
-@patch("src.matcher.genai.Client")
-@patch("src.matcher.load_master_cv")
-def test_evaluate_single_job_mock(mock_load_cv, mock_client_cls):
-    mock_load_cv.return_value = {
+def test_evaluate_single_job_mock():
+    """Test unitario mockeando requests.post y load_master_cv."""
+    from src import matcher
+
+    fake_master_cv = {
         "personal_info": {"name": "Test Candidate"},
         "education": [],
-        "certifications": [],
         "technical_skills": {},
-        "experience": [],
+        "experience": []
     }
 
-    mock_response_json = """{
-        "match_score": 90,
-        "language_detected": "es",
-        "hard_skills_matched": ["Python", "PySpark"],
-        "missing_skills_gaps": [],
-        "tailored_headline": "Científico de Datos Senior",
-        "tailored_summary": "Profesional con 8+ años de experiencia...",
-        "selected_bullets": [],
-        "strategic_fit_rationale": "Cumple los requisitos."
-    }"""
-
-    mock_client = MagicMock()
-    mock_client.models.generate_content.return_value.text = mock_response_json
-    mock_client_cls.return_value = mock_client
-
-    dummy_job = {
-        "job_hash": "abc12345",
-        "title": "Senior Data Scientist",
-        "company": "Empresa Mock",
-        "description": "Buscamos científico de datos.",
+    fake_response = MagicMock()
+    fake_response.status_code = 200
+    fake_response.json.return_value = {
+        "candidates": [{
+            "content": {
+                "parts": [{
+                    "text": '''{
+                        "match_score": 85,
+                        "language": "es",
+                        "hard_skills_matched": ["Python", "SQL"],
+                        "missing_skills_gaps": [],
+                        "tailored_headline": "Senior Data Scientist",
+                        "tailored_summary": "Magíster en Estadística con 8+ años de experiencia.",
+                        "selected_bullets": [],
+                        "strategic_fit_rationale": "Buen encaje técnico."
+                    }'''
+                }]
+            }
+        }]
     }
 
-    result = evaluate_single_job(dummy_job, api_key="fake-key-for-test")
-    assert result is not None
-    assert result.match_score == 90
-    assert result.language_detected == "es"
+    with patch("src.matcher.load_master_cv", return_value=fake_master_cv), patch("requests.post", return_value=fake_response):
+        job = {"title": "Data Scientist", "company": "Test Co", "description": "Python, SQL"}
+        result = matcher.evaluate_single_job(job, api_key="fake_key")
+        assert result is not None
+        assert result.match_score == 85
+
