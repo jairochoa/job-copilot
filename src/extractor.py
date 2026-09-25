@@ -53,6 +53,32 @@ class JobRequirementsSchema(BaseModel):
     )
 
 
+def detect_job_language(description: str, llm_language: str = "es") -> str:
+    """
+    Determina el idioma de la vacante combinando la detección determinista de palabras clave 
+    estructurales en español con la clasificación del LLM para evitar falsos positivos en inglés
+    debidos a la jerga técnica.
+    """
+    if not description:
+        return "en" if llm_language and llm_language.lower().startswith("en") else "es"
+
+    desc_lower = description.lower()
+    spanish_indicators = [
+        "buscamos", "experiencia", "requisitos", "conocimientos", "desarrollarás",
+        "ofrecemos", "nuestro", "nuestra", "equipo", "liderar", "diseño", "creación",
+        "gestión", "carrera", "vacante", "empleo", "remoto", "ubicación", "¿qué",
+        "funciones", "perfil", "titulado", "postúlate", "responsabilidades"
+    ]
+    matches = sum(1 for word in spanish_indicators if word in desc_lower)
+    if matches >= 2:
+        return "es"
+
+    if llm_language and llm_language.lower().startswith("es"):
+        return "es"
+
+    return "en"
+
+
 def extract_job_requirements(
     job_title: str = "",
     company: str = "",
@@ -113,40 +139,59 @@ REGLAS TAXONÓMICAS DE EXTRACCIÓN OBLIGATORIAS:
         },
     }
     headers = {"Content-Type": "application/json"}
+    models_to_try = [
+        settings.GEMINI_MODEL,
+        "gemini-3.5-flash-lite",
+        "gemini-2.5-flash",
+        "gemini-flash-latest",
+    ]
+    candidate_models = list(dict.fromkeys([m for m in models_to_try if m]))
 
-    for attempt in range(1, max_retries + 1):
-        try:
-            response = requests.post(
-                url,
-                headers=headers,
-                json=payload,
-                timeout=settings.REQUEST_TIMEOUT,
-            )
-
-            if response.status_code == 429:
-                wait_time = 35 * attempt
-                logger.warning(
-                    f"Límite de peticiones alcanzado (429). Esperando {wait_time}s para reintentar ({attempt}/{max_retries})..."
+    for model_name in candidate_models:
+        url = f"{settings.GEMINI_API_BASE_URL}/models/{model_name}:generateContent?key={settings.GEMINI_API_KEY}"
+        for attempt in range(1, max_retries + 1):
+            try:
+                response = requests.post(
+                    url,
+                    headers=headers,
+                    json=payload,
+                    timeout=settings.REQUEST_TIMEOUT,
                 )
-                time.sleep(wait_time)
-                continue
 
-            response.raise_for_status()
-            data = response.json()
-            raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
-            parsed = JobRequirementsSchema.model_validate_json(raw_text)
+                if response.status_code in (429, 500, 502, 503, 504):
+                    wait_time = 5 * attempt if response.status_code != 429 else 20 * attempt
+                    logger.warning(
+                        f"Modelo [{model_name}] retornó {response.status_code}. Esperando {wait_time}s para reintentar ({attempt}/{max_retries})..."
+                    )
+                    time.sleep(wait_time)
+                    continue
 
-            time.sleep(delay_between_calls)
-            return parsed
+                response.raise_for_status()
+                data = response.json()
+                raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
+                parsed = JobRequirementsSchema.model_validate_json(raw_text)
 
-        except requests.exceptions.RequestException as e:
-            if attempt == max_retries:
-                logger.error(
-                    f"Fallo definitivo al extraer requisitos tras {max_retries} intentos: {e}"
-                )
-                raise e
-            logger.warning(f"Reintentando por fallo de red: {e}")
-            time.sleep(5)
+                parsed.language = detect_job_language(actual_desc, parsed.language)
+
+                time.sleep(delay_between_calls)
+                return parsed
+
+            except Exception as e:
+                logger.warning(f"Error consultando modelo [{model_name}] (intento {attempt}): {e}")
+                time.sleep(3)
+
+    logger.error(f"Fallo definitivo al extraer requisitos tras probar {candidate_models}.")
+    fallback_lang = detect_job_language(actual_desc, "es")
+    return JobRequirementsSchema(
+        is_remote_or_eligible=True,
+        ineligibility_reason="",
+        language=fallback_lang,
+        role_category="Other",
+        min_years_experience=0,
+        mandatory_hard_skills=[actual_title],
+        nice_to_have_skills=[],
+        soft_skills_context=[],
+    )
 
 
 if __name__ == "__main__":

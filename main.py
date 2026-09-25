@@ -54,6 +54,7 @@ def run_full_pipeline() -> None:
         SELECT rowid AS db_id, * 
         FROM job_applications 
         WHERE status IN ('PENDING', 'SCRAPED')
+        LIMIT 5
     """
     )
     pending_jobs = cursor.fetchall()
@@ -116,6 +117,7 @@ def run_full_pipeline() -> None:
                 selected_bullet_ids=selected_bullet_ids,
                 language=doc_lang,
                 country_profile=country_code,
+                requirements=reqs,
             )
             docx_str = cv_paths.get("docx", "")
             pdf_str = cv_paths.get("pdf", "")

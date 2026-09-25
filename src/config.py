@@ -28,7 +28,7 @@ class Settings:
 
     # Configuración de Gemini / LLM
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "").strip().strip('"').strip("'")
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
     GEMINI_API_BASE_URL: str = os.getenv(
         "GEMINI_API_BASE_URL",
         "https://generativelanguage.googleapis.com/v1beta",

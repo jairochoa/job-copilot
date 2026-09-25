@@ -129,7 +129,7 @@ def resolve_sites_for_location(
 def run_job_search(
     search_term: str,
     location: str,
-    results_wanted: int = 15,
+    results_wanted: int = 2,
     hours_old: int = 72,
     country_indeed: str | None = None,
     sites: list[str] | None = None,
@@ -228,8 +228,10 @@ def run_scraper_flow(
     results_wanted: int = 5,
 ) -> list[dict[str, Any]]:
     """Ejecuta el flujo completo de prospección externa para poblar SQLite."""
-    terms = search_terms or ["Estadístico", "Analítico", "Statistician", "Data Analyst", "Científico de Datos", "Data Scientist", "Ingeniero de Machine Learning", "Machine Learning Engineer", "Applied AI Scientist"]
-    locs = locations or ["Venezuela", "Colombia", "Remote"]
+    #terms = search_terms or ["Estadístico", "Analítico", "Statistician", "Data Analyst", "Científico de Datos", "Data Scientist", "Ingeniero de Machine Learning", "Machine Learning Engineer", "Applied AI Scientist"]
+    terms = search_terms or ["Científico de Datos"]
+    #locs = locations or ["Venezuela", "Colombia", "Remote"]
+    locs = locations or ["Colombia"]
 
     all_jobs = []
     for term in terms:

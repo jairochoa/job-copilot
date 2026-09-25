@@ -62,3 +62,27 @@ def test_compiler_no_empty_roles_rule():
         # Verificar ordenamiento ascendente por default_priority
         priorities = [b.get("default_priority", 99) for b in bullets]
         assert priorities == sorted(priorities)
+
+
+def test_compiler_tailored_summary_and_skills():
+    """Valida que la inyección de JobRequirements personalice el resumen y el ranking de habilidades técnicas."""
+    compiler = ATSResumeCompiler()
+
+    class DummyReqs:
+        mandatory_hard_skills = ["PySpark", "Databricks", "Delta Lake"]
+        nice_to_have_skills = ["MLflow"]
+        language = "en"
+
+    reqs = DummyReqs()
+
+    # 1. Resumen adaptado
+    summary = compiler._build_tailored_summary("Lead Data Engineer", reqs, "en", "Base summary")
+    assert "Lead Data Engineer" in summary
+    assert "PySpark" in summary or "Databricks" in summary
+
+    # 2. Habilidades técnicas adaptadas y reordenadas
+    skills_lines = compiler._build_tailored_skills_section(reqs)
+    assert len(skills_lines) > 0
+    # La categoría Big Data / Cloud Data Engineering debe ser la primera debido al score más alto de coincidencia
+    first_line = skills_lines[0].lower()
+    assert "big data" in first_line or "databricks" in first_line or "pyspark" in first_line

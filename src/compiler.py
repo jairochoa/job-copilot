@@ -54,6 +54,103 @@ class ATSResumeCompiler:
 
         return matched[:max_bullets]
 
+    def _build_tailored_summary(
+        self,
+        job_title: str,
+        requirements: Optional[Any],
+        lang: str,
+        base_summary: str,
+    ) -> str:
+        """
+        Construye un resumen profesional personalizado según el rol objetivo y las habilidades requeridas.
+        """
+        if not requirements:
+            return base_summary
+
+        m_skills = getattr(requirements, "mandatory_hard_skills", None)
+        if m_skills is None and isinstance(requirements, dict):
+            m_skills = requirements.get("mandatory_hard_skills", [])
+
+        if not m_skills:
+            return base_summary
+
+        clean_skills = [s.strip() for s in m_skills if len(s.strip()) > 1]
+        top_skills = clean_skills[:4]
+        skills_str = ", ".join(top_skills) if top_skills else ""
+
+        target_title = (
+            job_title.strip()
+            if job_title and job_title.strip()
+            else ("Senior Data Scientist" if lang == "en" else "Científico de Datos Senior")
+        )
+
+        if lang == "en":
+            prefix = f"{target_title} with an M.Sc. in Statistics and 7+ years of experience leading predictive modeling, advanced analytics, and AI integration in production environments."
+            if skills_str:
+                skills_clause = f" Proven expertise in {skills_str}, with a focus on operational efficiency and scalable solutions."
+            else:
+                skills_clause = ""
+            return f"{prefix}{skills_clause}"
+        else:
+            prefix = f"{target_title} con Maestría en Estadística y más de 7 años de experiencia liderando el modelado predictivo, analítica avanzada e integración de Inteligencia Artificial en entornos productivos."
+            if skills_str:
+                skills_clause = f" Especialista en {skills_str}, con enfoque riguroso en optimización operativa, reproducibilidad y visión de negocio."
+            else:
+                skills_clause = ""
+            return f"{prefix}{skills_clause}"
+
+    def _build_tailored_skills_section(
+        self,
+        requirements: Optional[Any],
+    ) -> List[str]:
+        """
+        Filtra, califica y reordena las categorías e ítems de skills_inventory según las
+        habilidades requeridas por la vacante (mandatory_hard_skills y nice_to_have_skills).
+        """
+        inv = self.cv_data.get("skills_inventory", {})
+        if not inv:
+            return []
+
+        req_skills = []
+        if requirements:
+            m_skills = getattr(requirements, "mandatory_hard_skills", None)
+            if m_skills is None and isinstance(requirements, dict):
+                m_skills = requirements.get("mandatory_hard_skills", [])
+            nth_skills = getattr(requirements, "nice_to_have_skills", None)
+            if nth_skills is None and isinstance(requirements, dict):
+                nth_skills = requirements.get("nice_to_have_skills", [])
+            raw_skills = (m_skills or []) + (nth_skills or [])
+            req_skills = [s.strip().lower() for s in raw_skills if s and s.strip()]
+
+        scored_categories = []
+        for idx, (cat, data) in enumerate(inv.items()):
+            display_name = cat.replace("_", " ").title()
+            keywords = list(data.get("keywords", []))
+
+            if req_skills:
+                matched_kws = []
+                other_kws = []
+                score = 0
+                for kw in keywords:
+                    kw_lower = kw.lower()
+                    if any(kw_lower in rs or rs in kw_lower for rs in req_skills):
+                        matched_kws.append(kw)
+                        score += 2
+                    else:
+                        other_kws.append(kw)
+                ordered_kws = matched_kws + other_kws
+            else:
+                ordered_kws = keywords
+                score = 0
+
+            kws_str = ", ".join(ordered_kws[:6])
+            scored_categories.append((score, -idx, f"• {display_name}: {kws_str}"))
+
+        if req_skills:
+            scored_categories.sort(key=lambda x: (x[0], x[1]), reverse=True)
+
+        return [line for _, _, line in scored_categories[:4]]
+
     def compile(
         self,
         job_id: str = "0",
@@ -81,6 +178,7 @@ class ATSResumeCompiler:
             selected_bullet_ids=selected_bullet_ids or [],
             language=language,
             country_profile=country_profile,
+            requirements=reqs,
         )
 
     def compile_cv(
@@ -91,6 +189,7 @@ class ATSResumeCompiler:
         selected_bullet_ids: List[str],
         language: str = "en",
         country_profile: str = "CO",
+        requirements: Optional[Any] = None,
     ) -> Dict[str, str]:
         """
         Genera el documento Word ATS-friendly formateado y preparado para exportar.
@@ -135,20 +234,16 @@ class ATSResumeCompiler:
 
         # 2. Resumen Profesional
         doc.add_heading("PROFESSIONAL SUMMARY" if lang == "en" else "RESUMEN PROFESIONAL", level=2)
-        summary_text = self.cv_data.get("summary", {}).get(lang, "")
+        base_summary = self.cv_data.get("summary", {}).get(lang, "")
+        summary_text = self._build_tailored_summary(job_title, requirements, lang, base_summary)
         p_summary = doc.add_paragraph(summary_text)
         p_summary.paragraph_format.space_after = Pt(8)
 
-        # 3. Habilidades Técnicas Clave (desde skills_inventory)
+        # 3. Habilidades Técnicas Clave (desde skills_inventory dinámico)
         doc.add_heading("TECHNICAL SKILLS" if lang == "en" else "HABILIDADES TÉCNICAS", level=2)
-        inv = self.cv_data.get("skills_inventory", {})
-        skills_summary = []
-        for cat, data in inv.items():
-            kws = ", ".join(data.get("keywords", [])[:6])
-            display_name = cat.replace("_", " ").title()
-            skills_summary.append(f"• {display_name}: {kws}")
+        skills_summary = self._build_tailored_skills_section(requirements)
         
-        for sk_line in skills_summary[:4]:  # Top categorías principales
+        for sk_line in skills_summary:
             p_sk = doc.add_paragraph(sk_line)
             p_sk.paragraph_format.space_after = Pt(2)
 
