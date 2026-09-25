@@ -4,6 +4,9 @@ Desacopla parámetros del entorno, modelos, URLs y rutas del proyecto.
 """
 
 import os
+# Silenciar warnings de symlinks y telemetría de Hugging Face
+os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 from pathlib import Path
 from dotenv import load_dotenv
 
