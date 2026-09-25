@@ -82,6 +82,11 @@ def init_and_migrate_db() -> None:
                 f"ALTER TABLE job_applications ADD COLUMN {col_name} {col_type}"
             )
 
+    # 4. Crear índice único para job_hash para desduplicación estricta por SHA
+    cursor.execute(
+        "CREATE UNIQUE INDEX IF NOT EXISTS idx_job_applications_hash ON job_applications(job_hash) WHERE job_hash IS NOT NULL AND job_hash != ''"
+    )
+
     conn.commit()
     conn.close()
     logger.info("Base de datos SQLite verificada y migrada exitosamente.")
@@ -97,9 +102,7 @@ def update_job_evaluation(
     top_bullets: List[str],
     is_remote_eligible: bool = True,
 ) -> None:
-    """
-    Actualiza la evaluación completa de una vacante tras el matching vectorial.
-    """
+    """Actualiza la evaluación completa de una vacante tras el matching vectorial."""
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
@@ -167,16 +170,46 @@ def get_pending_or_all_jobs(pending_only: bool = False) -> List[sqlite3.Row]:
     conn.close()
     return rows
 
-def compute_job_hash(title: str = "", company: str = "", location: str = "", *args, **kwargs) -> str:
-    """Genera un hash SHA-256 único y determinista para la vacante, tolerante a argumentos adicionales."""
-    raw = f"{str(title).strip().lower()}|{str(company).strip().lower()}|{str(location).strip().lower()}"
-    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
-
 
 def init_db() -> None:
     """Inicializa la base de datos creando la tabla con el esquema v2 si no existe y migra columnas."""
     init_and_migrate_db()
     seed_initial_jobs_if_empty()
+
+
+def compute_job_hash(
+    title: str = "", company: str = "", location: str = "", description: str = "", **kwargs
+) -> str:
+    """Genera un hash SHA-256 único y determinista para la vacante."""
+    t = str(title).strip().lower()
+    c = str(company).strip().lower()
+    l = str(location).strip().lower()
+    snippet = str(description or kwargs.get("description_snippet", "")).strip().lower()[:200]
+    raw = f"{c}|{t}|{l}|{snippet}"
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def is_job_exists(job_hash: str = "", url: str = "") -> bool:
+    """Verifica si ya existe una vacante en la BD por SHA hash o por URL."""
+    clean_hash = str(job_hash or "").strip()
+    clean_url = str(url or "").strip()
+
+    if not clean_hash and not clean_url:
+        return False
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            """
+            SELECT 1 FROM job_applications 
+            WHERE (job_hash = ? AND job_hash != '') OR (url = ? AND url != '')
+            """,
+            (clean_hash, clean_url),
+        )
+        return cursor.fetchone() is not None
+    finally:
+        conn.close()
 
 
 def insert_job(
@@ -198,10 +231,14 @@ def insert_job(
         url = d.get("url", "")
         description = d.get("description", "")
         status = d.get("status", status)
-        job_hash = d.get("job_hash") or compute_job_hash(title, company, location)
+        job_hash = d.get("job_hash") or compute_job_hash(title=title, company=company, location=location, description=description)
 
     if not job_hash:
-        job_hash = compute_job_hash(title, company, location)
+        job_hash = compute_job_hash(title=title, company=company, location=location, description=description)
+
+    # Verificación directa de duplicados antes de la inserción
+    if is_job_exists(job_hash=job_hash, url=url):
+        return False
 
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -215,6 +252,8 @@ def insert_job(
         )
         conn.commit()
         return cursor.rowcount > 0
+    except sqlite3.IntegrityError:
+        return False
     finally:
         conn.close()
 

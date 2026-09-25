@@ -50,3 +50,37 @@ def test_insert_job_idempotency():
         status="PENDING"
     )
     assert inserted2 is False
+
+
+def test_sha_hash_deduplication_different_urls():
+    """Valida que dos vacantes con el mismo hash SHA pero con URLs distintas sean rechazadas como duplicados."""
+    import uuid
+
+    uid = uuid.uuid4().hex[:8]
+    title = f"Unique Senior Data Scientist {uid}"
+    company = f"Unique Company Ltd {uid}"
+    location = "Medellin, Colombia"
+    desc = f"Detailed job description for SHA test {uid}"
+
+    h1 = compute_job_hash(title=title, company=company, location=location, description=desc)
+
+    ins1 = insert_job(
+        job_hash=h1,
+        title=title,
+        company=company,
+        location=location,
+        url=f"https://linkedin.com/jobs/view/{uid}",
+        description=desc,
+    )
+    assert ins1 is True
+
+    # Intento de inserción con URL distinta de Indeed pero con la misma oferta (mismo hash)
+    ins2 = insert_job(
+        job_hash=h1,
+        title=title,
+        company=company,
+        location=location,
+        url=f"https://indeed.com/viewjob?id={uid}",
+        description=desc,
+    )
+    assert ins2 is False

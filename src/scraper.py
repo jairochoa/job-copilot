@@ -13,7 +13,7 @@ import pandas as pd
 import requests
 from jobspy import scrape_jobs
 
-from src.database import compute_job_hash, insert_job
+from src.database import compute_job_hash, insert_job, is_job_exists
 from src.logger import logger
 
 # Firmas de ATS reconocidos y su nivel de fricción
@@ -185,16 +185,21 @@ def run_job_search(
         if not title or not company or not job_url:
             continue
 
+        job_hash = compute_job_hash(
+            company=company,
+            title=title,
+            location=raw_location,
+            description=description,
+        )
+
+        if is_job_exists(job_hash=job_hash, url=job_url):
+            logger.debug(f"Omitiendo vacante ya existente en BD (SHA: {job_hash[:8]}).")
+            continue
+
         resolved_url = resolve_redirect_url(job_url)
         ats_type, requires_login = classify_ats(resolved_url)
         country_detected, target_profile = detect_target_profile(
             raw_location, description
-        )
-
-        job_hash = compute_job_hash(
-            company=company,
-            title=title,
-            description_snippet=description[:250],
         )
 
         job_record = {
