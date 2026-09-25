@@ -26,7 +26,8 @@ def export_jobs_to_excel(
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    query = "SELECT * FROM job_applications"
+    # Usar explícitamente rowid como db_id para garantizar un identificador unívoco
+    query = "SELECT rowid AS db_id, * FROM job_applications"
     if only_qualified:
         query += " WHERE status IN ('QUALIFIED', 'COMPILED')"
     query += " ORDER BY rowid DESC"
@@ -79,9 +80,15 @@ def export_jobs_to_excel(
 
     for r in rows:
         row_dict = dict(r)
-        
-        # Mapeo tolerante de nombres alternativos de columna
-        job_identifier = str(row_dict.get("id") or row_dict.get("job_id") or "")[:8]
+
+        # Mapeo tolerante y seguro: si id o job_id no existen, usa db_id (rowid)
+        raw_id = row_dict.get("id") or row_dict.get("job_id")
+        if raw_id:
+            job_identifier = str(raw_id)[:8]
+        else:
+            db_id = row_dict.get("db_id")
+            job_identifier = f"JOB-{db_id}" if db_id is not None else ""
+
         score = row_dict.get("match_score", 0.0) or 0.0
         hard = row_dict.get("hard_match_score", 0.0) or 0.0
         soft = row_dict.get("soft_match_score", 0.0) or 0.0
@@ -117,11 +124,15 @@ def export_jobs_to_excel(
                 val = str(cell.value)
                 if val in ("QUALIFIED", "COMPILED"):
                     cell.fill = PatternFill(
-                        start_color="C6F6D5", end_color="C6F6D5", fill_type="solid"
+                        start_color="C6F6D5",
+                        end_color="C6F6D5",
+                        fill_type="solid",
                     )
-                elif val == "DISQUALIFIED":
+                elif val in ("DISQUALIFIED", "DISCARDED", "FILTERED_OUT"):
                     cell.fill = PatternFill(
-                        start_color="FED7D7", end_color="FED7D7", fill_type="solid"
+                        start_color="FED7D7",
+                        end_color="FED7D7",
+                        fill_type="solid",
                     )
 
     ws.auto_filter.ref = ws.dimensions

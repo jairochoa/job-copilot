@@ -7,6 +7,7 @@ import json
 import logging
 import os
 import sqlite3
+import hashlib
 from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
@@ -162,6 +163,42 @@ def get_pending_or_all_jobs(pending_only: bool = False) -> List[sqlite3.Row]:
     conn.close()
     return rows
 
+def compute_job_hash(title: str, company: str, location: str = "") -> str:
+    """Genera un hash SHA-256 único y determinista para la vacante."""
+    raw = f"{title.strip().lower()}|{company.strip().lower()}|{location.strip().lower()}"
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def init_db() -> None:
+    """Inicializa y aplica migraciones en la base de datos SQLite."""
+    from src.database import migrate_database
+
+    migrate_database()
+
+def insert_job(
+    job_hash: str,
+    title: str,
+    company: str,
+    location: str = "",
+    url: str = "",
+    description: str = "",
+    status: str = "PENDING",
+) -> bool:
+    """Inserta una vacante en SQLite de forma idempotente (ignora duplicados por job_hash/url)."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            """
+            INSERT OR IGNORE INTO job_applications (job_hash, title, company, location, url, description, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (job_hash, title, company, location, url, description, status),
+        )
+        conn.commit()
+        return cursor.rowcount > 0
+    finally:
+        conn.close()
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

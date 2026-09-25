@@ -41,9 +41,18 @@ class Settings:
     )
 
     # Umbrales de Calificación (Scoring)
+    # Ponderaciones principales (Score Total = 70% Hard + 30% Soft)
     MIN_QUALIFIED_SCORE: float = float(os.getenv("MIN_QUALIFIED_SCORE", "65.0"))
     HARD_SKILLS_WEIGHT: float = float(os.getenv("HARD_SKILLS_WEIGHT", "0.70"))
     SOFT_SKILLS_WEIGHT: float = float(os.getenv("SOFT_SKILLS_WEIGHT", "0.30"))
+
+    # Ponderaciones internas para Hard Skills (80% Mandatory / 20% Nice-to-have)
+    MANDATORY_HARD_WEIGHT: float = float(
+        os.getenv("MANDATORY_HARD_WEIGHT", "0.80")
+    )
+    NICE_TO_HAVE_HARD_WEIGHT: float = float(
+        os.getenv("NICE_TO_HAVE_HARD_WEIGHT", "0.20")
+    )
 
     @property
     def gemini_endpoint_url(self) -> str:

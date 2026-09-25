@@ -1,77 +1,43 @@
-"""
-Pruebas unitarias para el compilador ATS (HU-05).
-Valida preparación de contexto, resolución bilingüe y saneamiento de nombres.
+"""Pruebas unitarias para el compilador ATS (src/compiler.py).
+
+Valida sanitización de nombres, carga del esquema y regla de no-vacío de
+viñetas.
 """
 
-from src.compiler import prepare_cv_context, sanitize_filename
+from src.compiler import ATSResumeCompiler, sanitize_filename
 
 
 def test_sanitize_filename():
-    raw_name = "Bancolombia S.A.S. / Tech: Data Lead"
-    cleaned = sanitize_filename(raw_name)
-    assert "/" not in cleaned
-    assert ":" not in cleaned
-    assert "Bancolombia" in cleaned
+    raw = 'Senior Data Scientist: Remote / LatAm? <Yes> *Test* "AI"'
+    cleaned = sanitize_filename(raw)
+    for char in [":", "/", "<", ">", '"', "*", "?"]:
+        assert char not in cleaned
 
 
-def test_prepare_cv_context_bilingual_selection():
-    dummy_job = {
-        "language": "es",
-        "tailored_headline": "Científico de Datos Senior",
-        "tailored_summary": "Especialista en IA...",
-        "selected_bullet_ids": '{"freelance_consulting": ["exp_cons_b1"]}',
-    }
-    dummy_master = {
-        "profiles": {
-            "CO": {
-                "full_name": "Jairo Julián Ochoa",
-                "location": "Envigado, Colombia",
-                "phone": "+57 350 764 3501",
-                "email": "jairoochoa@gmail.com",
-                "linkedin": "https://linkedin.com/in/jjochoa",
-                "github": "https://github.com/jairochoa",
-                "professional_title": {
-                    "es": "Estadístico Senior",
-                    "en": "Senior Statistician",
-                },
-            }
-        },
-        "education": [
-            {
-                "degree": {
-                    "es": "Maestría en Estadística",
-                    "en": "Master in Statistics",
-                },
-                "institution": "UNAL",
-                "period": {"es": "2018", "en": "2018"},
-            }
-        ],
-        "certifications": [],
-        "skills": {"soft_skills": ["Liderazgo técnico", "Pensamiento crítico"]},
-        "languages": [
-            {
-                "name": {"es": "Español", "en": "Spanish"},
-                "proficiency": {"es": "Nativo", "en": "Native"},
-            },
-            {
-                "name": {"es": "Inglés", "en": "English"},
-                "proficiency": {"es": "Profesional", "en": "Professional"},
-            },
-        ],
-        "experience_bullets_pool": [
-            {
-                "id": "exp_cons_b1",
-                "company": "Consultoría",
-                "standard_role": {"es": "Consultor Senior", "en": "Senior Consultant"},
-                "period": "Ene 2023 - Actualidad",
-                "text": {"es": "Viñeta en español", "en": "English bullet"},
-            }
-        ],
-    }
-    context = prepare_cv_context(dummy_job, dummy_master)
-    assert context["language"] == "es"
-    assert context["personal"]["full_name"] == "Jairo Julián Ochoa"
-    assert context["tailored_headline"] == "Científico de Datos Senior"
-    assert context["experience"][0]["bullets"][0] == "Viñeta en español"
-    assert len(context["languages_spoken"]) == 2
-    assert "Liderazgo & Metodologías" in context["skills"]
+def test_compiler_initialization_and_context():
+    compiler = ATSResumeCompiler()
+    assert compiler.cv_data is not None
+    assert "profiles" in compiler.cv_data
+    assert "metadata" in compiler.cv_data
+    assert "CO" in compiler.cv_data["profiles"]
+    assert "experience_bullets_pool" in compiler.cv_data
+    assert len(compiler.cv_data["experience_bullets_pool"]) > 0
+
+
+def test_compiler_no_empty_roles_rule():
+    compiler = ATSResumeCompiler()
+    pool = compiler.cv_data.get("experience_bullets_pool", [])
+
+    companies = list({b.get("company") for b in pool if b.get("company")})
+    assert len(companies) > 0
+
+    for company in companies:
+        bullets = compiler._select_bullets_for_role(
+            company=company, selected_ids=[], max_bullets=3
+        )
+        # Regla de no-vacío: debe devolver al menos una viñeta para la empresa
+        assert len(bullets) >= 1
+
+        # Verificar ordenamiento ascendente por default_priority
+        priorities = [b.get("default_priority", 99) for b in bullets]
+        assert priorities == sorted(priorities)

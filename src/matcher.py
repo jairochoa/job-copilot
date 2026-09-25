@@ -17,46 +17,79 @@ logger = logging.getLogger(__name__)
 def evaluate_job_match(
     requirements: JobRequirementsSchema,
 ) -> Tuple[float, float, float, str, List[str]]:
-    """
-    Evalúa una vacante contra master_cv.json y devuelve:
+    """Evalúa una vacante contra master_cv.json y devuelve:
+
     (score_total, hard_score, soft_score, rationale, selected_bullet_ids)
     """
     # 1. Gatekeeper Territorial / Geográfico
     if not requirements.is_remote_or_eligible:
-        reason = requirements.ineligibility_reason or "Vacante no elegible para trabajo remoto desde Colombia."
+        reason = (
+            requirements.ineligibility_reason
+            or "Vacante no elegible para trabajo remoto desde Colombia."
+        )
         logger.info(f"Vacante excluida por filtro territorial: {reason}")
         return 0.0, 0.0, 0.0, f"Excluida territorialmente: {reason}", []
 
     engine = EmbeddingEngine()
     inventory = indexer.cv_data.get("skills_inventory", {})
 
-    # 2. Evaluación de Hard Skills (70% del peso)
-    # Filtro cuantitativo O(1): Años mínimos requeridos en Python / SQL / ML
+    # 2. Evaluación de Seniority dinámica (sin llaves ni nombres de herramientas fijos)
     req_years = requirements.min_years_experience or 0
-    python_years = inventory.get("python", {}).get("years_numeric", 0)
 
-    # Penalización gradual si la vacante pide más años de los que tenemos
+    inventory_years = [
+        data.get("years_numeric", 0)
+        for data in inventory.values()
+        if isinstance(data, dict)
+    ]
+    candidate_max_years = max(inventory_years) if inventory_years else 10
+
+    role_cat_key = (
+        requirements.role_category.lower()
+        .replace(" ", "_")
+        .replace("-", "_")
+    )
+    relevant_years = inventory.get(role_cat_key, {}).get(
+        "years_numeric", candidate_max_years
+    )
+
     seniority_multiplier = 1.0
-    if req_years > python_years:
-        seniority_multiplier = max(0.5, python_years / req_years)
+    if req_years > 0 and req_years > relevant_years:
+        seniority_multiplier = max(0.5, relevant_years / req_years)
 
-    # Similitud semántica de Hard Skills obligatorias y deseables
-    hard_queries = requirements.mandatory_hard_skills + requirements.nice_to_have_skills
-    if hard_queries:
-        query_vectors = engine.encode(hard_queries)
-        sim_matrix = engine.cosine_similarity_matrix(
-            query_vectors, indexer.hard_skill_vectors
+    # 3. Evaluación de Hard Skills (desglose 80% Mandatory / 20% Nice-to-have)
+    mandatory_score = 0.0
+    if requirements.mandatory_hard_skills and len(indexer.hard_skill_texts) > 0:
+        mand_vectors = engine.encode(requirements.mandatory_hard_skills)
+        mand_sim_matrix = engine.cosine_similarity_matrix(
+            mand_vectors, indexer.hard_skill_vectors
         )
-        # Tomamos la mejor coincidencia para cada skill requerida
-        best_matches_per_skill = np.max(sim_matrix, axis=1)
-        # Convertimos similitud [-1, 1] al rango [0, 100]
-        hard_semantic_score = float(np.mean(np.clip(best_matches_per_skill, 0.0, 1.0)) * 100.0)
+        best_mand = np.max(mand_sim_matrix, axis=1)
+        mandatory_score = float(np.mean(np.clip(best_mand, 0.0, 1.0)) * 100.0)
+
+    nice_score = 0.0
+    if requirements.nice_to_have_skills and len(indexer.hard_skill_texts) > 0:
+        nice_vectors = engine.encode(requirements.nice_to_have_skills)
+        nice_sim_matrix = engine.cosine_similarity_matrix(
+            nice_vectors, indexer.hard_skill_vectors
+        )
+        best_nice = np.max(nice_sim_matrix, axis=1)
+        nice_score = float(np.mean(np.clip(best_nice, 0.0, 1.0)) * 100.0)
+
+    # Ponderación interna desacoplada vía settings
+    if requirements.mandatory_hard_skills and requirements.nice_to_have_skills:
+        hard_semantic_score = (
+            mandatory_score * settings.MANDATORY_HARD_WEIGHT
+        ) + (nice_score * settings.NICE_TO_HAVE_HARD_WEIGHT)
+    elif requirements.mandatory_hard_skills:
+        hard_semantic_score = mandatory_score
+    elif requirements.nice_to_have_skills:
+        hard_semantic_score = nice_score
     else:
-        hard_semantic_score = 75.0  # Base neutral si no declaró skills explícitas
+        hard_semantic_score = 75.0
 
     hard_score = round(hard_semantic_score * seniority_multiplier, 2)
 
-    # 3. Evaluación de Soft Skills (30% del peso)
+    # 4. Evaluación de Soft Skills
     soft_queries = requirements.soft_skills_context
     if soft_queries and len(indexer.soft_skill_texts) > 0:
         soft_query_vectors = engine.encode(soft_queries)
@@ -68,17 +101,16 @@ def evaluate_job_match(
             float(np.mean(np.clip(best_soft_matches, 0.0, 1.0)) * 100.0), 2
         )
     else:
-        soft_score = 80.0  # Ponderación base favorable
+        soft_score = 80.0
 
-    # 4. Cálculo del Score Total Híbrido (0 a 100)
+    # 5. Cálculo del Score Total Híbrido (70% Hard + 30% Soft desde settings)
     total_score = round(
         (hard_score * settings.HARD_SKILLS_WEIGHT)
         + (soft_score * settings.SOFT_SKILLS_WEIGHT),
         2,
     )
 
-    # 5. Selector Top K de Viñetas de Experiencia por Afinidad Semántica
-    # Construimos un vector combinado de la vacante para rankear los logros
+    # 6. Selector Top K de Viñetas de Experiencia por Afinidad Semántica
     all_req_text = " ".join(
         requirements.mandatory_hard_skills
         + requirements.nice_to_have_skills
@@ -89,29 +121,28 @@ def evaluate_job_match(
         job_vector, indexer.bullet_vectors
     )[0]
 
-    # Agrupamos viñetas por empresa para asegurar que ninguna quede vacía
     bullets_by_company: Dict[str, List[Tuple[float, Dict[str, Any]]]] = {}
     for sim, bullet in zip(bullet_sims, indexer.bullet_items):
         comp = bullet["company"]
         bullets_by_company.setdefault(comp, []).append((float(sim), bullet))
 
     selected_bullet_ids: List[str] = []
-    # Seleccionamos las mejores 2 o 3 viñetas por empresa
     for comp, bullets in bullets_by_company.items():
-        # Ordenar por afinidad semántica descendente, y en caso de empate por default_priority
         sorted_bullets = sorted(
             bullets,
             key=lambda x: (x[0], -x[1].get("default_priority", 99)),
             reverse=True,
         )
-        # Tomar máximo 3 viñetas más relevantes de cada empresa
         for _, b in sorted_bullets[:3]:
             selected_bullet_ids.append(b["id"])
 
-    # 6. Justificación técnica estructurada
+    # 7. Justificación técnica estructurada con desglose transparente
+    total_skills = len(requirements.mandatory_hard_skills) + len(
+        requirements.nice_to_have_skills
+    )
     rationale = (
-        f"Match Score: {total_score}/100 | Hard: {hard_score}%, Soft: {soft_score}%. "
-        f"Skills analizadas: {len(hard_queries)}. "
+        f"Match Score: {total_score}/100 | Hard: {hard_score}% (Mandatory: {mandatory_score:.1f}%, Nice: {nice_score:.1f}%), "
+        f"Soft: {soft_score}%. Skills analizadas: {total_skills}. "
         f"Seniority factor: {seniority_multiplier:.2f}. "
         f"Viñetas priorizadas: {len(selected_bullet_ids)}."
     )

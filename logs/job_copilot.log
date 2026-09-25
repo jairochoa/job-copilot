@@ -2214,3 +2214,27 @@ requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.go
 2026-09-24 10:45:47 [INFO] [job_copilot:run_compile_flow:48] ==> Compilación finalizada. CVs procesados: 33
 2026-09-24 10:45:48 [INFO] [job_copilot:run_export_flow:52] ==> Sincronizando con Excel...
 2026-09-24 10:45:48 [INFO] [job_copilot:run_full_pipeline:78] Pipeline completado exitosamente.
+2026-09-25 09:45:49 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 09:45:50 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 09:45:50 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 09:52:08 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 09:52:08 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 09:52:08 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 09:56:07 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 09:56:08 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 09:56:08 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 09:58:26 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 09:58:27 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 09:58:27 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 10:00:33 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 10:00:34 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 10:00:34 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 10:04:41 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 10:04:41 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 10:04:41 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 10:07:42 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 10:07:42 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 10:07:42 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 10:09:49 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 10:09:49 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 10:09:49 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.

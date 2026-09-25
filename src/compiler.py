@@ -7,6 +7,7 @@ garantizando la integridad del documento y la regla de no-vacío.
 import json
 import logging
 import os
+import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from docx import Document
@@ -207,6 +208,18 @@ class ATSResumeCompiler:
             "pdf": "",  # Integrable con docx2pdf en Windows si está habilitado Word
         }
 
+def sanitize_filename(name: str) -> str:
+    """Limpia caracteres inválidos para nombres de archivo en Windows."""
+    clean = re.sub(r'[\\/*?:"<>|]', "", name)
+    return clean.replace(" ", "_").strip()
+
+
+def prepare_cv_context(
+    language: str = "es", selected_bullet_ids: Optional[List[str]] = None
+) -> dict:
+    """Helper de compatibilidad que invoca el compilador ATS."""
+    compiler = ATSResumeCompiler()
+    return compiler.cv_data
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

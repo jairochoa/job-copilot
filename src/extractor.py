@@ -83,17 +83,20 @@ Detalles de la oferta:
 
 REGLAS TAXONÓMICAS DE EXTRACCIÓN OBLIGATORIAS:
 1. Mapeo de Secciones (Requirements vs Nice to have):
-   - Todo lo que figure bajo encabezados como 'Requirements', 'Requisitos', 'Must-have', 'Qualifications', 'What you will need' o viñetas principales del perfil ES ESTRICTAMENTE OBLIGATORIO (MANDATORY).
+   - Todo lo que figure bajo encabezados como 'Requirements', 'Requisitos', 'Must-have', 'Qualifications', 'What you will need', 'Knowledge & Qualifications' o viñetas principales del perfil ES ESTRICTAMENTE OBLIGATORIO (MANDATORY).
    - Todo lo que figure bajo 'Nice to have', 'Deseable', 'Bonus', 'Plus', 'Preferred' DEBE ir a nice_to_have_skills.
 
 2. Descomposición Anatómica de las Viñetas de Requisitos:
    - Años de Experiencia: Si una viñeta pide tiempo mínimo cuantitativo (ej. 'At least five years...', '3+ years of experience'), extrae el número entero a min_years_experience.
    - Herramientas y Hard Skills: Descompón en nombres atómicos de herramientas/conceptos técnicos (ej. ante 'capability using Python to construct APIs', extrae 'Python' y 'REST APIs'; ante 'AWS, Docker, ECS/EKS', desglosa en 'AWS', 'Docker', 'ECS', 'EKS').
-   - Habilidades Blandas e Idiomas: Si bajo Requirements se solicita dominio de idioma (ej. 'English proficiency B2 or higher'), gestión de equipos (ej. 'overseeing and directing development teams') o comunicación, NO lo coloques en mandatory_hard_skills; clasifícalo siempre en soft_skills_context.
+   - Requisito de Idioma (ej. Inglés B2, Fluent English, Professional English):
+     * Si figura bajo 'Requirements' o en el cuerpo principal de requisitos, clasifícalo en 'mandatory_hard_skills' (ej. 'English B2+' o 'Professional English').
+     * Si figura bajo 'Nice to have' o deseable, clasifícalo en 'nice_to_have_skills'.
+   - Habilidades Blandas e Interpersonales: Reserva 'soft_skills_context' para competencias de comunicación, liderazgo de equipos, negociación, trabajo con stakeholders o adaptabilidad.
 
 3. Filtro Territorial (Gatekeeper):
-   - is_remote_or_eligible = True si la posición admite trabajo remoto internacional/LatAm o candidatos ubicados en Colombia.
-   - is_remote_or_eligible = False si exige presencialidad fuera de Colombia, o autorizaciones legales inaccesibles (ej. US Citizen Only, Active Security Clearance, Green Card indispensable sin opción remota).
+   - is_remote_or_eligible = True si la posición admite trabajo remoto internacional/LatAm o candidatos ubicados en Colombia o Venezuela.
+   - is_remote_or_eligible = False si exige presencialidad fuera de Colombia o Venezuela, o autorizaciones legales inaccesibles (ej. US Citizen Only, Active Security Clearance, Green Card indispensable sin opción remota).
 """
 
     payload = {
@@ -143,22 +146,14 @@ if __name__ == "__main__":
     print(f"--- TEST EXTRACTOR TAXONÓMICO [Modelo: {settings.GEMINI_MODEL}] ---")
     test_title = "AI Backend Engineer"
     test_company = "ScaleAI Solutions"
-    test_desc = """
-    Requirements
-    - At least five years of hands-on backend engineering work centered on microservices architecture and distributed system principles
-    - A year or more spent overseeing and directing development teams
-    - Proven capability using Python to construct high-performance backend systems and cloud-native APIs
-    - Experience building solutions leveraging Generative AI capabilities
-    - Applied know-how using LangChain to develop language model-based applications
-    - Familiarity with AWS, Docker, container management platforms including ECS/EKS, and designing RESTful APIs
-    - Strong grounding in secure coding approaches paired with solid authentication and authorization expertise
-    - Sufficient communication ability with English proficiency at B2 level or higher, supporting accurate interpretation of business requirements and their conversion into agent-driven technical designs
-
-    Nice to have
-    - Practical exposure to agent-oriented frameworks including LangChain, LlamaIndex, or LangGraph
-    - Understanding of Model Context Protocol (MCP) for enabling consistent context exchange across AI systems
-    - Ease working with frontend tools, specifically React and TypeScript
-    """
+    test_desc = (
+        "Requirements:\n"
+        "- At least five years of hands-on backend engineering work\n"
+        "- Proven capability using Python to construct APIs\n"
+        "- Experience building Generative AI solutions\n\n"
+        "Nice to have:\n"
+        "- Exposure to LangChain, LlamaIndex\n"
+    )
     res = extract_job_requirements(test_title, test_company, test_desc)
     print("\nResultado con Descomposición Semántica:")
     print(res.model_dump_json(indent=2))

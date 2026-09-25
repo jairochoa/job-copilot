@@ -115,5 +115,18 @@ def main():
     else:
         parser.print_help()
 
+def show_funnel_metrics() -> dict:
+    """Calcula y muestra las métricas del embudo de conversión de vacantes."""
+    from src.database import get_db_connection
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT status, COUNT(*) as total FROM job_applications GROUP BY status")
+    rows = cursor.fetchall()
+    conn.close()
+
+    metrics = {row["status"]: row["total"] for row in rows}
+    return metrics
+
 if __name__ == "__main__":
     main()
