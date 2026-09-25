@@ -96,12 +96,12 @@ REGLAS TAXONÓMICAS DE EXTRACCIÓN OBLIGATORIAS:
    - Herramientas y Hard Skills: Descompón en nombres atómicos de herramientas/conceptos técnicos (ej. ante 'capability using Python to construct APIs', extrae 'Python' y 'REST APIs'; ante 'AWS, Docker, ECS/EKS', desglosa en 'AWS', 'Docker', 'ECS', 'EKS').
    - Requisito de Idioma (ej. Inglés B2, Fluent English, Professional English):
      * Si figura bajo 'Requirements' o en el cuerpo principal de requisitos, clasifícalo en 'mandatory_hard_skills' (ej. 'English B2+' o 'Professional English').
-     * Si figura bajo 'Nice to have' o deseable, clasifícalo en 'nice_to_have_skills'.
+     * Si figura bajo 'Nice to have' o 'Deseable', clasifícalo en 'nice_to_have_skills'.
    - Habilidades Blandas e Interpersonales: Reserva 'soft_skills_context' para competencias de comunicación, liderazgo de equipos, negociación, trabajo con stakeholders o adaptabilidad.
 
 3. Filtro Territorial (Gatekeeper):
-   - is_remote_or_eligible = True si la posición admite trabajo remoto internacional/LatAm o candidatos ubicados en Colombia o Venezuela.
-   - is_remote_or_eligible = False si exige presencialidad fuera de Colombia o Venezuela, o autorizaciones legales inaccesibles (ej. US Citizen Only, Active Security Clearance, Green Card indispensable sin opción remota).
+   - is_remote_or_eligible = True si la posición admite trabajo remoto internacional/LatAm o candidatos ubicados en Colombia o Venezuela. No siempre una vacante en otro pais exige presencialidad. 
+   - is_remote_or_eligible = False únicamente si la vacante exige expresamente presencialidad fuera de Colombia o Venezuela. De no ser asi, se asume que es apto para candidatos de Colombia o Venezuela.
 """
 
     payload = {
