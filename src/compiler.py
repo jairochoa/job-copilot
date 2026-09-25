@@ -243,6 +243,25 @@ def sanitize_filename(name: str) -> str:
     return clean.replace(" ", "_").strip()
 
 
+def determine_country_profile(
+    location: str = "", country_detected: str = "", target_profile: str = ""
+) -> str:
+    """
+    Determina el código del perfil de país (VE o CO) según las reglas:
+    1. Si la vacante es en territorio venezolano -> Usar perfil VE del master_cv.json.
+    2. Si es Colombia o cualquier país fuera de Colombia -> Usar perfil CO del master_cv.json.
+    """
+    loc_text = f"{location} {country_detected}".lower()
+    if (
+        "venezuela" in loc_text
+        or "mérida" in loc_text
+        or "caracas" in loc_text
+        or str(target_profile).upper() == "VE"
+    ):
+        return "VE"
+    return "CO"
+
+
 def prepare_cv_context(
     language: str = "es", selected_bullet_ids: Optional[List[str]] = None
 ) -> dict:

@@ -4,7 +4,28 @@ Valida sanitización de nombres, carga del esquema y regla de no-vacío de
 viñetas.
 """
 
-from src.compiler import ATSResumeCompiler, sanitize_filename
+from src.compiler import (
+    ATSResumeCompiler,
+    determine_country_profile,
+    sanitize_filename,
+)
+
+
+def test_determine_country_profile_rules():
+    """Valida la asignación del perfil según ubicación geográfica."""
+    # 1. Venezuela -> Perfil VE
+    assert determine_country_profile(location="Mérida, Venezuela") == "VE"
+    assert determine_country_profile(location="Caracas", country_detected="Venezuela") == "VE"
+    assert determine_country_profile(target_profile="VE") == "VE"
+
+    # 2. Colombia -> Perfil CO
+    assert determine_country_profile(location="Bogotá, Colombia") == "CO"
+    assert determine_country_profile(location="Envigado", country_detected="Colombia") == "CO"
+
+    # 3. Fuera de Colombia (US, Remote, Worldwide) -> Perfil CO
+    assert determine_country_profile(location="Remote, US") == "CO"
+    assert determine_country_profile(location="Madrid, España") == "CO"
+    assert determine_country_profile(location="Worldwide Remote") == "CO"
 
 
 def test_sanitize_filename():

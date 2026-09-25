@@ -2539,3 +2539,6 @@ requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.go
 2026-09-25 11:57:55 [INFO] [job_copilot:run_job_search:147] Consultando portal: google...
 2026-09-25 11:57:57 [INFO] [job_copilot:run_job_search:172] JobSpy recuperó 10 ofertas en total. Procesando y deduplicando...
 2026-09-25 11:58:11 [INFO] [job_copilot:run_job_search:219] Proceso finalizado: 0 ofertas nuevas registradas en la base de datos.
+2026-09-25 13:51:12 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 13:51:12 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 13:51:12 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
