@@ -1,422 +1,225 @@
 """
-Módulo de Compilación de CVs (HU-05).
-Mapea el esquema canónico de data/master_cv.json hacia PDF y DOCX.
-Garantiza traducción técnica estricta, localización de fechas e integridad ATS.
+Módulo de compilación de currículums ATS (Word .docx y PDF).
+Inyecta dinámicamente las viñetas seleccionadas por el motor vectorial (Top K)
+garantizando la integridad del documento y la regla de no-vacío.
 """
 
 import json
-import re
-from collections import OrderedDict
+import logging
+import os
 from pathlib import Path
-from typing import Any
-
+from typing import Any, Dict, List, Optional
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
-from jinja2 import Template
-from playwright.sync_api import sync_playwright
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-from src.database import get_db_connection
-from src.logger import logger
+from src.config import settings
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-OUTPUT_DIR = BASE_DIR / "output"
-MASTER_CV_PATH = BASE_DIR / "data" / "master_cv.json"
-TEMPLATE_HTML_PATH = BASE_DIR / "templates" / "cv_template.html"
-
-# Diccionario exhaustivo para evitar spanglish técnico en documentos en inglés
-SKILLS_ES_TO_EN = {
-    "análisis multivariante": "Multivariate Analysis",
-    "analisis multivariante": "Multivariate Analysis",
-    "bioestadística": "Biostatistics",
-    "bioestadistica": "Biostatistics",
-    "análisis de supervivencia": "Survival Analysis",
-    "analisis de supervivencia": "Survival Analysis",
-    "diseño experimental": "Design of Experiments (DoE)",
-    "diseno experimental": "Design of Experiments (DoE)",
-    "inferencia bayesiana": "Bayesian Inference",
-    "inferencia estadística": "Statistical Inference",
-    "inferencia estadistica": "Statistical Inference",
-    "pruebas de hipótesis": "Hypothesis Testing",
-    "pruebas de hipotesis": "Hypothesis Testing",
-    "series de tiempo": "Time Series Forecasting (ARIMA/SARIMAX)",
-    "series temporales": "Time Series Forecasting (ARIMA/SARIMAX)",
-    "series de tiempo (arima/sarimax)": "Time Series Forecasting (ARIMA/SARIMAX)",
-    "modelos ocultos de markov (hmm)": "Hidden Markov Models (HMM)",
-    "modelos ocultos de markov": "Hidden Markov Models (HMM)",
-    "aprendizaje supervisado": "Supervised Learning",
-    "aprendizaje no supervisado": "Unsupervised Learning",
-    "modelado estadístico": "Statistical Modeling",
-    "modelado estadistico": "Statistical Modeling",
-    "aprendizaje automático": "Machine Learning",
-    "aprendizaje automatico": "Machine Learning",
-    "liderazgo técnico": "Technical Leadership",
-    "pensamiento crítico": "Critical Thinking",
-    "comunicación asertiva": "Cross-functional Communication",
-    "resolución de problemas complejos": "Complex Problem Solving",
-    "trabajo en equipo interdisciplinario": "Cross-disciplinary Collaboration",
-    "gestión de proyectos analíticos": "Analytical Project Management",
-}
-
-MONTHS_ES_TO_EN = {
-    "ene": "Jan",
-    "feb": "Feb",
-    "mar": "Mar",
-    "abr": "Apr",
-    "may": "May",
-    "jun": "Jun",
-    "jul": "Jul",
-    "ago": "Aug",
-    "sep": "Sep",
-    "set": "Sep",
-    "oct": "Oct",
-    "nov": "Nov",
-    "dic": "Dec",
-    "actualidad": "Present",
-    "presente": "Present",
-    "en curso": "In Progress",
-    "esperado": "Expected",
-    "graduado en": "Graduated",
-}
+logger = logging.getLogger(__name__)
 
 
-def sanitize_filename(name: str) -> str:
-    return re.sub(r"[^\w\-_\. ]", "_", name).strip()
+class ATSResumeCompiler:
+    def __init__(self, master_cv_path: Path = settings.MASTER_CV_PATH):
+        self.master_cv_path = master_cv_path
+        with open(self.master_cv_path, "r", encoding="utf-8") as f:
+            self.cv_data: Dict[str, Any] = json.load(f)
 
+    def _select_bullets_for_role(
+        self,
+        company: str,
+        selected_ids: List[str],
+        max_bullets: int = 3,
+    ) -> List[Dict[str, Any]]:
+        """
+        Filtra viñetas para una empresa específica usando los IDs del motor RAG.
+        Garantiza la regla de no-vacío usando default_priority como fallback.
+        """
+        all_pool = self.cv_data.get("experience_bullets_pool", [])
+        company_bullets = [b for b in all_pool if b.get("company") == company]
 
-def load_master_cv() -> dict[str, Any]:
-    with open(MASTER_CV_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+        # 1. Viñetas que coincidieron en la selección del Top K
+        matched = [b for b in company_bullets if b.get("id") in selected_ids]
 
+        # 2. Si no hubo matches o hay muy pocas, completar con default_priority
+        if len(matched) < 2:
+            remaining = [b for b in company_bullets if b not in matched]
+            remaining_sorted = sorted(
+                remaining, key=lambda x: x.get("default_priority", 99)
+            )
+            for b in remaining_sorted:
+                matched.append(b)
+                if len(matched) >= 2:
+                    break
 
-def resolve_bilingual_field(field_val: Any, lang: str) -> str:
-    if isinstance(field_val, dict):
-        if "name" in field_val and isinstance(field_val["name"], dict):
-            return resolve_bilingual_field(field_val["name"], lang)
-        return str(
-            field_val.get(lang) or field_val.get("en") or field_val.get("es") or ""
+        return matched[:max_bullets]
+
+    def compile_cv(
+        self,
+        job_id: str,
+        job_title: str,
+        company_target: str,
+        selected_bullet_ids: List[str],
+        language: str = "en",
+        country_profile: str = "CO",
+    ) -> Dict[str, str]:
+        """
+        Genera el documento Word ATS-friendly formateado y preparado para exportar.
+        Retorna un diccionario con las rutas generadas: {'docx': path, 'pdf': path}.
+        """
+        lang = "en" if language.lower().startswith("en") else "es"
+        profile = self.cv_data.get("profiles", {}).get(country_profile, self.cv_data["profiles"]["CO"])
+
+        doc = Document()
+
+        # Ajuste de márgenes estándar ATS (0.6 pulgadas)
+        for section in doc.sections:
+            section.top_margin = Inches(0.6)
+            section.bottom_margin = Inches(0.6)
+            section.left_margin = Inches(0.6)
+            section.right_margin = Inches(0.6)
+
+        # 1. Encabezado de Contacto
+        title_p = doc.add_paragraph()
+        title_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        name_run = title_p.add_run(profile.get("full_name", "").upper())
+        name_run.bold = True
+        name_run.font.size = Pt(16)
+        name_run.font.color.rgb = RGBColor(0x1A, 0x36, 0x5D)
+
+        role_p = doc.add_paragraph()
+        role_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        prof_title = profile.get("professional_title", {}).get(lang, "")
+        role_run = role_p.add_run(prof_title)
+        role_run.font.size = Pt(11)
+        role_run.bold = True
+        role_run.font.color.rgb = RGBColor(0x2B, 0x6C, 0xB0)
+
+        contact_p = doc.add_paragraph()
+        contact_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        contact_text = (
+            f"{profile.get('location')} | {profile.get('phone')} | {profile.get('email')} | "
+            f"LinkedIn: {profile.get('linkedin')}"
         )
-    return str(field_val) if field_val is not None else ""
+        contact_run = contact_p.add_run(contact_text)
+        contact_run.font.size = Pt(9.5)
 
+        # 2. Resumen Profesional
+        doc.add_heading("PROFESSIONAL SUMMARY" if lang == "en" else "RESUMEN PROFESIONAL", level=2)
+        summary_text = self.cv_data.get("summary", {}).get(lang, "")
+        p_summary = doc.add_paragraph(summary_text)
+        p_summary.paragraph_format.space_after = Pt(8)
 
-def localize_period_str(period: str, lang: str) -> str:
-    if not period or lang == "es":
-        return period
+        # 3. Habilidades Técnicas Clave (desde skills_inventory)
+        doc.add_heading("TECHNICAL SKILLS" if lang == "en" else "HABILIDADES TÉCNICAS", level=2)
+        inv = self.cv_data.get("skills_inventory", {})
+        skills_summary = []
+        for cat, data in inv.items():
+            kws = ", ".join(data.get("keywords", [])[:6])
+            display_name = cat.replace("_", " ").title()
+            skills_summary.append(f"• {display_name}: {kws}")
+        
+        for sk_line in skills_summary[:4]:  # Top categorías principales
+            p_sk = doc.add_paragraph(sk_line)
+            p_sk.paragraph_format.space_after = Pt(2)
 
-    result = period
-    for es_term, en_term in MONTHS_ES_TO_EN.items():
-        pattern = re.compile(rf"\b{es_term}\b", re.IGNORECASE)
-        result = pattern.sub(en_term, result)
+        # 4. Experiencia Laboral con viñetas seleccionadas Top K
+        doc.add_heading("WORK EXPERIENCE" if lang == "en" else "EXPERIENCIA LABORAL", level=2)
+        
+        # Obtener empresas únicas ordenadas de la más reciente a la más antigua
+        seen_companies = []
+        for b in self.cv_data.get("experience_bullets_pool", []):
+            comp = b.get("company")
+            if comp not in seen_companies:
+                seen_companies.append(comp)
 
-    return result
+        for comp in seen_companies:
+            bullets = self._select_bullets_for_role(comp, selected_bullet_ids, max_bullets=3)
+            if not bullets:
+                continue
 
+            first_bullet = bullets[0]
+            role_title = first_bullet.get("standard_role", {}).get(lang, first_bullet.get("official_title", ""))
+            period = first_bullet.get("period", "")
 
-def localize_skill_name(skill_val: Any, lang: str) -> str:
-    resolved_text = resolve_bilingual_field(skill_val, lang)
-    if not resolved_text:
-        return ""
-    if lang == "es":
-        return resolved_text
+            # Encabezado del Rol
+            exp_p = doc.add_paragraph()
+            role_run = exp_p.add_run(f"{role_title} — {comp}")
+            role_run.bold = True
+            role_run.font.size = Pt(10.5)
 
-    clean_k = resolved_text.strip().lower()
-    return SKILLS_ES_TO_EN.get(clean_k, resolved_text)
+            period_p = doc.add_paragraph()
+            period_run = period_p.add_run(period)
+            period_run.italic = True
+            period_run.font.size = Pt(9.5)
+            period_p.paragraph_format.space_after = Pt(3)
 
+            # Inyectar las viñetas seleccionadas
+            for b in bullets:
+                bullet_text = b.get("text", {}).get(lang, "")
+                stack_list = b.get("stack", [])
+                stack_str = f" [Stack: {', '.join(stack_list[:4])}]" if stack_list else ""
+                
+                bp = doc.add_paragraph(style="List Bullet")
+                bp.paragraph_format.space_after = Pt(2)
+                bp.add_run(bullet_text)
+                if stack_str:
+                    stack_run = bp.add_run(stack_str)
+                    stack_run.font.size = Pt(8.5)
+                    stack_run.italic = True
+                    stack_run.font.color.rgb = RGBColor(0x71, 0x80, 0x96)
 
-def prepare_cv_context(
-    job_record: dict[str, Any], master_cv: dict[str, Any]
-) -> dict[str, Any]:
-    lang = job_record.get("language", "en")
+        # 5. Educación
+        doc.add_heading("EDUCATION" if lang == "en" else "EDUCACIÓN", level=2)
+        for edu in self.cv_data.get("education", []):
+            deg = edu.get("degree", {}).get(lang, "")
+            inst = edu.get("institution", "")
+            period = edu.get("period", {}).get(lang, "")
+            ep = doc.add_paragraph()
+            ep.paragraph_format.space_after = Pt(2)
+            deg_run = ep.add_run(f"• {deg} — {inst} ({period})")
+            deg_run.font.size = Pt(9.5)
 
-    profiles = master_cv.get("profiles", {})
-    profile = profiles.get("CO") or (next(iter(profiles.values())) if profiles else {})
+        # Asegurar directorio de salida
+        settings.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        docx_filename = f"CV_Jairo_Ochoa_{company_target.replace(' ', '_')}_{job_id[:8]}.docx"
+        docx_path = settings.OUTPUT_DIR / docx_filename
 
-    raw_bullets_json = job_record.get("selected_bullet_ids")
-    selected_bullet_ids = set()
-    if raw_bullets_json:
+        doc.save(str(docx_path))
+        logger.info(f"CV generado exitosamente en: {docx_path}")
+
+        # Conversión a PDF nativo
+        pdf_path = docx_path.with_suffix(".pdf")
+        pdf_generated = ""
         try:
-            parsed = json.loads(raw_bullets_json)
-            if isinstance(parsed, dict):
-                for b_list in parsed.values():
-                    if isinstance(b_list, list):
-                        selected_bullet_ids.update(b_list)
-            elif isinstance(parsed, list):
-                for item in parsed:
-                    if isinstance(item, dict) and "bullet_ids" in item:
-                        selected_bullet_ids.update(item["bullet_ids"])
-                    elif isinstance(item, str):
-                        selected_bullet_ids.add(item)
-        except Exception:  # noqa: BLE001, S110
-            pass
+            from docx2pdf import convert
 
-    bullets_pool = master_cv.get("experience_bullets_pool", [])
-    grouped_jobs: dict[str, dict[str, Any]] = OrderedDict()
-
-    for item in bullets_pool:
-        comp = item.get("company", "Experiencia Profesional")
-        role = resolve_bilingual_field(item.get("standard_role"), lang) or item.get(
-            "official_title", ""
-        )
-        raw_period = item.get("period", "")
-        period = localize_period_str(raw_period, lang)
-        key = f"{comp}|{role}|{period}"
-
-        if key not in grouped_jobs:
-            grouped_jobs[key] = {
-                "company": comp,
-                "title": role,
-                "period": period,
-                "bullets": [],
-                "all_available_bullets": [],
-            }
-
-        bullet_text = resolve_bilingual_field(item.get("text"), lang)
-        grouped_jobs[key]["all_available_bullets"].append(bullet_text)
-
-        if not selected_bullet_ids or item.get("id") in selected_bullet_ids:
-            grouped_jobs[key]["bullets"].append(bullet_text)
-
-    experience_list = []
-    for job_data in grouped_jobs.values():
-        if not job_data["bullets"]:
-            job_data["bullets"] = job_data["all_available_bullets"][:2]
-        experience_list.append(job_data)
-
-    education_list = []
-    for edu in master_cv.get("education", []):
-        edu_period = resolve_bilingual_field(edu.get("period"), lang)
-        education_list.append(
-            {
-                "degree": resolve_bilingual_field(edu.get("degree"), lang),
-                "institution": edu.get("institution", ""),
-                "period": localize_period_str(edu_period, lang),
-            }
-        )
-
-    cert_list = []
-    for c in master_cv.get("certifications", []):
-        c_name = resolve_bilingual_field(c.get("name"), lang)
-        cert_list.append(
-            {
-                "name": c_name,
-                "issuer": c.get("issuer", ""),
-                "year": c.get("year", ""),
-            }
-        )
-
-    skills_dict = {}
-    raw_skills = master_cv.get("skills", {})
-    if isinstance(raw_skills, dict):
-        mapping_es = {
-            "languages": "Lenguajes de Programación",
-            "machine_learning_ai": "Modelado e IA",
-            "data_engineering_cloud": "Datos y Cloud",
-            "statistical_modeling": "Estadística Avanzada",
-            "devops_tools": "DevOps & MLOps",
-            "soft_skills": "Liderazgo & Metodologías",
-        }
-        mapping_en = {
-            "languages": "Programming Languages",
-            "machine_learning_ai": "ML & Applied AI",
-            "data_engineering_cloud": "Data & Cloud",
-            "statistical_modeling": "Statistical Modeling",
-            "devops_tools": "DevOps & MLOps",
-            "soft_skills": "Leadership & Collaboration",
-        }
-        mapping = mapping_es if lang == "es" else mapping_en
-
-        for k, items in raw_skills.items():
-            cat_label = mapping.get(k, k.replace("_", " ").title())
-            if isinstance(items, list):
-                translated_items = [
-                    localize_skill_name(it, lang)
-                    for it in items
-                    if localize_skill_name(it, lang)
-                ]
-                if translated_items:
-                    skills_dict[cat_label] = ", ".join(translated_items)
-
-    languages_spoken = []
-    for l_item in master_cv.get("languages", []):
-        if isinstance(l_item, dict):
-            l_val = l_item.get("language") or l_item.get("name") or l_item.get("idioma")
-            p_val = (
-                l_item.get("proficiency") or l_item.get("level") or l_item.get("nivel")
-            )
-            l_name = resolve_bilingual_field(l_val, lang)
-            l_prof = resolve_bilingual_field(p_val, lang)
-            if l_name:
-                languages_spoken.append(
-                    {
-                        "language": l_name,
-                        "proficiency": l_prof
-                        or ("Native" if lang == "en" else "Nativo"),
-                    }
-                )
-        elif isinstance(l_item, str):
-            languages_spoken.append({"language": l_item, "proficiency": ""})
-
-    return {
-        "language": lang,
-        "personal": profile,
-        "tailored_headline": job_record.get("tailored_headline")
-        or resolve_bilingual_field(profile.get("professional_title"), lang),
-        "tailored_summary": job_record.get("tailored_summary") or "",
-        "experience": experience_list,
-        "education": education_list,
-        "certifications": cert_list[:8],
-        "skills": skills_dict,
-        "languages_spoken": languages_spoken,
-    }
-
-
-def compile_pdf_with_playwright(html_content: str, output_path: Path) -> None:
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page()
-        page.set_content(html_content, wait_until="networkidle")
-        page.pdf(
-            path=str(output_path),
-            format="Letter",
-            print_background=True,
-            margin={
-                "top": "1.1cm",
-                "bottom": "1.1cm",
-                "left": "1.3cm",
-                "right": "1.3cm",
-            },
-        )
-        browser.close()
-
-
-def compile_docx(context: dict[str, Any], output_path: Path) -> None:
-    doc = Document()
-    for s in doc.sections:
-        s.top_margin = Inches(0.5)
-        s.bottom_margin = Inches(0.5)
-        s.left_margin = Inches(0.6)
-        s.right_margin = Inches(0.6)
-
-    personal = context["personal"]
-    lang = context["language"]
-
-    title_p = doc.add_paragraph()
-    r_name = title_p.add_run(personal.get("full_name", ""))
-    r_name.font.size = Pt(17)
-    r_name.font.bold = True
-    r_name.font.color.rgb = RGBColor(15, 23, 42)
-    title_p.paragraph_format.space_after = Pt(2)
-
-    h_p = doc.add_paragraph()
-    r_head = h_p.add_run(context.get("tailored_headline", ""))
-    r_head.font.size = Pt(10)
-    r_head.font.bold = True
-    r_head.font.color.rgb = RGBColor(29, 78, 216)
-    h_p.paragraph_format.space_after = Pt(3)
-
-    c_p = doc.add_paragraph()
-    contact_parts = [
-        personal.get("location", ""),
-        personal.get("phone", ""),
-        personal.get("email", ""),
-        "linkedin.com/in/jjochoa",
-        "github.com/jairochoa",
-    ]
-    r_cont = c_p.add_run(" | ".join([p for p in contact_parts if p]))
-    r_cont.font.size = Pt(8.6)
-    r_cont.font.color.rgb = RGBColor(71, 85, 105)
-    c_p.paragraph_format.space_after = Pt(8)
-
-    def add_section_header(title: str):
-        sec_p = doc.add_paragraph()
-        r_sec = sec_p.add_run(title.upper())
-        r_sec.font.size = Pt(10)
-        r_sec.font.bold = True
-        r_sec.font.color.rgb = RGBColor(15, 23, 42)
-        sec_p.paragraph_format.space_before = Pt(6)
-        sec_p.paragraph_format.space_after = Pt(3)
-
-    add_section_header(
-        "RESUMEN PROFESIONAL" if lang == "es" else "PROFESSIONAL SUMMARY"
-    )
-    s_p = doc.add_paragraph(context.get("tailored_summary", ""))
-    s_p.paragraph_format.space_after = Pt(6)
-
-    add_section_header(
-        "EXPERIENCIA PROFESIONAL" if lang == "es" else "PROFESSIONAL EXPERIENCE"
-    )
-    for exp in context.get("experience", []):
-        job_p = doc.add_paragraph()
-        r_role = job_p.add_run(f"{exp['title']} — {exp['company']}")
-        r_role.font.bold = True
-        job_p.add_run(f" ({exp['period']})")
-        job_p.paragraph_format.space_after = Pt(1)
-
-        for b in exp.get("bullets", []):
-            b_p = doc.add_paragraph(b, style="List Bullet")
-            b_p.paragraph_format.space_after = Pt(1.5)
-
-    add_section_header("EDUCACIÓN SUPERIOR" if lang == "es" else "HIGHER EDUCATION")
-    for edu in context.get("education", []):
-        doc.add_paragraph(f"{edu['degree']} — {edu['institution']} ({edu['period']})")
-
-    if context.get("languages_spoken"):
-        add_section_header("IDIOMAS" if lang == "es" else "LANGUAGES")
-        lang_str = " | ".join(
-            [
-                f"{l['language']}: {l['proficiency']}"
-                for l in context["languages_spoken"]
-            ]
-        )
-        doc.add_paragraph(lang_str)
-
-    doc.save(str(output_path))
-
-
-def build_applications_batch() -> int:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    master_cv = load_master_cv()
-
-    with open(TEMPLATE_HTML_PATH, "r", encoding="utf-8") as f:
-        html_template = Template(f.read())
-
-    with get_db_connection() as conn:
-        cursor = conn.cursor()
-        cursor.execute(
-            "SELECT * FROM job_applications WHERE status IN ('SCORED', 'GENERATED');"
-        )
-        jobs_to_compile = [dict(row) for row in cursor.fetchall()]
-
-    if not jobs_to_compile:
-        logger.info("No hay vacantes calificadas para compilar.")
-        return 0
-
-    logger.info(f"Recompilando {len(jobs_to_compile)} CVs con calidad ATS estricta...")
-    count = 0
-
-    for job in jobs_to_compile:
-        context = prepare_cv_context(job, master_cv)
-        rendered_html = html_template.render(**context)
-
-        company_clean = sanitize_filename(job["company"])
-        base_name = f"CV_Jairo_Ochoa_{company_clean}_{job['job_hash'][:6]}"
-
-        pdf_path = OUTPUT_DIR / f"{base_name}.pdf"
-        docx_path = OUTPUT_DIR / f"{base_name}.docx"
-
-        compile_pdf_with_playwright(rendered_html, pdf_path)
-        compile_docx(context, docx_path)
-
-        with get_db_connection() as conn:
-            cursor = conn.cursor()
-            cursor.execute(
-                """
-                UPDATE job_applications
-                SET status = 'GENERATED', updated_at = CURRENT_TIMESTAMP
-                WHERE job_hash = ?;
-                """,
-                (job["job_hash"],),
+            convert(str(docx_path), str(pdf_path))
+            if pdf_path.exists():
+                pdf_generated = str(pdf_path)
+                logger.info(f"CV .pdf exportado exitosamente en: {pdf_path}")
+        except Exception as e:
+            logger.warning(
+                f"No se pudo exportar automáticamente a PDF: {e}. El .docx sigue disponible."
             )
 
-        logger.info(f"✅ [{job['company']}] -> {pdf_path.name}")
-        count += 1
+        return {
+            "docx": str(docx_path),
+            "pdf": "",  # Integrable con docx2pdf en Windows si está habilitado Word
+        }
 
-    return count
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    print("--- TEST DEL COMPILADOR ATS ---")
+    compiler = ATSResumeCompiler()
+
+    # Viñetas simuladas devueltas por el matcher
+    sample_bullets = ["exp_free_01", "exp_idata_01", "exp_idata_05", "exp_banco_02"]
+    out_paths = compiler.compile_cv(
+        job_id="test_job_12345",
+        job_title="Senior Data Scientist",
+        company_target="MercadoLibre",
+        selected_bullet_ids=sample_bullets,
+        language="en",
+    )
+    print(f"Resultado: {out_paths}")
