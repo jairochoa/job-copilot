@@ -100,7 +100,7 @@ REGLAS TAXONÓMICAS DE EXTRACCIÓN OBLIGATORIAS:
    - Habilidades Blandas e Interpersonales: Reserva 'soft_skills_context' para competencias de comunicación, liderazgo de equipos, negociación, trabajo con stakeholders o adaptabilidad.
 
 3. Filtro Territorial (Gatekeeper):
-   - is_remote_or_eligible = True si la posición admite trabajo remoto internacional/LatAm o candidatos ubicados en Colombia o Venezuela. No siempre una vacante en otro pais exige presencialidad. 
+   - is_remote_or_eligible = True si la posición admite trabajo remoto internacional/LatAm o candidatos ubicados en Colombia o Venezuela. No siempre una vacante en otro pais exige presencialidad a menos que se indique. 
    - is_remote_or_eligible = False únicamente si la vacante exige expresamente presencialidad fuera de Colombia o Venezuela. De no ser asi, se asume que es apto para candidatos de Colombia o Venezuela.
 """
 
