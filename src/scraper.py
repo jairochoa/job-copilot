@@ -220,3 +220,28 @@ def run_job_search(
         f"Proceso finalizado: {len(saved_jobs)} ofertas nuevas registradas en la base de datos."
     )
     return saved_jobs
+
+
+def run_scraper_flow(
+    search_terms: list[str] | None = None,
+    locations: list[str] | None = None,
+    results_wanted: int = 5,
+) -> list[dict[str, Any]]:
+    """Ejecuta el flujo completo de prospección externa para poblar SQLite."""
+    terms = search_terms or ["Data Scientist", "Machine Learning Engineer", "Applied AI Scientist"]
+    locs = locations or ["Colombia", "Remote"]
+
+    all_jobs = []
+    for term in terms:
+        for loc in locs:
+            try:
+                jobs = run_job_search(
+                    search_term=term,
+                    location=loc,
+                    results_wanted=results_wanted,
+                )
+                all_jobs.extend(jobs)
+            except Exception as e:
+                logger.warning(f"Error en scraping de '{term}' en '{loc}': {e}")
+
+    return all_jobs

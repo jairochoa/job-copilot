@@ -1,10 +1,11 @@
-﻿"""Módulo de exportación de vacantes analizadas hacia Microsoft Excel.
+"""Módulo de exportación de vacantes analizadas hacia Microsoft Excel.
 
 Aplica estilos profesionales, auto-ajuste de columnas y filtros interactivos.
 """
 
 import json
 import logging
+from pathlib import Path
 from typing import Optional
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
@@ -16,7 +17,7 @@ from src.database import get_db_connection
 logger = logging.getLogger(__name__)
 
 
-def export_jobs_to_excel(
+def export_applications_to_excel(
     output_path: Optional[str] = None, only_qualified: bool = False
 ) -> str:
     """Extrae las vacantes de SQLite y genera el informe formateado en Excel."""
@@ -81,13 +82,15 @@ def export_jobs_to_excel(
     for r in rows:
         row_dict = dict(r)
 
-        # Mapeo tolerante y seguro: si id o job_id no existen, usa db_id (rowid)
-        raw_id = row_dict.get("id") or row_dict.get("job_id")
-        if raw_id:
-            job_identifier = str(raw_id)[:8]
+        # Usar preferentemente el hash unívoco SHA-256 (primeros 8 caracteres)
+        sha_hash = row_dict.get("job_hash")
+        if sha_hash:
+            job_identifier = str(sha_hash)[:8].upper()
         else:
             db_id = row_dict.get("db_id")
             job_identifier = f"JOB-{db_id}" if db_id is not None else ""
+
+        score = row_dict.get("match_score", 0.0) or 0.0
 
         score = row_dict.get("match_score", 0.0) or 0.0
         hard = row_dict.get("hard_match_score", 0.0) or 0.0
@@ -141,13 +144,30 @@ def export_jobs_to_excel(
         col_letter = get_column_letter(col[0].column)
         ws.column_dimensions[col_letter].width = min(max(max_len + 3, 12), 40)
 
-    wb.save(out_file)
-    logger.info(f"Reporte Excel generado exitosamente en: {out_file}")
-    return out_file
+    out_path = Path(out_file)
+    try:
+        wb.save(out_path)
+        logger.info(f"Reporte Excel generado exitosamente en: {out_path}")
+    except PermissionError:
+        from datetime import datetime
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        alt_file = out_path.with_name(f"prospectos_calificados_{timestamp}.xlsx")
+        wb.save(alt_file)
+        logger.warning(
+            f"No se pudo sobrescribir '{out_path.name}' porque está abierto en otra aplicación. "
+            f"Se guardó una copia en: {alt_file.name}"
+        )
+        return str(alt_file)
+    return str(out_path)
+
+
+# Alias de retrocompatibilidad
+export_jobs_to_excel = export_applications_to_excel
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     print("--- TEST EXPORTADOR EXCEL ---")
-    generated_file = export_jobs_to_excel()
+    generated_file = export_applications_to_excel()
     print("Excel guardado en:", generated_file)

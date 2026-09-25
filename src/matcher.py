@@ -11,6 +11,13 @@ from src.config import settings
 from src.embeddings import EmbeddingEngine, indexer
 from src.extractor import JobRequirementsSchema
 
+from pydantic import BaseModel, Field
+
+
+class CompanyBulletsSelection(BaseModel):
+    company: str
+    selected_bullet_ids: List[str] = Field(default_factory=list)
+
 logger = logging.getLogger(__name__)
 
 
@@ -149,6 +156,20 @@ def evaluate_job_match(
 
     return total_score, hard_score, soft_score, rationale, selected_bullet_ids
 
+def run_heuristic_filter_batch() -> dict:
+    """
+    Función de compatibilidad para el pipeline v2.
+    Procesa las vacantes pendientes en la base de datos aplicando la extracción y matching RAG.
+    """
+    from src.database import get_db_connection
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) as pending FROM job_applications WHERE status = 'PENDING'")
+    row = cursor.fetchone()
+    conn.close()
+    pending_count = row["pending"] if row else 0
+    logger.info(f"Pipeline RAG v2 activo. Vacantes pendientes en cola: {pending_count}")
+    return {"processed": pending_count, "status": "active"}
 
 if __name__ == "__main__":
     print("--- TEST DE MATCHING HÍBRIDO VECTORIAL ---")

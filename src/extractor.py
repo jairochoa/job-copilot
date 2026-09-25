@@ -54,20 +54,25 @@ class JobRequirementsSchema(BaseModel):
 
 
 def extract_job_requirements(
-    job_title: str,
-    company: str,
-    description: str,
+    job_title: str = "",
+    company: str = "",
+    description: str = "",
     max_retries: int = 3,
     delay_between_calls: float = 4.2,
+    **kwargs,
 ) -> JobRequirementsSchema:
-    """
-    Analiza técnicamente la oferta y extrae el esquema estructurado con reintentos y control de cuota.
-    """
+    """Analiza técnicamente la oferta y extrae el esquema estructurado con reintentos y control de cuota."""
+    # Soporta tanto 'job_title' como 'title'
+    actual_title = job_title or kwargs.get("title", "Posición no especificada")
+    actual_desc = description or kwargs.get("job_description", "")
+
     if not settings.GEMINI_API_KEY:
-        raise ValueError("GEMINI_API_KEY no configurada en las variables de entorno.")
+        raise ValueError(
+            "GEMINI_API_KEY no configurada en las variables de entorno."
+        )
 
     logger.info(
-        f"Extrayendo requisitos con [{settings.GEMINI_MODEL}] para: '{job_title}' en '{company}'..."
+        f"Extrayendo requisitos con [{settings.GEMINI_MODEL}] para: '{actual_title}' en '{company}'..."
     )
     url = f"{settings.gemini_endpoint_url}?key={settings.GEMINI_API_KEY}"
 
@@ -76,10 +81,10 @@ Eres un analista técnico de reclutamiento senior y arquitecto de soluciones de 
 Analiza con rigor la siguiente descripción de vacante laboral y extrae los datos poblando estrictamente el esquema JSON.
 
 Detalles de la oferta:
-- Título: {job_title}
+- Título: {actual_title}
 - Empresa: {company}
 - Descripción:
-{description}
+{actual_desc}
 
 REGLAS TAXONÓMICAS DE EXTRACCIÓN OBLIGATORIAS:
 1. Mapeo de Secciones (Requirements vs Nice to have):
@@ -136,7 +141,9 @@ REGLAS TAXONÓMICAS DE EXTRACCIÓN OBLIGATORIAS:
 
         except requests.exceptions.RequestException as e:
             if attempt == max_retries:
-                logger.error(f"Fallo definitivo al extraer requisitos tras {max_retries} intentos: {e}")
+                logger.error(
+                    f"Fallo definitivo al extraer requisitos tras {max_retries} intentos: {e}"
+                )
                 raise e
             logger.warning(f"Reintentando por fallo de red: {e}")
             time.sleep(5)

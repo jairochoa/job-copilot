@@ -54,6 +54,35 @@ class ATSResumeCompiler:
 
         return matched[:max_bullets]
 
+    def compile(
+        self,
+        job_id: str = "0",
+        job_title: str = "",
+        company_target: str = "",
+        selected_bullet_ids: Optional[List[str]] = None,
+        language: str = "en",
+        country_profile: str = "CO",
+        **kwargs,
+    ) -> Dict[str, str]:
+        """
+        Método de conveniencia y compatibilidad que invoca compile_cv aceptando parámetros alternativos.
+        """
+        target_role = kwargs.get("target_role") or kwargs.get("title") or job_title
+        target_company = kwargs.get("target_company") or kwargs.get("company") or company_target
+        reqs = kwargs.get("requirements")
+        if reqs and hasattr(reqs, "language"):
+            language = reqs.language
+        country_profile = kwargs.get("country_code") or country_profile
+
+        return self.compile_cv(
+            job_id=str(job_id),
+            job_title=target_role,
+            company_target=target_company,
+            selected_bullet_ids=selected_bullet_ids or [],
+            language=language,
+            country_profile=country_profile,
+        )
+
     def compile_cv(
         self,
         job_id: str,

@@ -67,6 +67,10 @@ def init_and_migrate_db() -> None:
         "raw_requirements_json": "TEXT DEFAULT '{}'",
         "top_bullets_json": "TEXT DEFAULT '[]'",
         "is_remote_eligible": "INTEGER DEFAULT 1",
+        "cv_docx_path": "TEXT DEFAULT ''",
+        "cv_pdf_path": "TEXT DEFAULT ''",
+        "job_hash": "TEXT DEFAULT ''",
+        "target_profile": "TEXT DEFAULT ''",
     }
 
     for col_name, col_type in new_columns.items():
@@ -163,28 +167,42 @@ def get_pending_or_all_jobs(pending_only: bool = False) -> List[sqlite3.Row]:
     conn.close()
     return rows
 
-def compute_job_hash(title: str, company: str, location: str = "") -> str:
-    """Genera un hash SHA-256 único y determinista para la vacante."""
-    raw = f"{title.strip().lower()}|{company.strip().lower()}|{location.strip().lower()}"
+def compute_job_hash(title: str = "", company: str = "", location: str = "", *args, **kwargs) -> str:
+    """Genera un hash SHA-256 único y determinista para la vacante, tolerante a argumentos adicionales."""
+    raw = f"{str(title).strip().lower()}|{str(company).strip().lower()}|{str(location).strip().lower()}"
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
 def init_db() -> None:
-    """Inicializa y aplica migraciones en la base de datos SQLite."""
-    from src.database import migrate_database
+    """Inicializa la base de datos creando la tabla con el esquema v2 si no existe y migra columnas."""
+    init_and_migrate_db()
+    seed_initial_jobs_if_empty()
 
-    migrate_database()
 
 def insert_job(
-    job_hash: str,
-    title: str,
-    company: str,
+    job_hash: Any = None,
+    title: str = "",
+    company: str = "",
     location: str = "",
     url: str = "",
     description: str = "",
     status: str = "PENDING",
+    **kwargs,
 ) -> bool:
-    """Inserta una vacante en SQLite de forma idempotente (ignora duplicados por job_hash/url)."""
+    """Inserta una vacante en SQLite de forma idempotente (soporta dict o kwargs)."""
+    if isinstance(job_hash, dict):
+        d = job_hash
+        title = d.get("title", "")
+        company = d.get("company", "")
+        location = d.get("location", "")
+        url = d.get("url", "")
+        description = d.get("description", "")
+        status = d.get("status", status)
+        job_hash = d.get("job_hash") or compute_job_hash(title, company, location)
+
+    if not job_hash:
+        job_hash = compute_job_hash(title, company, location)
+
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
@@ -199,6 +217,56 @@ def insert_job(
         return cursor.rowcount > 0
     finally:
         conn.close()
+
+
+def seed_initial_jobs_if_empty() -> None:
+    """Inserta vacantes iniciales de prueba si la base de datos está totalmente vacía."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM job_applications")
+    count = cursor.fetchone()[0]
+    conn.close()
+
+    if count == 0:
+        logger.info("Base de datos vacía. Insertando vacantes iniciales de prueba...")
+        sample_jobs = [
+            {
+                "title": "Senior Data Scientist & AI Engineer",
+                "company": "MercadoLibre LatAm",
+                "location": "Bogotá, Colombia (Híbrido)",
+                "url": "https://mercadolibre.jobs/senior-ds-1",
+                "description": "Buscamos un Senior Data Scientist con amplia experiencia en Python, SQL, PySpark y modelos de Machine Learning (Scikit-Learn, XGBoost, LLMs/RAG). Requisitos: 4+ años de experiencia, Docker, AWS (SageMaker, S3), despliegue de REST APIs con FastAPI y excelente nivel de comunicación en equipo. Deseable: Experiencia en MLOps, MLflow y Kubernetes.",
+                "status": "PENDING",
+            },
+            {
+                "title": "Machine Learning Engineer (Remote LatAm)",
+                "company": "Globant AI Studio",
+                "location": "Remote, Colombia",
+                "url": "https://globant.com/careers/mle-latam",
+                "description": "Estamos reclutando un Machine Learning Engineer para trabajar 100% remoto en proyectos globales. Requisitos indispensables: Python, PyTorch/TensorFlow, REST APIs, Git, Docker y SQL. Nivel de inglés B2 o superior. Deseables: Experiencia con HuggingFace, LangChain, Vector Databases (FAISS/ChromaDB) y arquitectura RAG.",
+                "status": "PENDING",
+            },
+            {
+                "title": "Applied AI Scientist / NLP Specialist",
+                "company": "Rappi Tech",
+                "location": "Bogotá, Colombia",
+                "url": "https://rappi.com/jobs/ai-scientist-2026",
+                "description": "Únete al equipo de innovación e IA de Rappi. Requisitos: Python avanzado, algoritmos de Machine Learning, NLP, embeddings vectoriales y SQL. Mínimo 3 años de experiencia en desarrollo de productos de datos. Deseable: GCP (BigQuery, Vertex AI) y microservicios.",
+                "status": "PENDING",
+            },
+        ]
+        for job in sample_jobs:
+            h = compute_job_hash(job["title"], job["company"], job["location"])
+            insert_job(
+                job_hash=h,
+                title=job["title"],
+                company=job["company"],
+                location=job["location"],
+                url=job["url"],
+                description=job["description"],
+                status=job["status"],
+            )
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

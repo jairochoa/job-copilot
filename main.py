@@ -1,124 +1,26 @@
-﻿import argparse
+"""
+Punto de entrada principal del Pipeline Automatizado Job-Copilot (Versión 2).
+Flujo: Búsqueda -> Extracción Taxonómica -> RAG Matching -> Compilación ATS -> Reporte Excel.
+"""
 import sys
+import logging
 from pathlib import Path
+from src.config import settings
+from src.database import init_db, get_db_connection, insert_job
+from src.extractor import extract_job_requirements
+from src.matcher import evaluate_job_match
+from src.compiler import ATSResumeCompiler
+from src.exporter import export_applications_to_excel
 
-from src.database import init_db
-from src.logger import logger
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
+logger = logging.getLogger("JobCopilot")
 
-BASE_DIR = Path(__file__).resolve().parent
-OUTPUT_DIR = BASE_DIR / "output"
-
-DEFAULT_SEARCH_TARGETS = [
-    ("Data Scientist", "Colombia"),
-    ("Senior Data Scientist", "Remote"),
-    ("Machine Learning Engineer", "Remote"),
-    ("Statistician", "Colombia"),
-]
-
-def run_scraping_flow(term: str | None = None, loc: str | None = None):
-    from src.scraper import run_job_search
-    if term and loc:
-        targets = [(term, loc)]
-    elif term:
-        targets = [(term, "Remote"), (term, "Colombia")]
-    else:
-        targets = DEFAULT_SEARCH_TARGETS
-
-    for s_term, s_loc in targets:
-        logger.info(f"==> Iniciando prospección: '{s_term}' en '{s_loc}'...")
-        try:
-            run_job_search(search_term=s_term, location=s_loc, results_wanted=15)
-        except Exception as err:
-            logger.error(f"Falla durante la búsqueda de '{s_term}' en '{s_loc}': {err}")
-
-def run_prefilter_flow():
-    from src.matcher import run_heuristic_filter_batch
-    logger.info("==> Aplicando prefiltro booleano ($0)...")
-    run_heuristic_filter_batch()
-
-def run_evaluation_flow():
-    from src.matcher import run_gemini_evaluation_batch
-    logger.info("==> Evaluando vacantes con Gemini (Rúbrica 40/25/20/15)...")
-    run_gemini_evaluation_batch()
-
-def run_compile_flow():
-    from src.compiler import build_applications_batch
-    logger.info("==> Compilando CVs para vacantes calificadas...")
-    count = build_applications_batch()
-    logger.info(f"==> Compilación finalizada. CVs procesados: {count}")
-
-def run_export_flow():
-    from src.exporter import sync_jobs_to_excel
-    logger.info("==> Sincronizando con Excel...")
-    added = sync_jobs_to_excel()
-    print(f"[OK] Sincronización finalizada. Vacantes nuevas agregadas: {added}")
-
-def run_stats_flow():
-    import sqlite3
-    db_path = BASE_DIR / "data" / "jobs.db"
-    if not db_path.exists():
-        print("Base de datos no encontrada.")
-        return
-    conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
-    rows = cur.execute("SELECT status, count(*) FROM job_applications GROUP BY status").fetchall()
-    conn.close()
-    print("\n--- RESUMEN DEL PIPELINE ---")
-    for status, count in rows:
-        print(f"  {status:<15}: {count}")
-    print("----------------------------\n")
-
-def run_full_pipeline():
-    logger.info("Iniciando Pipeline Completo End-to-End...")
-    run_scraping_flow()
-    run_prefilter_flow()
-    run_evaluation_flow()
-    run_compile_flow()
-    run_export_flow()
-    logger.info("Pipeline completado exitosamente.")
-
-def main():
-    init_db()
-
-    parser = argparse.ArgumentParser(
-        description="Job-Copilot: Prospección, evaluación semántica y compilación ATS"
-    )
-    parser.add_argument("--run", action="store_true", help="Ejecuta todo el pipeline de extremo a extremo")
-    parser.add_argument("--scrape", action="store_true", help="Solo raspa nuevas vacantes")
-    parser.add_argument("--filter", action="store_true", help="Solo corre el prefiltro booleano ($0)")
-    parser.add_argument("--evaluate", action="store_true", help="Solo evalúa vacantes con Gemini")
-    parser.add_argument("--compile", action="store_true", help="Solo compila CVs de vacantes calificadas")
-    parser.add_argument("--export-excel", action="store_true", help="Sincroniza vacantes hacia Excel")
-    parser.add_argument("--stats", action="store_true", help="Muestra estadísticas del pipeline")
-    parser.add_argument("--apply", action="store_true", help="Modo interactivo de postulación asistida")
-
-    args = parser.parse_args()
-
-    # Si se pasó una bandera específica, ejecutar solo esa bandera
-    if args.scrape:
-        run_scraping_flow()
-    elif args.filter:
-        run_prefilter_flow()
-    elif args.evaluate:
-        run_evaluation_flow()
-    elif args.compile:
-        run_compile_flow()
-    elif args.export_excel:
-        run_export_flow()
-    elif args.stats:
-        run_stats_flow()
-    elif args.apply:
-        from src.copilot import run_copilot_assistant
-        run_copilot_assistant()
-    elif args.run or len(sys.argv) == 1:
-        run_full_pipeline()
-    else:
-        parser.print_help()
 
 def show_funnel_metrics() -> dict:
-    """Calcula y muestra las métricas del embudo de conversión de vacantes."""
-    from src.database import get_db_connection
-
+    """Calcula y muestra las métricas consolidadas del embudo."""
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT status, COUNT(*) as total FROM job_applications GROUP BY status")
@@ -126,7 +28,139 @@ def show_funnel_metrics() -> dict:
     conn.close()
 
     metrics = {row["status"]: row["total"] for row in rows}
+    logger.info("=== MÉTRICAS DEL EMBUDO ===")
+    for status, count in metrics.items():
+        logger.info(f" - {status}: {count}")
     return metrics
+
+
+def run_full_pipeline() -> None:
+    """Ejecuta el flujo end-to-end de procesamiento de vacantes pendientes."""
+    init_db()
+    
+    # 1. Prospección / Scraping (si existe módulo scraper)
+    try:
+        from src.scraper import run_scraper_flow
+        logger.info("Iniciando prospección de vacantes...")
+        run_scraper_flow()
+    except (ImportError, AttributeError) as e:
+        logger.warning(f"Omitiendo paso de prospección externa: {e}")
+
+# 2. Recuperar vacantes pendientes de procesamiento
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        SELECT rowid AS db_id, * 
+        FROM job_applications 
+        WHERE status IN ('PENDING', 'SCRAPED')
+    """
+    )
+    pending_jobs = cursor.fetchall()
+    conn.close()
+
+    if not pending_jobs:
+        logger.info("No hay vacantes pendientes por procesar.")
+        show_funnel_metrics()
+        export_applications_to_excel()
+        return
+
+    logger.info(
+        f"Procesando {len(pending_jobs)} vacantes pendientes con RAG v2..."
+    )
+    compiler = ATSResumeCompiler()
+
+    for job in pending_jobs:
+        job_dict = dict(job)
+        # Obtenemos el identificador de fila unívoco sin asumir la columna 'id'
+        row_id = job_dict.get("db_id") or job_dict.get("rowid")
+
+        title = job_dict.get("title") or "Posición no especificada"
+        company = job_dict.get("company") or "Empresa confidencial"
+        desc = job_dict.get("description") or ""
+
+        logger.info(f"\n---> Analizando: {title} en {company}")
+
+        # A. Extracción taxonómica estructurada con Gemini REST
+        reqs = extract_job_requirements(
+            job_title=title, company=company, description=desc
+        )
+
+        # B. Evaluación Vectorial RAG + Seniority agnóstico (80/20 hard skills)
+        total_score, hard_score, soft_score, rationale, selected_bullet_ids = (
+            evaluate_job_match(reqs)
+        )
+
+        # C. Determinar estatus según threshold configurado
+        status = (
+            "QUALIFIED"
+            if total_score >= settings.MIN_QUALIFIED_SCORE
+            else "DISQUALIFIED"
+        )
+        logger.info(f"Resultado: {status} (Score: {total_score}/100)")
+
+        # D. Compilación de CV ATS si la vacante califica
+        docx_str = ""
+        pdf_str = ""
+        if status == "QUALIFIED":
+            country_code = (
+                "CO"
+                if "colombia" in str(job_dict.get("location", "")).lower()
+                else "CO"
+            )
+            cv_paths = compiler.compile_cv(
+                job_id=str(row_id),
+                job_title=title,
+                company_target=company,
+                selected_bullet_ids=selected_bullet_ids,
+                language=getattr(reqs, "language", "en"),
+                country_profile=country_code,
+            )
+            docx_str = cv_paths.get("docx", "")
+            pdf_str = cv_paths.get("pdf", "")
+            if docx_str:
+                logger.info(f"CV generado con éxito: {Path(docx_str).name}")
+
+        # E. Actualización atómica en SQLite usando rowid
+        conn_upd = get_db_connection()
+        cur_upd = conn_upd.cursor()
+        cur_upd.execute(
+            """
+            UPDATE job_applications 
+            SET status = ?,
+                match_score = ?,
+                hard_match_score = ?,
+                soft_match_score = ?,
+                score_rationale = ?,
+                target_profile = ?,
+                cv_docx_path = ?,
+                cv_pdf_path = ?,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE rowid = ?
+        """,
+            (
+                status,
+                total_score,
+                hard_score,
+                soft_score,
+                rationale,
+                reqs.role_category,
+                docx_str,
+                pdf_str,
+                row_id,
+            ),
+        )
+        conn_upd.commit()
+        conn_upd.close()
+
+    # 3. Exportar reporte consolidado a Excel y métricas
+    export_applications_to_excel()
+    show_funnel_metrics()
+
+
+def main():
+    run_full_pipeline()
+
 
 if __name__ == "__main__":
     main()
