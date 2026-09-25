@@ -1,239 +1,142 @@
-﻿import logging
-from pathlib import Path
-import sqlite3
-import openpyxl
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+﻿"""Módulo de exportación de vacantes analizadas hacia Microsoft Excel.
+
+Aplica estilos profesionales, auto-ajuste de columnas y filtros interactivos.
+"""
+
+import json
+import logging
+from typing import Optional
+from openpyxl import Workbook
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 
-logger = logging.getLogger("JobCopilot.Exporter")
+from src.config import settings
+from src.database import get_db_connection
 
-DEFAULT_DB_PATH = Path("data/jobs.db")
-DEFAULT_EXCEL_PATH = Path("output/pipeline_vacantes.xlsx")
+logger = logging.getLogger(__name__)
 
-HEADERS = [
-    "Hash ID",
-    "Score",
-    "Perfil Objetivo",
-    "Portal / Fuente",
-    "Tipo ATS",
-    "Requiere Login",
-    "Empresa",
-    "Cargo",
-    "Ubicación",
-    "Idioma",
-    "Estado Pipeline",
-    "Estado Postulación (Agente)",
-    "URL Directa",
-    "Ruta CV PDF",
-    "Ruta CV DOCX",
-    "Headline ATS",
-    "Resumen Adaptado (Tailored Summary)",
-    "Razón del Score (Rationale)",
-    "Fecha Scraped",
-    "Fecha Postulado",
-]
 
-HEADER_FILL = PatternFill(start_color="1F497D", end_color="1F497D", fill_type="solid")
-HEADER_FONT = Font(name="Calibri", size=11, bold=True, color="FFFFFF")
-REGULAR_FONT = Font(name="Calibri", size=10)
-BORDER_THIN = Border(
-    left=Side(style="thin", color="D9D9D9"),
-    right=Side(style="thin", color="D9D9D9"),
-    top=Side(style="thin", color="D9D9D9"),
-    bottom=Side(style="thin", color="D9D9D9"),
-)
+def export_jobs_to_excel(
+    output_path: Optional[str] = None, only_qualified: bool = False
+) -> str:
+    """Extrae las vacantes de SQLite y genera el informe formateado en Excel."""
+    out_file = output_path or str(settings.EXCEL_REPORT_PATH)
+    settings.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-def init_excel_workbook(file_path: Path) -> openpyxl.Workbook:
-    """Crea un nuevo libro de Excel con formato profesional, encabezados congelados y estilos."""
-    file_path.parent.mkdir(parents=True, exist_ok=True)
-    wb = openpyxl.Workbook()
-    ws = wb.active
-    ws.title = "Pipeline de Vacantes"
-    ws.views.sheetView[0].showGridLines = True
-
-    ws.append(HEADERS)
-    for col_num, _ in enumerate(HEADERS, start=1):
-        cell = ws.cell(row=1, column=col_num)
-        cell.fill = HEADER_FILL
-        cell.font = HEADER_FONT
-        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-
-    ws.freeze_panes = "A2"
-    return wb
-
-def sync_jobs_to_excel(
-    db_path: Path = DEFAULT_DB_PATH,
-    excel_path: Path = DEFAULT_EXCEL_PATH,
-    min_score: int = 0,
-) -> int:
-    """
-    Sincroniza vacantes de la tabla 'job_applications' en SQLite hacia Excel de forma incremental.
-    Solo añade filas para los job_hash que aún no existan en la hoja de cálculo.
-    """
-    if not db_path.exists():
-        logger.warning(f"Base de datos {db_path} no encontrada.")
-        return 0
-
-    excel_path.parent.mkdir(parents=True, exist_ok=True)
-
-    # 1. Cargar o crear libro y recopilar identificadores ya exportados
-    existing_ids = set()
-    if excel_path.exists():
-        try:
-            wb = openpyxl.load_workbook(excel_path)
-            ws = wb.active
-            for row in range(2, ws.max_row + 1):
-                val = ws.cell(row=row, column=1).value
-                if val:
-                    existing_ids.add(str(val).strip())
-        except Exception as e:
-            logger.error(f"Error abriendo Excel existente: {e}. Creando nuevo.")
-            wb = init_excel_workbook(excel_path)
-            ws = wb.active
-    else:
-        wb = init_excel_workbook(excel_path)
-        ws = wb.active
-
-    # 2. Consultar registros calificados y relevantes
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
+    conn = get_db_connection()
     cursor = conn.cursor()
 
-    query = """
-    SELECT 
-        job_hash,
-        match_score,
-        target_profile,
-        portal_source,
-        ats_type,
-        requires_login,
-        company,
-        title,
-        location,
-        language,
-        status,
-        url,
-        resolved_url,
-        pdf_path,
-        docx_path,
-        tailored_headline,
-        tailored_summary,
-        score_rationale,
-        scraped_at,
-        applied_at
-    FROM job_applications
-    -- Incluye todo el pipeline: GENERATED, SCORED, APPLIED, SCRAPED y DISCARDED
-    WHERE 1=1
-      AND (match_score >= ? OR match_score IS NULL)
-    ORDER BY match_score DESC, scraped_at DESC
-    """
-    rows = cursor.execute(query, (min_score,)).fetchall()
+    query = "SELECT * FROM job_applications"
+    if only_qualified:
+        query += " WHERE status IN ('QUALIFIED', 'COMPILED')"
+    query += " ORDER BY rowid DESC"
+
+    cursor.execute(query)
+    rows = cursor.fetchall()
     conn.close()
 
-    added_count = 0
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Prospectos Calificados"
 
-    # 3. Anexar registros nuevos sin alterar los existentes
+    header_fill = PatternFill(
+        start_color="1A365D", end_color="1A365D", fill_type="solid"
+    )
+    header_font = Font(name="Calibri", size=11, bold=True, color="FFFFFF")
+    data_font = Font(name="Calibri", size=10)
+    center_align = Alignment(horizontal="center", vertical="center")
+    left_align = Alignment(horizontal="left", vertical="center")
+
+    thin_border = Border(
+        left=Side(style="thin", color="D9D9D9"),
+        right=Side(style="thin", color="D9D9D9"),
+        top=Side(style="thin", color="D9D9D9"),
+        bottom=Side(style="thin", color="D9D9D9"),
+    )
+
+    headers = [
+        "Identificador",
+        "Título del Rol",
+        "Empresa",
+        "Ubicación",
+        "Score Total",
+        "Hard Match (%)",
+        "Soft Match (%)",
+        "Estado",
+        "Justificación Técnica",
+        "Enlace Vacante",
+        "Ruta CV Word",
+        "Ruta CV PDF",
+        "Fecha",
+    ]
+
+    ws.append(headers)
+
+    for cell in ws[1]:
+        cell.fill = header_fill
+        cell.font = header_font
+        cell.alignment = center_align
+
     for r in rows:
-        job_hash = str(r["job_hash"]).strip()
-        if job_hash in existing_ids:
-            continue
+        row_dict = dict(r)
+        
+        # Mapeo tolerante de nombres alternativos de columna
+        job_identifier = str(row_dict.get("id") or row_dict.get("job_id") or "")[:8]
+        score = row_dict.get("match_score", 0.0) or 0.0
+        hard = row_dict.get("hard_match_score", 0.0) or 0.0
+        soft = row_dict.get("soft_match_score", 0.0) or 0.0
 
-        score = r["match_score"] or 0
-        target_profile = r["target_profile"] or ""
-        portal_source = r["portal_source"] or "Directo"
-        ats_type = r["ats_type"] or "Desconocido"
-        requires_login = "SÍ" if r["requires_login"] else "NO"
-        company = r["company"] or ""
-        title = r["title"] or ""
-        location = r["location"] or ""
-        language = r["language"] or "en"
-        pipeline_status = r["status"] or ""
-        agent_status = "READY_TO_APPLY" if pipeline_status == "SCORED" else pipeline_status
-        link_url = r["resolved_url"] or r["url"] or ""
-        pdf_path = r["pdf_path"] or ""
-        docx_path = r["docx_path"] or ""
-        headline = r["tailored_headline"] or ""
-        summary = r["tailored_summary"] or ""
-        rationale = r["score_rationale"] or ""
-        scraped_at = r["scraped_at"] or ""
-        applied_at = r["applied_at"] or ""
+        row_data = [
+            job_identifier,
+            row_dict.get("title", "") or "",
+            row_dict.get("company", "") or "",
+            row_dict.get("location", "") or "",
+            round(float(score), 1),
+            round(float(hard), 1),
+            round(float(soft), 1),
+            row_dict.get("status", "PENDING") or "PENDING",
+            row_dict.get("score_rationale", "") or "",
+            row_dict.get("url", "") or "",
+            row_dict.get("cv_docx_path", "") or "",
+            row_dict.get("cv_pdf_path", "") or "",
+            str(row_dict.get("scraped_at", ""))[:10],
+        ]
+        ws.append(row_data)
 
-        ws.append([
-            job_hash,
-            score,
-            target_profile,
-            portal_source,
-            ats_type,
-            requires_login,
-            company,
-            title,
-            location,
-            language,
-            pipeline_status,
-            agent_status,
-            link_url,
-            pdf_path,
-            docx_path,
-            headline,
-            summary,
-            rationale,
-            scraped_at,
-            applied_at,
-        ])
+    # Formato de celdas y auto-ancho
+    for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
+        for cell in row:
+            cell.font = data_font
+            cell.border = thin_border
+            if cell.column in [1, 5, 6, 7, 8, 13]:
+                cell.alignment = center_align
+            else:
+                cell.alignment = left_align
 
-        curr_row = ws.max_row
+            if cell.column == 8:
+                val = str(cell.value)
+                if val in ("QUALIFIED", "COMPILED"):
+                    cell.fill = PatternFill(
+                        start_color="C6F6D5", end_color="C6F6D5", fill_type="solid"
+                    )
+                elif val == "DISQUALIFIED":
+                    cell.fill = PatternFill(
+                        start_color="FED7D7", end_color="FED7D7", fill_type="solid"
+                    )
 
-        # Bordes y fuentes
-        for col_idx in range(1, len(HEADERS) + 1):
-            c = ws.cell(row=curr_row, column=col_idx)
-            c.font = REGULAR_FONT
-            c.border = BORDER_THIN
-            c.alignment = Alignment(vertical="top")
+    ws.auto_filter.ref = ws.dimensions
+    for col in ws.columns:
+        max_len = max(len(str(cell.value or "")) for cell in col)
+        col_letter = get_column_letter(col[0].column)
+        ws.column_dimensions[col_letter].width = min(max(max_len + 3, 12), 40)
 
-        # Score centrado
-        ws.cell(row=curr_row, column=2).alignment = Alignment(horizontal="center", vertical="top")
+    wb.save(out_file)
+    logger.info(f"Reporte Excel generado exitosamente en: {out_file}")
+    return out_file
 
-        # Hipervínculo directo
-        if link_url.startswith("http"):
-            url_cell = ws.cell(row=curr_row, column=13)
-            url_cell.hyperlink = link_url
-            url_cell.font = Font(name="Calibri", size=10, color="0563C1", underline="single")
 
-        existing_ids.add(job_hash)
-        added_count += 1
-
-    # 4. Dimensionamiento y auto-filtros si hubo cambios
-    if added_count > 0 or not excel_path.exists():
-        widths = {
-            1: 14,  # Hash ID
-            2: 8,   # Score
-            3: 18,  # Target Profile
-            4: 15,  # Portal Source
-            5: 14,  # ATS Type
-            6: 12,  # Requires Login
-            7: 22,  # Company
-            8: 30,  # Title
-            9: 18,  # Location
-            10: 10, # Language
-            11: 16, # Pipeline Status
-            12: 24, # Agent Status
-            13: 35, # Direct URL
-            14: 25, # PDF Path
-            15: 25, # DOCX Path
-            16: 30, # Headline
-            17: 45, # Summary
-            18: 35, # Rationale
-            19: 18, # Scraped At
-            20: 18, # Applied At
-        }
-        for col_idx, width in widths.items():
-            col_letter = get_column_letter(col_idx)
-            ws.column_dimensions[col_letter].width = width
-
-        ws.auto_filter.ref = f"A1:{get_column_letter(len(HEADERS))}{ws.max_row}"
-        wb.save(excel_path)
-        logger.info(f"Sincronización exitosa: {added_count} vacantes agregadas a {excel_path}")
-    else:
-        logger.info("El archivo Excel ya se encuentra actualizado.")
-
-    return added_count
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    print("--- TEST EXPORTADOR EXCEL ---")
+    generated_file = export_jobs_to_excel()
+    print("Excel guardado en:", generated_file)
