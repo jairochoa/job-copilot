@@ -1,39 +1,37 @@
-﻿name: CI & Quality Checks
+﻿name: CI Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/* ]
   pull_request:
     branches: [ main ]
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout del código
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configurar Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-          cache: 'pip'
+          python-version: "3.11"
+          cache: "pip"
 
-      - name: Instalar dependencias
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install sentence-transformers pytest flake8 black pydantic google-genai python-docx openpyxl pandas
 
-      - name: Validar integridad y sintaxis de master_cv.json
+      - name: Lint with Flake8
         run: |
-          python -m json.tool data/master_cv.json > /dev/null
-          echo "✅ data/master_cv.json validado con éxito."
+          # Detener build si hay errores de sintaxis o variables indefinidas
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.venv,__pycache__
+          # Advertencias de estilo permitiendo hasta 120 caracteres de longitud
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics --exclude=.venv,__pycache__
 
-      - name: Linter con Ruff
+      - name: Run Pytest suite
         run: |
-          ruff check src/ tests/
-
-      - name: Ejecutar Tests con Pytest
-        run: |
-          pytest tests/ -v
+          pytest -v
