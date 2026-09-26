@@ -151,6 +151,63 @@ class ATSResumeCompiler:
 
         return [line for _, _, line in scored_categories[:4]]
 
+    def _build_tailored_certifications_section(
+        self,
+        requirements: Optional[Any],
+        lang: str,
+    ) -> List[str]:
+        """
+        Filtra y devuelve ÚNICAMENTE las certificaciones/cursos reales del candidato (definidos en master_cv.json)
+        que coinciden dinámicamente con los requerimientos de la vacante.
+        """
+        certs = self.cv_data.get("certifications", [])
+        if not certs or not requirements:
+            return []
+
+        m_skills = getattr(requirements, "mandatory_hard_skills", None)
+        if m_skills is None and isinstance(requirements, dict):
+            m_skills = requirements.get("mandatory_hard_skills", [])
+        nth_skills = getattr(requirements, "nice_to_have_skills", None)
+        if nth_skills is None and isinstance(requirements, dict):
+            nth_skills = requirements.get("nice_to_have_skills", [])
+
+        req_skills = [s.strip().lower() for s in (m_skills or []) + (nth_skills or []) if s and s.strip()]
+        if not req_skills:
+            return []
+
+        matched_certs = []
+        for idx, cert in enumerate(certs):
+            name_dict = cert.get("name", {})
+            name_es = name_dict.get("es", "").lower()
+            name_en = name_dict.get("en", "").lower()
+            issuer = cert.get("issuer", "").lower()
+            keywords = [k.lower() for k in cert.get("keywords", [])]
+
+            score = 0
+            for rs in req_skills:
+                # Coincidencia directa por nombre de certificación o emisor
+                if rs in name_es or rs in name_en or rs in issuer or name_es in rs or name_en in rs:
+                    score += 3
+                # Coincidencia por palabras clave registradas en master_cv.json
+                elif any(kw in rs or rs in kw for kw in keywords if len(kw) > 2):
+                    score += 2
+
+            if score > 0:
+                cert_name = name_dict.get(lang, name_dict.get("es", ""))
+                issuer_name = cert.get("issuer", "")
+                year = cert.get("year", "")
+                status = cert.get("status", "")
+                status_str = (
+                    " (En Progreso)"
+                    if status == "in_progress" and lang == "es"
+                    else (" (In Progress)" if status == "in_progress" else "")
+                )
+                label = "Certificación / Formación" if lang == "es" else "Certification / Training"
+                matched_certs.append((score, -idx, f"• {label}: {cert_name} — {issuer_name} ({year}){status_str}"))
+
+        matched_certs.sort(key=lambda x: (x[0], x[1]), reverse=True)
+        return [line for _, _, line in matched_certs[:2]]
+
     def compile(
         self,
         job_id: str = "0",
@@ -232,6 +289,18 @@ class ATSResumeCompiler:
         contact_run = contact_p.add_run(contact_text)
         contact_run.font.size = Pt(9.5)
 
+        lang_p = doc.add_paragraph()
+        lang_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        lang_text = (
+            "Languages: Spanish (Native) | English (B2 Advanced - Intermediate Professional)"
+            if lang == "en"
+            else "Idiomas: Español (Nativo) | Inglés (B2 Avanzado - Intermedio Profesional)"
+        )
+        lang_run = lang_p.add_run(lang_text)
+        lang_run.font.size = Pt(9)
+        lang_run.italic = True
+        lang_p.paragraph_format.space_after = Pt(6)
+
         # 2. Resumen Profesional
         doc.add_heading("PROFESSIONAL SUMMARY" if lang == "en" else "RESUMEN PROFESIONAL", level=2)
         base_summary = self.cv_data.get("summary", {}).get(lang, "")
@@ -293,8 +362,8 @@ class ATSResumeCompiler:
                     stack_run.italic = True
                     stack_run.font.color.rgb = RGBColor(0x71, 0x80, 0x96)
 
-        # 5. Educación
-        doc.add_heading("EDUCATION" if lang == "en" else "EDUCACIÓN", level=2)
+        # 5. Educación y Certificaciones
+        doc.add_heading("EDUCATION & CERTIFICATIONS" if lang == "en" else "EDUCACIÓN Y CERTIFICACIONES", level=2)
         for edu in self.cv_data.get("education", []):
             deg = edu.get("degree", {}).get(lang, "")
             inst = edu.get("institution", "")
@@ -303,6 +372,13 @@ class ATSResumeCompiler:
             ep.paragraph_format.space_after = Pt(2)
             deg_run = ep.add_run(f"• {deg} — {inst} ({period})")
             deg_run.font.size = Pt(9.5)
+
+        cert_lines = self._build_tailored_certifications_section(requirements, lang)
+        for cert_line in cert_lines:
+            cp = doc.add_paragraph()
+            cp.paragraph_format.space_after = Pt(2)
+            c_run = cp.add_run(cert_line)
+            c_run.font.size = Pt(9.5)
 
         # Asegurar directorio de salida
         settings.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

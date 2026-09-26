@@ -3556,3 +3556,12 @@ requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.go
 2026-09-25 19:22:34 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
 2026-09-25 19:22:35 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
 2026-09-25 19:22:35 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 19:24:55 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 19:24:56 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 19:24:56 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 20:01:52 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 20:01:52 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 20:01:52 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 20:18:57 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-25 20:18:58 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-25 20:18:58 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.

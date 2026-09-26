@@ -68,13 +68,22 @@ class MasterCVIndexer:
         """Construye y pre-calcula los vectores de skills y bullets del CV."""
         logger.info("Indexando chunks de master_cv.json...")
 
-        # 1. Chunks de Hard Skills
+        # 1. Chunks de Hard Skills y Certificaciones
         self.hard_skill_keys: List[str] = []
         self.hard_skill_texts: List[str] = []
         for key, item in self.cv_data.get("skills_inventory", {}).items():
             self.hard_skill_keys.append(key)
             kws = ", ".join(item.get("keywords", []))
             chunk = f"{key}. Herramientas: {kws}. Contexto: {item.get('context', '')}"
+            self.hard_skill_texts.append(chunk)
+
+        for cert in self.cv_data.get("certifications", []):
+            cert_id = cert.get("id", "cert")
+            self.hard_skill_keys.append(cert_id)
+            name_es = cert.get("name", {}).get("es", "")
+            name_en = cert.get("name", {}).get("en", "")
+            issuer = cert.get("issuer", "")
+            chunk = f"Certificación y Curso: {name_es} / {name_en} por {issuer}. Estado: {cert.get('status', '')}"
             self.hard_skill_texts.append(chunk)
 
         self.hard_skill_vectors = self.engine.encode(self.hard_skill_texts)
