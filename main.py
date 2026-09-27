@@ -54,7 +54,6 @@ def run_full_pipeline() -> None:
         SELECT rowid AS db_id, * 
         FROM job_applications 
         WHERE status IN ('PENDING', 'SCRAPED')
-        LIMIT 5
     """
     )
     pending_jobs = cursor.fetchall()
