@@ -494,6 +494,76 @@
                 "es": "Gobernanza ética de IA y cumplimiento normativo de datos",
                 "en": "AI ethics governance and regulatory data compliance"
             }
+        },
+        {
+            "id": "soft_06",
+            "name": {
+                "es": "Comunicación de conceptos técnicos complejos a audiencias no técnicas",
+                "en": "Communication of complex technical concepts to non-technical audiences"
+            }
+        },
+        {
+            "id": "soft_07",
+            "name": {
+                "es": "Resolución de problemas complejos y pensamiento analítico detallado",
+                "en": "Complex problem solving and detailed analytical thinking"
+            }
+        },
+        {
+            "id": "soft_08",
+            "name": {
+                "es": "Mentalidad curiosa orientada a la mejora continua de metodologías",
+                "en": "Curious mindset oriented to continuous improvement of methodologies"
+            }
+        },
+        {
+            "id": "soft_09",
+            "name": {
+                "es": "Gestión de la ambigüedad en la definición de proyectos de datos",
+                "en": "Managing ambiguity in data project scope and definitions"
+            }
+        },
+        {
+            "id": "soft_10",
+            "name": {
+                "es": "Balance de múltiples perspectivas técnicas para la toma de decisiones",
+                "en": "Balancing multiple technical perspectives for decision making"
+            }
+        },
+        {
+            "id": "soft_11",
+            "name": {
+                "es": "Cuestionamiento del pensamiento convencional y enfoques tradicionales",
+                "en": "Challenging conventional thinking and traditional approaches"
+            }
+        },
+        {
+            "id": "soft_12",
+            "name": {
+                "es": "Colaboración interfuncional con equipos de negocio e ingeniería",
+                "en": "Cross-functional collaboration with business and engineering teams"
+            }
+        },
+        {
+            "id": "soft_13",
+            "name": {
+                "es": "Traducción de necesidades de negocio en requerimientos técnicos",
+                "en": "Translation of business needs into technical requirements"
+            }
+        },
+        {
+            "id": "soft_14",
+            "name": {
+                "es": "Adaptabilidad al cambio y evolución rápida de herramientas tecnológicas",
+                "en": "Adaptability to change and rapid evolution of technological tools"
+            }
+        },
+        {
+            "id": "soft_15",
+            "name": {
+                "es": "Storytelling de datos y presentación de recomendaciones estratégicas",
+                "en": "Data storytelling and presentation of strategic recommendations"
+            }
         }
     ],
     "languages": [
