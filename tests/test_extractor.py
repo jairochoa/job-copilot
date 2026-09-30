@@ -24,3 +24,18 @@ def test_detect_job_language_english_description():
     """
     lang = detect_job_language(desc, llm_language="en")
     assert lang == "en"
+
+
+def test_extract_job_requirements_empty_description():
+    from src.extractor import extract_job_requirements
+
+    reqs = extract_job_requirements(
+        job_title="Software Engineer",
+        company="Tech Corp",
+        description="",
+    )
+    assert not reqs.is_remote_or_eligible
+    assert "insuficiente" in reqs.ineligibility_reason
+    assert reqs.mandatory_hard_skills == []
+    assert reqs.nice_to_have_skills == []
+    assert reqs.soft_skills_context == []

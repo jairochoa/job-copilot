@@ -92,6 +92,21 @@ def extract_job_requirements(
     actual_title = job_title or kwargs.get("title", "Posición no especificada")
     actual_desc = description or kwargs.get("job_description", "")
 
+    if not actual_desc or len(actual_desc.strip()) < 50:
+        logger.warning(
+            f"Descripción insuficiente para '{actual_title}' en '{company}' ({len(actual_desc.strip()) if actual_desc else 0} caracteres). Omitiendo consulta LLM."
+        )
+        return JobRequirementsSchema(
+            is_remote_or_eligible=False,
+            ineligibility_reason="Descripción de la vacante ausente o insuficiente para análisis técnico.",
+            language=detect_job_language(actual_desc, "es"),
+            role_category="Other",
+            min_years_experience=0,
+            mandatory_hard_skills=[],
+            nice_to_have_skills=[],
+            soft_skills_context=[],
+        )
+
     if not settings.GEMINI_API_KEY:
         raise ValueError(
             "GEMINI_API_KEY no configurada en las variables de entorno."

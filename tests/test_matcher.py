@@ -37,7 +37,26 @@ def test_hybrid_matching_scoring_logic():
     assert 0.0 <= score <= 100.0
     assert 0.0 <= hard <= 100.0
     assert 0.0 <= soft <= 100.0
-    assert len(bullets) > 0
     assert "Match Score:" in rationale
     assert "Mandatory:" in rationale
     assert "Nice:" in rationale
+
+
+def test_empty_skills_disqualification():
+    """Valida que una vacante sin habilidades técnicas quede descalificada con score 0.0."""
+    reqs = JobRequirementsSchema(
+        is_remote_or_eligible=True,
+        language="es",
+        role_category="Data Science",
+        min_years_experience=0,
+        mandatory_hard_skills=[],
+        nice_to_have_skills=[],
+        soft_skills_context=[],
+    )
+    score, hard, soft, rationale, bullets = evaluate_job_match(reqs)
+    assert score == 0.0
+    assert hard == 0.0
+    assert soft == 0.0
+    assert bullets == []
+    assert "Skills analizadas: 0" in rationale
+    assert "Descalificada" in rationale

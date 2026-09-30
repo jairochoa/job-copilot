@@ -3841,3 +3841,11 @@ requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='generativelanguage.go
 2026-09-29 08:11:20 [DEBUG] [job_copilot:run_job_search:196] Omitiendo vacante ya existente en BD (SHA: 1ca5b293).
 2026-09-29 08:11:22 [DEBUG] [job_copilot:run_job_search:196] Omitiendo vacante ya existente en BD (SHA: e9c313ab).
 2026-09-29 08:11:22 [INFO] [job_copilot:run_job_search:224] Proceso finalizado: 1 ofertas nuevas registradas en la base de datos.
+2026-09-30 08:52:13 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-30 08:52:14 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-30 08:52:14 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-30 09:19:11 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-30 09:19:11 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.
+2026-09-30 09:21:58 [DEBUG] [test_runner:test_logger_creation_and_file_generation:13] Mensaje de auditoría de prueba unitaria
+2026-09-30 09:21:58 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo glassdoor: no cuenta con soporte regional para 'Colombia'.
+2026-09-30 09:21:58 [DEBUG] [job_copilot:resolve_sites_for_location:120] Excluyendo zip_recruiter: no cuenta con soporte regional para 'Colombia'.

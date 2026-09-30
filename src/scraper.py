@@ -152,6 +152,7 @@ def run_job_search(
                 "results_wanted": results_wanted,
                 "hours_old": hours_old,
                 "is_remote": is_remote,
+                "linkedin_fetch_description": True,
             }
             if country_indeed:
                 scrape_kwargs["country_indeed"] = country_indeed
@@ -183,6 +184,12 @@ def run_job_search(
         site_source = str(row.get("site") or "unknown").strip()
 
         if not title or not company or not job_url:
+            continue
+
+        if not description or len(description.strip()) < 50:
+            logger.warning(
+                f"Omitiendo vacante '{title}' en '{company}' ({job_url}): descripción insuficiente ({len(description.strip())} caracteres)."
+            )
             continue
 
         job_hash = compute_job_hash(

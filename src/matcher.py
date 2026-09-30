@@ -63,6 +63,18 @@ def evaluate_job_match(
     if req_years > 0 and req_years > relevant_years:
         seniority_multiplier = max(0.5, relevant_years / req_years)
 
+    total_skills = len(requirements.mandatory_hard_skills) + len(
+        requirements.nice_to_have_skills
+    )
+    if total_skills == 0:
+        logger.info("Vacante sin habilidades técnicas identificables. Descalificando.")
+        rationale = (
+            "Match Score: 0.0/100 | Hard: 0.0% (Mandatory: 0.0%, Nice: 0.0%), "
+            "Soft: 0.0%. Skills analizadas: 0. "
+            "Descalificada: No se identificaron requisitos ni habilidades técnicas en la vacante."
+        )
+        return 0.0, 0.0, 0.0, rationale, []
+
     # 3. Evaluación de Hard Skills (desglose 80% Mandatory / 20% Nice-to-have)
     mandatory_score = 0.0
     if requirements.mandatory_hard_skills and len(indexer.hard_skill_texts) > 0:
@@ -92,7 +104,7 @@ def evaluate_job_match(
     elif requirements.nice_to_have_skills:
         hard_semantic_score = nice_score
     else:
-        hard_semantic_score = 75.0
+        hard_semantic_score = 0.0
 
     hard_score = round(hard_semantic_score * seniority_multiplier, 2)
 
@@ -108,7 +120,7 @@ def evaluate_job_match(
             float(np.mean(np.clip(best_soft_matches, 0.0, 1.0)) * 100.0), 2
         )
     else:
-        soft_score = 80.0
+        soft_score = hard_score
 
     # 5. Cálculo del Score Total Híbrido (70% Hard + 30% Soft desde settings)
     total_score = round(

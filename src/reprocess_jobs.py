@@ -43,10 +43,28 @@ def reprocess_all_jobs() -> None:
         company = job_data.get("company", "") or "Confidencial"
         desc = job_data.get("description", "") or ""
 
-        if not desc.strip():
+        if not desc.strip() or len(desc.strip()) < 50:
             logger.warning(
-                f"[{idx}/{len(jobs)}] Saltando registro rowid={db_rowid}: descripción vacía."
+                f"[{idx}/{len(jobs)}] Registro rowid={db_rowid} con descripción insuficiente ({len(desc.strip())} chars). Descalificando."
             )
+            cursor.execute(
+                """
+                UPDATE job_applications
+                SET match_score = 0.0,
+                    hard_match_score = 0.0,
+                    soft_match_score = 0.0,
+                    score_rationale = 'Descalificada: Descripción ausente o insuficiente para análisis técnico.',
+                    raw_requirements_json = '{}',
+                    top_bullets_json = '[]',
+                    is_remote_eligible = 0,
+                    status = 'DISQUALIFIED',
+                    cv_docx_path = '',
+                    cv_pdf_path = ''
+                WHERE rowid = ?
+                """,
+                (db_rowid,),
+            )
+            conn.commit()
             continue
 
         logger.info(
