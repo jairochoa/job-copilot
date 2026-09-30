@@ -75,24 +75,30 @@ def evaluate_job_match(
         )
         return 0.0, 0.0, 0.0, rationale, []
 
-    # 3. Evaluación de Hard Skills (desglose 80% Mandatory / 20% Nice-to-have)
+    # 3. Evaluación de Hard Skills Multidimensional (Herramientas, Educación, Idiomas, Industrias)
     mandatory_score = 0.0
-    if requirements.mandatory_hard_skills and len(indexer.hard_skill_texts) > 0:
-        mand_vectors = engine.encode(requirements.mandatory_hard_skills)
-        mand_sim_matrix = engine.cosine_similarity_matrix(
-            mand_vectors, indexer.hard_skill_vectors
-        )
-        best_mand = np.max(mand_sim_matrix, axis=1)
-        mandatory_score = float(np.mean(np.clip(best_mand, 0.0, 1.0)) * 100.0)
+    if requirements.mandatory_hard_skills:
+        tot_mand_weight = 0.0
+        weighted_mand_val = 0.0
+        for skill in requirements.mandatory_hard_skills:
+            res = indexer.match_requirement(skill, is_soft=False)
+            w = res["weight"]
+            s = res["score"]
+            weighted_mand_val += s * w
+            tot_mand_weight += w
+        mandatory_score = float((weighted_mand_val / tot_mand_weight) * 100.0) if tot_mand_weight > 0 else 0.0
 
     nice_score = 0.0
-    if requirements.nice_to_have_skills and len(indexer.hard_skill_texts) > 0:
-        nice_vectors = engine.encode(requirements.nice_to_have_skills)
-        nice_sim_matrix = engine.cosine_similarity_matrix(
-            nice_vectors, indexer.hard_skill_vectors
-        )
-        best_nice = np.max(nice_sim_matrix, axis=1)
-        nice_score = float(np.mean(np.clip(best_nice, 0.0, 1.0)) * 100.0)
+    if requirements.nice_to_have_skills:
+        tot_nice_weight = 0.0
+        weighted_nice_val = 0.0
+        for skill in requirements.nice_to_have_skills:
+            res = indexer.match_requirement(skill, is_soft=False)
+            w = res["weight"]
+            s = res["score"]
+            weighted_nice_val += s * w
+            tot_nice_weight += w
+        nice_score = float((weighted_nice_val / tot_nice_weight) * 100.0) if tot_nice_weight > 0 else 0.0
 
     # Ponderación interna desacoplada vía settings
     if requirements.mandatory_hard_skills and requirements.nice_to_have_skills:
@@ -108,17 +114,14 @@ def evaluate_job_match(
 
     hard_score = round(hard_semantic_score * seniority_multiplier, 2)
 
-    # 4. Evaluación de Soft Skills
+    # 4. Evaluación de Soft Skills con Booster y Coseno Calibrado
     soft_queries = requirements.soft_skills_context
-    if soft_queries and len(indexer.soft_skill_texts) > 0:
-        soft_query_vectors = engine.encode(soft_queries)
-        soft_sim_matrix = engine.cosine_similarity_matrix(
-            soft_query_vectors, indexer.soft_skill_vectors
-        )
-        best_soft_matches = np.max(soft_sim_matrix, axis=1)
-        soft_score = round(
-            float(np.mean(np.clip(best_soft_matches, 0.0, 1.0)) * 100.0), 2
-        )
+    if soft_queries:
+        soft_scores = []
+        for sq in soft_queries:
+            res = indexer.match_requirement(sq, is_soft=True)
+            soft_scores.append(res["score"])
+        soft_score = round(float(np.mean(soft_scores) * 100.0), 2) if soft_scores else hard_score
     else:
         soft_score = hard_score
 

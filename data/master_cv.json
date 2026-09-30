@@ -837,6 +837,108 @@
             }
         }
     ],
+    "industry_domains": {
+        "banking_finance_fintech": {
+            "name": {
+                "es": "Banca, Sector Financiero & Fintech",
+                "en": "Banking, Financial Services & Fintech"
+            },
+            "years": 4,
+            "companies": [
+                "Bancolombia",
+                "Banesco Banco Universal"
+            ],
+            "keywords": [
+                "Banca",
+                "Banking",
+                "Sector Financiero",
+                "Financial Services",
+                "Fintech",
+                "Riesgo Crediticio",
+                "Credit Risk",
+                "Detección de Fraude",
+                "Fraud Detection",
+                "Entidades Financieras",
+                "Bancolombia",
+                "Banesco",
+                "Divisas",
+                "FX",
+                "Transaccional",
+                "Core Banking",
+                "Data Marts Bancarios",
+                "Prevención de Riesgos"
+            ]
+        },
+        "healthcare_life_sciences": {
+            "name": {
+                "es": "Salud, Diagnóstico Clínico & Healthcare AI",
+                "en": "Healthcare, Clinical Diagnostics & Medical AI"
+            },
+            "years": 2,
+            "companies": [
+                "IDATA",
+                "Educación y Salud (Independiente)"
+            ],
+            "keywords": [
+                "Salud",
+                "Healthcare",
+                "Clínica",
+                "Diagnóstico Clínico",
+                "Imágenes Radiológicas",
+                "Medical AI",
+                "Health Tech",
+                "Pacientes",
+                "Bioestadística",
+                "Biostatistics",
+                "Clinical Research",
+                "Survival Analysis",
+                "Gastos Médicos",
+                "Gestión Clínica"
+            ]
+        },
+        "retail_cpg": {
+            "name": {
+                "es": "Retail, Consumo Masivo & Analytics Espacial",
+                "en": "Retail, CPG & Spatial Analytics"
+            },
+            "years": 3,
+            "companies": [
+                "IDATA"
+            ],
+            "keywords": [
+                "Retail",
+                "Comercio",
+                "Consumo Masivo",
+                "CPG",
+                "Spatial Analytics",
+                "Georreferenciación",
+                "Georeferencing",
+                "Segmentación de Clientes",
+                "Customer Profiling",
+                "Pricing",
+                "Optimización de Puntos de Venta"
+            ]
+        },
+        "industrial_manufacturing": {
+            "name": {
+                "es": "Industria, Manufactura & Energía",
+                "en": "Industrial Manufacturing & Energy"
+            },
+            "years": 2,
+            "companies": [
+                "Synapsis Research",
+                "IDATA"
+            ],
+            "keywords": [
+                "Manufactura",
+                "Industrial Statistics",
+                "Consumo Energético",
+                "Energy Forecasting",
+                "Diseño Experimental Factorial",
+                "Control Estadístico de Procesos"
+            ]
+        }
+    },
     "honors_awards": [
         {
             "id": "rec_01",

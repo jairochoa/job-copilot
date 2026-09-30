@@ -60,3 +60,29 @@ def test_empty_skills_disqualification():
     assert bullets == []
     assert "Skills analizadas: 0" in rationale
     assert "Descalificada" in rationale
+
+
+def test_multidimensional_scoring_boosters():
+    """Valida que los boosters de Educación, Idiomas e Industria otorguen scores altos (>= 85%)."""
+    reqs = JobRequirementsSchema(
+        is_remote_or_eligible=True,
+        language="en",
+        role_category="Data Science",
+        min_years_experience=4,
+        mandatory_hard_skills=[
+            "Python",
+            "M.Sc. in Statistics",
+            "English B2",
+            "Experiencia en Banca",
+            "PyTorch",
+            "SQL",
+        ],
+        nice_to_have_skills=["DataCamp certification"],
+        soft_skills_context=["Strong problem-solving skills", "Managing ambiguity"],
+    )
+    score, hard, soft, rationale, bullets = evaluate_job_match(reqs)
+    assert score >= 85.0
+    assert hard >= 85.0
+    assert soft >= 85.0
+    assert len(bullets) > 0
+    assert "Match Score:" in rationale

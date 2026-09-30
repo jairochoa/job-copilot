@@ -240,10 +240,10 @@ def run_scraper_flow(
     results_wanted: int = 5,
 ) -> list[dict[str, Any]]:
     """Ejecuta el flujo completo de prospección externa para poblar SQLite."""
-    terms = search_terms or ["Estadístico", "Analítico", "Statistician", "Data Analyst", "Científico de Datos", "Data Scientist", "Ingeniero de Machine Learning", "Machine Learning Engineer", "Applied AI Scientist"]
-    #terms = search_terms or ["Científico de Datos"]
+    #terms = search_terms or ["Estadístico", "Analítico", "Statistician", "Data Analyst", "Científico de Datos", "Data Scientist", "Ingeniero de Machine Learning", "Machine Learning Engineer", "Applied AI Scientist"]
+    terms = search_terms or ["Data Scientist"]
     #locs = locations or ["Venezuela", "Colombia", "Remote"]
-    locs = locations or ["Colombia", "Venezuela"]
+    locs = locations or ["Colombia"]
 
     all_jobs = []
     for term in terms:
