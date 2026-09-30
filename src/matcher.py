@@ -126,11 +126,16 @@ def evaluate_job_match(
         soft_score = hard_score
 
     # 5. Cálculo del Score Total Híbrido (70% Hard + 30% Soft desde settings)
-    total_score = round(
-        (hard_score * settings.HARD_SKILLS_WEIGHT)
-        + (soft_score * settings.SOFT_SKILLS_WEIGHT),
-        2,
-    )
+    # Gatekeeper Técnico: si los requisitos duros obligatorios no se cumplen (< 30%),
+    # las habilidades blandas no pueden calificar artificialmente un rol ajeno
+    if requirements.mandatory_hard_skills and mandatory_score < 30.0:
+        total_score = round(min(hard_score, (hard_score * 0.8) + (soft_score * 0.2)), 2)
+    else:
+        total_score = round(
+            (hard_score * settings.HARD_SKILLS_WEIGHT)
+            + (soft_score * settings.SOFT_SKILLS_WEIGHT),
+            2,
+        )
 
     # 6. Selector Top K de Viñetas de Experiencia por Afinidad Semántica
     all_req_text = " ".join(

@@ -5,7 +5,9 @@ Maneja la indexación en memoria del perfil maestro (master_cv.json).
 
 import json
 import logging
+import re
 from typing import Any, Dict, List, Tuple
+import unicodedata
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
@@ -69,15 +71,19 @@ def normalize_text(text: str) -> str:
 
 def calibrate_cosine_similarity(cos_sim: float) -> float:
     """
-    Calibra la similitud coseno de SentenceTransformers (rango práctico 0.20-0.75)
-    mapeándola a una escala continua de 0.0 a 1.0.
+    Calibra la similitud coseno de SentenceTransformers multilingüe.
+    En 'paraphrase-multilingual-MiniLM-L12-v2', oraciones sin ninguna relación
+    semántica tienen un piso de ruido de 0.15 a 0.45.
+    - cos_sim <= 0.45: Ruido de fondo / conceptos no relacionados -> 0.0
+    - 0.45 < cos_sim < 0.70: Relación semántica emergente/parcial -> [0.25, 0.85]
+    - cos_sim >= 0.70: Fuerte correspondencia semántica -> [0.85, 1.0]
     """
-    if cos_sim <= 0.22:
+    if cos_sim <= 0.45:
         return 0.0
-    elif cos_sim >= 0.60:
-        return min(1.0, 0.90 + (cos_sim - 0.60) * (0.10 / 0.15))
+    elif cos_sim >= 0.70:
+        return min(1.0, 0.85 + (cos_sim - 0.70) * (0.15 / 0.15))
     else:
-        return 0.30 + (cos_sim - 0.22) * (0.60 / 0.38)
+        return 0.25 + (cos_sim - 0.45) * (0.60 / 0.25)
 
 
 class MasterCVIndexer:
@@ -118,9 +124,9 @@ class MasterCVIndexer:
             kws = list(item.get("keywords", []))
             for kw in kws:
                 register_lexical(kw, "hard_skills", kw, 1.0)
-                # También indexamos palabras clave atómicas individualmente para evitar dilución
+                # Indexamos herramientas contextualizadas en el dominio técnico para evitar colisiones multilingües
                 self.hard_skill_keys.append(f"kw_{kw}")
-                self.hard_skill_texts.append(kw)
+                self.hard_skill_texts.append(f"Herramienta o tecnología de ciencia de datos y software analítico: {kw}")
                 self.hard_skill_metadata.append({"dimension": "hard_skills", "weight": 1.0, "name": kw})
 
             # Párrafo de contexto del área
@@ -310,26 +316,38 @@ class MasterCVIndexer:
             }
 
         # 1. Booster Léxico: Coincidencia Exacta o Subfrase
-        # A) Match idéntico directo
+        # A) Match idéntico directo respetando dimensión (hard vs soft)
         if norm_req in self.lexical_catalog:
             item = self.lexical_catalog[norm_req]
-            return {
-                "score": 1.0,
-                "weight": item["weight"],
-                "dimension": item["dimension"],
-                "match_type": "EXACT",
-                "matched_entity": item["name"],
-            }
+            if (is_soft and item["dimension"] == "soft_skills") or (not is_soft and item["dimension"] != "soft_skills"):
+                return {
+                    "score": 1.0,
+                    "weight": item["weight"],
+                    "dimension": item["dimension"],
+                    "match_type": "EXACT",
+                    "matched_entity": item["name"],
+                }
 
-        # B) Coincidencia de frase contenida
+        # B) Coincidencia de frase contenida con límites de palabra (\b)
         best_lexical = None
         for term, item in self.lexical_catalog.items():
-            if len(term) <= 2:
-                words = norm_req.split()
-                if term in words:
-                    best_lexical = item
-                    break
-            elif term in norm_req or (len(norm_req) >= 4 and norm_req in term):
+            # Separación estricta entre dimensiones hard y soft
+            if is_soft and item["dimension"] != "soft_skills":
+                continue
+            if not is_soft and item["dimension"] == "soft_skills":
+                continue
+
+            # Coincidencia con límites de palabra para evitar subcadenas espurias
+            pattern = r"\b" + re.escape(term) + r"\b"
+            req_pattern = r"\b" + re.escape(norm_req) + r"\b"
+
+            is_match = False
+            if re.search(pattern, norm_req):
+                is_match = True
+            elif len(norm_req) >= 4 and re.search(req_pattern, term):
+                is_match = True
+
+            if is_match:
                 if best_lexical is None or item["weight"] > best_lexical["weight"]:
                     best_lexical = item
 

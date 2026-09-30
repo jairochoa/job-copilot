@@ -86,3 +86,47 @@ def test_multidimensional_scoring_boosters():
     assert soft >= 85.0
     assert len(bullets) > 0
     assert "Match Score:" in rationale
+
+
+def test_unrelated_vacancies_disqualification():
+    """Valida que vacantes totalmente ajenas (Abogado, Chef) queden categóricamente descalificadas (< 20%)."""
+    # 1. Vacante Legal / Abogado
+    legal_reqs = JobRequirementsSchema(
+        is_remote_or_eligible=True,
+        language="es",
+        role_category="Legal",
+        min_years_experience=5,
+        mandatory_hard_skills=[
+            "Derecho Laboral",
+            "Litigio en tribunales",
+            "Redacción de demandas y tutelas",
+            "Contratos mercantiles",
+            "Tarjeta profesional de abogado vigente",
+            "Derecho procesal civil",
+        ],
+        nice_to_have_skills=["Derecho tributario", "Propiedad intelectual"],
+        soft_skills_context=["Negociación con sindicatos", "Persuasión en audiencias judiciales"],
+    )
+    score_legal, hard_legal, _, _, _ = evaluate_job_match(legal_reqs)
+    assert score_legal < 20.0
+    assert hard_legal == 0.0
+
+    # 2. Vacante Gastronómica / Chef
+    chef_reqs = JobRequirementsSchema(
+        is_remote_or_eligible=True,
+        language="es",
+        role_category="Other",
+        min_years_experience=4,
+        mandatory_hard_skills=[
+            "Cocina mediterránea",
+            "Manejo de BPM (Buenas Prácticas de Manufactura en alimentos)",
+            "Control de costos y mermas en cocina",
+            "Pastelería profesional",
+            "Técnicas de corte culinario y mise en place",
+        ],
+        nice_to_have_skills=["Sommelier / Maridaje de vinos"],
+        soft_skills_context=["Liderazgo de brigada de cocina", "Trabajo bajo presión en servicio"],
+    )
+    score_chef, hard_chef, _, _, _ = evaluate_job_match(chef_reqs)
+    assert score_chef < 20.0
+    assert hard_chef < 10.0
