@@ -132,7 +132,12 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configurar variables de entorno
-Copia la plantilla y edita tu archivo `.env`:
+
+> 💡 **¿Cuál es la diferencia entre `.env` y `.env.example`?**
+> * **`.env` (Uso local activo):** Es el archivo real que lee el proyecto al ejecutarse (`src/config.py`). Contiene tus claves secretas privadas y configuraciones personales. Está protegido en `.gitignore` para que **NUNCA** se suba a repositorios públicos ni se filtren tus credenciales.
+> * **`.env.example` (Plantilla pública de Git):** Es únicamente un molde o guía pública de referencia sin credenciales reales. Sirve para documentar todas las variables que admite el sistema.
+
+Copia la plantilla y edita tu archivo `.env` en tu máquina local:
 ```powershell
 Copy-Item .env.example .env
 ```
@@ -148,35 +153,41 @@ Edita el archivo `data/master_cv.json` con tu experiencia, proyectos, habilidade
 
 ## 💻 Uso del CLI y Ejemplos Prácticos
 
-El orquestador `main.py` permite parametrizar la prospección directamente desde la línea de comandos:
+El orquestador `main.py` permite parametrizar la prospección dinámicamente desde la línea de comandos sin tener que modificar archivos de código:
 
-### Ejecución estándar (valores por defecto de `.env`)
+### 1. Ejecución estándar (usando los defaults de `.env`)
 ```powershell
 python main.py
 ```
 
-### Búsqueda personalizada por términos y países
+### 2. Prospección multirregional (Colombia, Venezuela, España, etc.)
+Puedes consultar simultáneamente varios mercados separándolos por comas:
 ```powershell
-python main.py --terms "Senior Data Scientist, Machine Learning Engineer" --locations "Colombia, Remote" --results 5
+python main.py --terms "Senior Data Scientist, Machine Learning Engineer" --locations "Colombia, Venezuela, España, Remote" --results 5
 ```
 
-### Prospección exclusiva de vacantes remotas recientes (últimas 24 horas)
+### 3. Búsqueda específica en España y Remoto
+```powershell
+python main.py --terms "Data Scientist, Analytics Engineer" --locations "España, Remote" --results 3
+```
+
+### 4. Prospección exclusiva de vacantes 100% remotas de las últimas 24 horas
 ```powershell
 python main.py --terms "Applied AI Scientist" --locations "Remote" --hours 24 --remote
 ```
 
-### Procesar únicamente vacantes existentes en la BD (sin scraping)
+### 5. Evaluar vacantes ya guardadas en la base de datos (sin hacer scraping web)
 Ideal para re-evaluar vacantes pendientes o regenerar CVs con un nuevo perfil:
 ```powershell
 python main.py --skip-scraping
 ```
 
-### Exportar únicamente vacantes que hayan calificado al Excel
+### 6. Exportar únicamente vacantes que hayan calificado al Excel
 ```powershell
 python main.py --skip-scraping --only-qualified
 ```
 
-### Ver ayuda y opciones disponibles
+### 7. Ver ayuda y catálogo completo de argumentos CLI
 ```powershell
 python main.py --help
 ```
@@ -184,6 +195,23 @@ python main.py --help
 ---
 
 ## ⚙️ Referencia de Configuración (.env)
+
+### 🌍 Diferencia Clave: `SCRAPER_LOCATIONS` vs `CANDIDATE_PRIMARY_LOCATION`
+
+Es común confundir estas dos variables geográficas, pero cumplen funciones totalmente distintas en el pipeline:
+
+* **`SCRAPER_LOCATIONS` (¿Dónde busca el scraper?):**  
+  Define en qué portales y regiones geográficas de LinkedIn/Indeed se buscarán ofertas de empleo.  
+  *Ejemplo:* `SCRAPER_LOCATIONS="Colombia, Venezuela, España, Remote"`
+* **`CANDIDATE_PRIMARY_LOCATION` (¿Dónde eres elegible tú?):**  
+  Instruye al analizador de requisitos de Google Gemini sobre tu disponibilidad geográfica real. Actúa como **Gatekeeper Territorial**: si una oferta exige residencia física obligatoria en Alemania o ciudadanía estricta de EE.UU. (ej. *US Security Clearance*), Gemini la descalificará (`is_remote_or_eligible = False`). Si la oferta admite trabajo remoto o residencia en tus regiones, la admitirá para evaluación.  
+  *Ejemplo:* `CANDIDATE_PRIMARY_LOCATION="Colombia, Venezuela, España y Remoto Internacional"`
+
+> 🇪🇺 **Soporte para España y Europa:** El scraper ([src/scraper.py](file:///c:/Projects/job-copilot/src/scraper.py)) detecta automáticamente si la ubicación pertenece a Europa o Norteamérica, habilitando portales como Glassdoor que normalmente bloquean consultas regionales directas desde Latinoamérica.
+
+---
+
+### Tabla Completa de Variables de Entorno
 
 Todas las variables son completamente opcionales y cuentan con valores por defecto óptimos en `src/config.py`:
 
