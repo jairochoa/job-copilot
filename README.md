@@ -132,11 +132,6 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configurar variables de entorno
-
-> 💡 **¿Cuál es la diferencia entre `.env` y `.env.example`?**
-> * **`.env` (Uso local activo):** Es el archivo real que lee el proyecto al ejecutarse (`src/config.py`). Contiene tus claves secretas privadas y configuraciones personales. Está protegido en `.gitignore` para que **NUNCA** se suba a repositorios públicos ni se filtren tus credenciales.
-> * **`.env.example` (Plantilla pública de Git):** Es únicamente un molde o guía pública de referencia sin credenciales reales. Sirve para documentar todas las variables que admite el sistema.
-
 Copia la plantilla y edita tu archivo `.env` en tu máquina local:
 ```powershell
 Copy-Item .env.example .env
@@ -151,48 +146,92 @@ Edita el archivo `data/master_cv.json` con tu experiencia, proyectos, habilidade
 
 ---
 
-## 💻 Uso del CLI y Ejemplos Prácticos
+## 💻 Interfaz de Línea de Comandos (CLI) y Guía de Uso
 
-El orquestador `main.py` permite parametrizar la prospección dinámicamente desde la línea de comandos sin tener que modificar archivos de código:
+El archivo `main.py` actúa como el **orquestador central** del proyecto. Permite controlar todo el flujo de trabajo (prospección, análisis taxonómico con IA, matching semántico RAG, compilación de CVs ATS y exportación a Excel) de forma flexible mediante banderas (*flags*) desde la terminal, sin necesidad de modificar ningún archivo de código Python.
 
-### 1. Ejecución estándar (usando los defaults de `.env`)
+### 📋 Referencia de Banderas y Opciones del CLI
+
+| Bandera | Tipo | Valor por Defecto | Descripción |
+| :--- | :---: | :---: | :--- |
+| `--terms` | `str` | Valor de `.env` | Términos o cargos de búsqueda separados por comas (ej. `"Data Scientist, Machine Learning Engineer"`). |
+| `--locations` | `str` | Valor de `.env` | Ubicaciones geográficas separadas por comas (ej. `"Colombia, España, Remote"`). |
+| `--results` | `int` | `5` | Número máximo de vacantes a raspar por cada combinación de término y ubicación. |
+| `--hours` | `int` | `72` | Antigüedad máxima de publicación de las vacantes en horas (ej. `24` para ofertas del último día). |
+| `--remote` | `flag` | `false` | Filtra estrictamente vacantes con modalidad 100% remota. |
+| `--skip-scraping` | `flag` | `false` | Omite la prospección web y procesa directamente las vacantes en cola dentro de `data/jobs.db`. |
+| `--only-qualified` | `flag` | `false` | Genera el informe final de Excel incluyendo exclusivamente las vacantes con estatus `QUALIFIED`. |
+| `--help`, `-h` | `flag` | - | Despliega la ayuda interactiva y la lista completa de parámetros en consola. |
+
+---
+
+### 🛠️ Casos de Uso y Flujos de Trabajo Recomendados
+
+#### Caso 1: Ejecución Diaria Automática
+Ejecuta el pipeline completo utilizando la configuración por defecto de tu archivo `.env`:
 ```powershell
 python main.py
 ```
+> **¿Qué hace?** Busca ofertas según tus términos y países configurados, extrae los requisitos con Gemini, calcula el match score con RAG local, genera los CVs en `.docx` y `.pdf` para las vacantes que califiquen, y actualiza el reporte en Excel.
 
-### 2. Prospección multirregional (Colombia, Venezuela, España, etc.)
-Puedes consultar simultáneamente varios mercados separándolos por comas:
+---
+
+#### Caso 2: Prospección Multirregional Personalizada (Colombia, Venezuela, España, etc.)
+Si deseas buscar simultáneamente en diferentes países o mercados para roles específicos:
 ```powershell
-python main.py --terms "Senior Data Scientist, Machine Learning Engineer" --locations "Colombia, Venezuela, España, Remote" --results 5
+python main.py --terms "Senior Data Scientist, Machine Learning Engineer" --locations "Colombia, Venezuela, España, Remote" --results 3
 ```
 
-### 3. Búsqueda específica en España y Remoto
+---
+
+#### Caso 3: Búsqueda Urgente de Ofertas 100% Remotas del Último Día
+Cuando deseas revisar únicamente las vacantes publicadas en las últimas 24 horas con trabajo remoto global:
 ```powershell
-python main.py --terms "Data Scientist, Analytics Engineer" --locations "España, Remote" --results 3
+python main.py --terms "Applied AI Scientist, Analytics Engineer" --locations "Remote" --hours 24 --remote --results 10
 ```
 
-### 4. Prospección exclusiva de vacantes 100% remotas de las últimas 24 horas
-```powershell
-python main.py --terms "Applied AI Scientist" --locations "Remote" --hours 24 --remote
-```
+---
 
-### 5. Evaluar vacantes ya guardadas en la base de datos (sin hacer scraping web)
-Ideal para re-evaluar vacantes pendientes o regenerar CVs con un nuevo perfil:
+#### Caso 4: Modo Offline / Re-evaluación (`--skip-scraping`)
+Úsalo si:
+* Ya extrajiste vacantes previamente y solo deseas evaluarlas sin volver a consultar LinkedIn o Indeed.
+* Editaste tu [data/master_cv.json](file:///c:/Projects/job-copilot/data/master_cv.json) (agregaste una nueva certificación o experiencia) y deseas re-evaluar la cola existente.
+* Cambiaste el umbral `MIN_QUALIFIED_SCORE` en `.env` y quieres regenerar los currículums.
 ```powershell
 python main.py --skip-scraping
 ```
 
-### 6. Exportar únicamente vacantes que hayan calificado al Excel
+---
+
+#### Caso 5: Generación de Reporte Ejecutivo Filtrado (`--only-qualified`)
+Exporta el informe `output/prospectos_calificados.xlsx` conteniendo **únicamente** las ofertas que superaron el umbral de calificación (`QUALIFIED`), excluyendo las descalificadas:
 ```powershell
 python main.py --skip-scraping --only-qualified
 ```
 
-### 7. Ver ayuda y catálogo completo de argumentos CLI
+---
+
+#### Caso 6: Consultar la Ayuda del CLI
+El nombre de los parámetros se pueden consultar en el manual integrado:
 ```powershell
 python main.py --help
 ```
 
----
+
+## Salidas y reportes generados
+
+Al finalizar la ejecución, el sistema genera dos tipos de artefactos en la carpeta `output/`:
+
+1. **Currículums adaptados para ATS**: Documentos en formatos Word (`.docx`) y `.pdf` estructurados a una columna y personalizados según los requisitos de cada vacante calificada.
+2. **Reporte consolidado en Excel**: Un libro de cálculo (`output/prospectos_calificados.xlsx`) con el análisis de cada oferta, puntajes desglosados, hipervínculos funcionales y enlaces locales a los CVs generados.
+
+### Vista previa del reporte en Excel
+
+<p align="center">
+  <img src="assets/Resultados_Vacantes.png" alt="Reporte consolidado de vacantes en Excel" width="95%">
+</p>
+
+
 
 ## ⚙️ Referencia de Configuración (.env)
 
@@ -204,7 +243,7 @@ Es común confundir estas dos variables geográficas, pero cumplen funciones tot
   Define en qué portales y regiones geográficas de LinkedIn/Indeed se buscarán ofertas de empleo.  
   *Ejemplo:* `SCRAPER_LOCATIONS="Colombia, Venezuela, España, Remote"`
 * **`CANDIDATE_PRIMARY_LOCATION` (¿Dónde eres elegible tú?):**  
-  Instruye al analizador de requisitos de Google Gemini sobre tu disponibilidad geográfica real. Actúa como **Gatekeeper Territorial**: si una oferta exige residencia física obligatoria en Alemania o ciudadanía estricta de EE.UU. (ej. *US Security Clearance*), Gemini la descalificará (`is_remote_or_eligible = False`). Si la oferta admite trabajo remoto o residencia en tus regiones, la admitirá para evaluación.  
+  Instruye al analizador de requisitos de Google Gemini sobre la disponibilidad geográfica real. Actúa como **Gatekeeper Territorial**: si una oferta exige residencia física obligatoria en Alemania o ciudadanía estricta de EE.UU. (ej. *US Security Clearance*), Gemini la descalificará (`is_remote_or_eligible = False`). Si la oferta admite trabajo remoto o residencia en tus regiones, la admitirá para evaluación.  
   *Ejemplo:* `CANDIDATE_PRIMARY_LOCATION="Colombia, Venezuela, España y Remoto Internacional"`
 
 > 🇪🇺 **Soporte para España y Europa:** El scraper ([src/scraper.py](file:///c:/Projects/job-copilot/src/scraper.py)) detecta automáticamente si la ubicación pertenece a Europa o Norteamérica, habilitando portales como Glassdoor que normalmente bloquean consultas regionales directas desde Latinoamérica.
