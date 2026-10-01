@@ -73,17 +73,21 @@ def calibrate_cosine_similarity(cos_sim: float) -> float:
     """
     Calibra la similitud coseno de SentenceTransformers multilingüe.
     En 'paraphrase-multilingual-MiniLM-L12-v2', oraciones sin ninguna relación
-    semántica tienen un piso de ruido de 0.15 a 0.45.
-    - cos_sim <= 0.45: Ruido de fondo / conceptos no relacionados -> 0.0
-    - 0.45 < cos_sim < 0.70: Relación semántica emergente/parcial -> [0.25, 0.85]
-    - cos_sim >= 0.70: Fuerte correspondencia semántica -> [0.85, 1.0]
+    semántica tienen un piso de ruido configurable (settings.COSINE_NOISE_FLOOR).
+    - cos_sim <= settings.COSINE_NOISE_FLOOR: Ruido de fondo / conceptos no relacionados -> 0.0
+    - settings.COSINE_NOISE_FLOOR < cos_sim < settings.COSINE_STRONG_MATCH: Relación semántica emergente/parcial -> [0.25, 0.85]
+    - cos_sim >= settings.COSINE_STRONG_MATCH: Fuerte correspondencia semántica -> [0.85, 1.0]
     """
-    if cos_sim <= 0.45:
+    noise_floor = settings.COSINE_NOISE_FLOOR
+    strong_match = settings.COSINE_STRONG_MATCH
+    if cos_sim <= noise_floor:
         return 0.0
-    elif cos_sim >= 0.70:
-        return min(1.0, 0.85 + (cos_sim - 0.70) * (0.15 / 0.15))
+    elif cos_sim >= strong_match:
+        delta = max(0.001, 1.0 - strong_match)
+        return min(1.0, 0.85 + (cos_sim - strong_match) * (0.15 / delta))
     else:
-        return 0.25 + (cos_sim - 0.45) * (0.60 / 0.25)
+        span = max(0.001, strong_match - noise_floor)
+        return 0.25 + (cos_sim - noise_floor) * (0.60 / span)
 
 
 class MasterCVIndexer:
@@ -118,27 +122,30 @@ class MasterCVIndexer:
         self.hard_skill_texts: List[str] = []
         self.hard_skill_metadata: List[Dict[str, Any]] = []
 
+        hard_weight = settings.WEIGHT_HARD_SKILLS
         for key, item in self.cv_data.get("skills_inventory", {}).items():
             cat_display = key.replace("_", " ")
-            register_lexical(cat_display, "hard_skills", cat_display, 1.0)
+            register_lexical(cat_display, "hard_skills", cat_display, hard_weight)
             kws = list(item.get("keywords", []))
             for kw in kws:
-                register_lexical(kw, "hard_skills", kw, 1.0)
+                register_lexical(kw, "hard_skills", kw, hard_weight)
                 # Indexamos herramientas contextualizadas en el dominio técnico para evitar colisiones multilingües
                 self.hard_skill_keys.append(f"kw_{kw}")
                 self.hard_skill_texts.append(f"Herramienta o tecnología de ciencia de datos y software analítico: {kw}")
-                self.hard_skill_metadata.append({"dimension": "hard_skills", "weight": 1.0, "name": kw})
+                self.hard_skill_metadata.append({"dimension": "hard_skills", "weight": hard_weight, "name": kw})
 
             # Párrafo de contexto del área
             kws_str = ", ".join(kws)
             chunk = f"{key}. Herramientas: {kws_str}. Contexto: {item.get('context', '')}"
             self.hard_skill_keys.append(key)
             self.hard_skill_texts.append(chunk)
-            self.hard_skill_metadata.append({"dimension": "hard_skills", "weight": 1.0, "name": key})
+            self.hard_skill_metadata.append({"dimension": "hard_skills", "weight": hard_weight, "name": key})
 
-        # 2. Formación Académica (Education) - Peso 2.0x
+        # 2. Formación Académica (Education) - Extraída dinámicamente de master_cv.json
         edu_items = self.cv_data.get("education", [])
         edu_summary_parts = []
+        edu_weight = settings.WEIGHT_EDUCATION
+
         for edu in edu_items:
             deg_es = edu.get("degree", {}).get("es", "")
             deg_en = edu.get("degree", {}).get("en", "")
@@ -147,34 +154,42 @@ class MasterCVIndexer:
             details_en = edu.get("details", {}).get("en", "")
 
             if deg_es:
-                register_lexical(deg_es, "education", deg_es, 2.0)
+                register_lexical(deg_es, "education", deg_es, edu_weight)
             if deg_en:
-                register_lexical(deg_en, "education", deg_en, 2.0)
+                register_lexical(deg_en, "education", deg_en, edu_weight)
             if inst:
-                register_lexical(inst, "education", inst, 2.0)
+                register_lexical(inst, "education", inst, edu_weight)
+                # Extracción dinámica de siglas/partes de la institución (ej. "Universidad de Los Andes (ULA)")
+                for part in re.findall(r"[^()]+", inst):
+                    part_clean = part.strip()
+                    if len(part_clean) >= 2:
+                        register_lexical(part_clean, "education", part_clean, edu_weight)
 
             edu_summary_parts.append(f"{deg_es} / {deg_en} en {inst}. {details_es} {details_en}")
 
-        # Variaciones académicas clave para exact booster
-        for academic_term in [
+        # Sinónimos y categorías académicas genéricas
+        canonical_academic_terms = [
             "m.sc. in statistics", "msc in statistics", "master in statistics", "maestria en estadistica",
             "licenciado en estadistica", "b.sc. in statistics", "licenciatura en estadistica",
             "ingenieria en inteligencia artificial y ciencia de datos", "b.sc. in artificial intelligence & data science",
             "estadistica", "statistics", "data science", "ciencia de datos", "inteligencia artificial",
             "artificial intelligence", "stem degree", "grado en estadistica", "quantitative field",
-            "universidad de los andes", "ula", "unad"
-        ]:
-            register_lexical(academic_term, "education", academic_term, 2.0)
+            "master", "maestria", "postgrado", "licenciatura", "bachelor", "engineering", "ingenieria"
+        ]
+        for academic_term in canonical_academic_terms:
+            register_lexical(academic_term, "education", academic_term, edu_weight)
 
         if edu_summary_parts:
             edu_chunk = "Formación Académica y Títulos: " + " ".join(edu_summary_parts)
             self.hard_skill_keys.append("education_summary")
             self.hard_skill_texts.append(edu_chunk)
-            self.hard_skill_metadata.append({"dimension": "education", "weight": 2.0, "name": "Formación Académica"})
+            self.hard_skill_metadata.append({"dimension": "education", "weight": edu_weight, "name": "Formación Académica"})
 
-        # 3. Idiomas (Languages) - Peso 1.5x
+        # 3. Idiomas (Languages) - Extraídos dinámicamente de master_cv.json
         lang_items = self.cv_data.get("languages", [])
         lang_summary_parts = []
+        lang_weight = settings.WEIGHT_LANGUAGES
+
         for lang in lang_items:
             l_name_es = lang.get("language", {}).get("es", "")
             l_name_en = lang.get("language", {}).get("en", "")
@@ -182,27 +197,43 @@ class MasterCVIndexer:
             prof_en = lang.get("proficiency", {}).get("en", "") or lang.get("level", {}).get("en", "")
 
             if l_name_es:
-                register_lexical(l_name_es, "languages", l_name_es, 1.5)
+                register_lexical(l_name_es, "languages", l_name_es, lang_weight)
             if l_name_en:
-                register_lexical(l_name_en, "languages", l_name_en, 1.5)
+                register_lexical(l_name_en, "languages", l_name_en, lang_weight)
+
+            # Extraer dinámicamente términos y acrónimos del nivel/certificado (ej. "B2", "APTIS", etc.)
+            for prof_str in (prof_es, prof_en):
+                if prof_str:
+                    register_lexical(prof_str, "languages", prof_str, lang_weight)
+                    for tok in re.split(r"[(),\-–/]+", prof_str):
+                        tok_clean = tok.strip()
+                        if len(tok_clean) >= 2:
+                            register_lexical(tok_clean, "languages", tok_clean, lang_weight)
+                            if l_name_es:
+                                register_lexical(f"{l_name_es} {tok_clean}", "languages", f"{l_name_es} {tok_clean}", lang_weight)
+                            if l_name_en:
+                                register_lexical(f"{l_name_en} {tok_clean}", "languages", f"{l_name_en} {tok_clean}", lang_weight)
 
             lang_summary_parts.append(f"{l_name_es} / {l_name_en}: {prof_es} / {prof_en}")
 
         for lang_term in [
-            "ingles", "english", "ingles b2", "english b2", "b2", "aptis b2", "professional working proficiency",
-            "competencia profesional operativa", "espanol", "spanish", "nativo", "native", "bilingual", "bilingue"
+            "ingles", "english", "espanol", "spanish", "aleman", "german",
+            "nativo", "native", "bilingual", "bilingue", "working proficiency",
+            "competencia profesional operativa", "professional working proficiency"
         ]:
-            register_lexical(lang_term, "languages", lang_term, 1.5)
+            register_lexical(lang_term, "languages", lang_term, lang_weight)
 
         if lang_summary_parts:
             lang_chunk = "Competencia en Idiomas: " + "; ".join(lang_summary_parts)
             self.hard_skill_keys.append("languages_summary")
             self.hard_skill_texts.append(lang_chunk)
-            self.hard_skill_metadata.append({"dimension": "languages", "weight": 1.5, "name": "Idiomas"})
+            self.hard_skill_metadata.append({"dimension": "languages", "weight": lang_weight, "name": "Idiomas"})
 
-        # 4. Dominios de Industria (Industry Domains) - Peso 1.5x
+        # 4. Dominios de Industria (Industry Domains)
         ind_items = self.cv_data.get("industry_domains", {})
         ind_summary_parts = []
+        ind_weight = settings.WEIGHT_INDUSTRY
+
         for ind_key, ind_data in ind_items.items():
             name_es = ind_data.get("name", {}).get("es", "")
             name_en = ind_data.get("name", {}).get("en", "")
@@ -210,17 +241,18 @@ class MasterCVIndexer:
             keywords = ind_data.get("keywords", [])
 
             for kw in keywords:
-                register_lexical(kw, "industry", kw, 1.5)
+                register_lexical(kw, "industry", kw, ind_weight)
             for comp in companies:
-                register_lexical(comp, "industry", comp, 1.5)
+                register_lexical(comp, "industry", comp, ind_weight)
 
             ind_chunk = f"Dominio Sectorial e Industria: {name_es} / {name_en} ({', '.join(companies)}). Conceptos: {', '.join(keywords)}."
             self.hard_skill_keys.append(f"ind_{ind_key}")
             self.hard_skill_texts.append(ind_chunk)
-            self.hard_skill_metadata.append({"dimension": "industry", "weight": 1.5, "name": name_es})
+            self.hard_skill_metadata.append({"dimension": "industry", "weight": ind_weight, "name": name_es})
             ind_summary_parts.append(ind_chunk)
 
-        # 5. Certificaciones (Certifications) - Peso 1.0x
+        # 5. Certificaciones (Certifications)
+        cert_weight = settings.WEIGHT_CERTIFICATIONS
         for cert in self.cv_data.get("certifications", []):
             cert_id = cert.get("id", "cert")
             name_es = cert.get("name", {}).get("es", "")
@@ -228,16 +260,16 @@ class MasterCVIndexer:
             issuer = cert.get("issuer", "")
 
             if name_es:
-                register_lexical(name_es, "certifications", name_es, 1.0)
+                register_lexical(name_es, "certifications", name_es, cert_weight)
             if name_en:
-                register_lexical(name_en, "certifications", name_en, 1.0)
+                register_lexical(name_en, "certifications", name_en, cert_weight)
             if issuer:
-                register_lexical(issuer, "certifications", issuer, 1.0)
+                register_lexical(issuer, "certifications", issuer, cert_weight)
 
             chunk = f"Certificación y Curso: {name_es} / {name_en} por {issuer}. Estado: {cert.get('status', '')}"
             self.hard_skill_keys.append(cert_id)
             self.hard_skill_texts.append(chunk)
-            self.hard_skill_metadata.append({"dimension": "certifications", "weight": 1.0, "name": name_es or name_en})
+            self.hard_skill_metadata.append({"dimension": "certifications", "weight": cert_weight, "name": name_es or name_en})
 
         # Pre-calcular vectores densos para todo el espectro hard/académico/industria
         self.hard_skill_vectors = self.engine.encode(self.hard_skill_texts)

@@ -1,8 +1,8 @@
-﻿venv/
+venv/
 __pycache__/
 *.pyc
 .env
-.env.example
+logs/
 data/*.db
 data/output/
 *.pdf

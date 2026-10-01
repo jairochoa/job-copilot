@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 class JobRequirementsSchema(BaseModel):
     is_remote_or_eligible: bool = Field(
         ...,
-        description="True si la vacante es 100% remota a nivel global o explícitamente abierta a candidatos en Colombia/LatAm. False si exige presencialidad fuera de Colombia o residencia/ciudadanía estricta (ej. US Citizen Only, Secret Clearance).",
+        description=f"True si la vacante es 100% remota a nivel global o explícitamente abierta a candidatos en {settings.CANDIDATE_PRIMARY_LOCATION}. False si exige presencialidad fuera de {settings.CANDIDATE_PRIMARY_LOCATION} o residencia/ciudadanía estricta (ej. US Citizen Only, Secret Clearance).",
     )
     ineligibility_reason: Optional[str] = Field(
         default="",
@@ -92,7 +92,7 @@ def extract_job_requirements(
     actual_title = job_title or kwargs.get("title", "Posición no especificada")
     actual_desc = description or kwargs.get("job_description", "")
 
-    if not actual_desc or len(actual_desc.strip()) < 50:
+    if not actual_desc or len(actual_desc.strip()) < settings.MIN_DESCRIPTION_LENGTH:
         logger.warning(
             f"Descripción insuficiente para '{actual_title}' en '{company}' ({len(actual_desc.strip()) if actual_desc else 0} caracteres). Omitiendo consulta LLM."
         )
@@ -141,8 +141,8 @@ REGLAS TAXONÓMICAS DE EXTRACCIÓN OBLIGATORIAS:
    - Habilidades Blandas e Interpersonales: Reserva 'soft_skills_context' para competencias de comunicación, liderazgo de equipos, negociación, trabajo con stakeholders o adaptabilidad.
 
 3. Filtro Territorial (Gatekeeper):
-   - is_remote_or_eligible = True si la posición admite trabajo remoto internacional/LatAm o candidatos ubicados en Colombia o Venezuela. No siempre una vacante en otro pais exige presencialidad a menos que se indique. 
-   - is_remote_or_eligible = False únicamente si la vacante exige expresamente presencialidad fuera de Colombia o Venezuela. De no ser asi, se asume que es apto para candidatos de Colombia o Venezuela.
+   - is_remote_or_eligible = True si la posición admite trabajo remoto internacional/LatAm o candidatos ubicados en {settings.CANDIDATE_PRIMARY_LOCATION}. No siempre una vacante en otro país exige presencialidad a menos que se indique expresamente.
+   - is_remote_or_eligible = False únicamente si la vacante exige expresamente presencialidad fuera de las regiones admitidas para el candidato ({settings.CANDIDATE_PRIMARY_LOCATION}). De no ser así, se asume que es apto.
 """
 
     payload = {

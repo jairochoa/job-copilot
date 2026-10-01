@@ -13,6 +13,7 @@ import pandas as pd
 import requests
 from jobspy import scrape_jobs
 
+from src.config import settings
 from src.database import compute_job_hash, insert_job, is_job_exists
 from src.logger import logger
 
@@ -103,13 +104,7 @@ def resolve_sites_for_location(
     location: str, requested_sites: list[str] | None = None
 ) -> list[str]:
     """Filtra y devuelve sitios compatibles según la región geográfica."""
-    default_sites = requested_sites or [
-        "linkedin",
-        "indeed",
-        "glassdoor",
-        "zip_recruiter",
-        "google",
-    ]
+    default_sites = requested_sites or list(settings.SCRAPER_SITES)
     loc_lower = location.lower().strip()
     is_na_eu = any(c in loc_lower for c in NORTH_AMERICA_EUROPE)
 
@@ -129,14 +124,19 @@ def resolve_sites_for_location(
 def run_job_search(
     search_term: str,
     location: str,
-    results_wanted: int = 2,
-    hours_old: int = 72,
+    results_wanted: int | None = None,
+    hours_old: int | None = None,
     country_indeed: str | None = None,
     sites: list[str] | None = None,
-    is_remote: bool = False,
+    is_remote: bool | None = None,
 ) -> list[dict[str, Any]]:
     """Ejecuta el scraping dinámico y persiste los resultados en SQLite."""
-    logger.info(f"Iniciando búsqueda de empleos: '{search_term}' en '{location}'...")
+    actual_results = results_wanted if results_wanted is not None else settings.SCRAPER_RESULTS_WANTED
+    actual_hours = hours_old if hours_old is not None else settings.SCRAPER_HOURS_OLD
+    actual_remote = is_remote if is_remote is not None else settings.SCRAPER_IS_REMOTE
+    actual_indeed_country = country_indeed or settings.SCRAPER_COUNTRY_INDEED
+
+    logger.info(f"Iniciando búsqueda de empleos: '{search_term}' en '{location}' (Remote: {actual_remote})...")
 
     active_sites = resolve_sites_for_location(location=location, requested_sites=sites)
     logger.info(f"Portales habilitados para la consulta: {active_sites}")
@@ -149,13 +149,13 @@ def run_job_search(
                 "site_name": [site],
                 "search_term": search_term,
                 "location": location,
-                "results_wanted": results_wanted,
-                "hours_old": hours_old,
-                "is_remote": is_remote,
+                "results_wanted": actual_results,
+                "hours_old": actual_hours,
+                "is_remote": actual_remote,
                 "linkedin_fetch_description": True,
             }
-            if country_indeed:
-                scrape_kwargs["country_indeed"] = country_indeed
+            if actual_indeed_country:
+                scrape_kwargs["country_indeed"] = actual_indeed_country
 
             df = scrape_jobs(**scrape_kwargs)
             if df is not None and not df.empty:
@@ -186,7 +186,7 @@ def run_job_search(
         if not title or not company or not job_url:
             continue
 
-        if not description or len(description.strip()) < 50:
+        if not description or len(description.strip()) < settings.MIN_DESCRIPTION_LENGTH:
             logger.warning(
                 f"Omitiendo vacante '{title}' en '{company}' ({job_url}): descripción insuficiente ({len(description.strip())} caracteres)."
             )
@@ -237,13 +237,17 @@ def run_job_search(
 def run_scraper_flow(
     search_terms: list[str] | None = None,
     locations: list[str] | None = None,
-    results_wanted: int = 5,
+    results_wanted: int | None = None,
+    hours_old: int | None = None,
+    country_indeed: str | None = None,
+    sites: list[str] | None = None,
+    is_remote: bool | None = None,
 ) -> list[dict[str, Any]]:
-    """Ejecuta el flujo completo de prospección externa para poblar SQLite."""
-    #terms = search_terms or ["Estadístico", "Analítico", "Statistician", "Data Analyst", "Científico de Datos", "Data Scientist", "Ingeniero de Machine Learning", "Machine Learning Engineer", "Applied AI Scientist"]
-    terms = search_terms or ["Data Scientist"]
-    #locs = locations or ["Venezuela", "Colombia", "Remote"]
-    locs = locations or ["Colombia"]
+    """Ejecuta el flujo completo de prospección externa para poblar SQLite usando configuración centralizada."""
+    terms = search_terms or list(settings.SCRAPER_SEARCH_TERMS)
+    locs = locations or list(settings.SCRAPER_LOCATIONS)
+    n_results = results_wanted if results_wanted is not None else settings.SCRAPER_RESULTS_WANTED
+    rem_flag = is_remote if is_remote is not None else settings.SCRAPER_IS_REMOTE
 
     all_jobs = []
     for term in terms:
@@ -252,7 +256,11 @@ def run_scraper_flow(
                 jobs = run_job_search(
                     search_term=term,
                     location=loc,
-                    results_wanted=results_wanted,
+                    results_wanted=n_results,
+                    hours_old=hours_old,
+                    country_indeed=country_indeed,
+                    sites=sites,
+                    is_remote=rem_flag,
                 )
                 all_jobs.extend(jobs)
             except Exception as e:

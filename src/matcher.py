@@ -61,7 +61,7 @@ def evaluate_job_match(
 
     seniority_multiplier = 1.0
     if req_years > 0 and req_years > relevant_years:
-        seniority_multiplier = max(0.5, relevant_years / req_years)
+        seniority_multiplier = max(settings.SENIORITY_FLOOR_MULTIPLIER, relevant_years / req_years)
 
     total_skills = len(requirements.mandatory_hard_skills) + len(
         requirements.nice_to_have_skills
@@ -126,9 +126,9 @@ def evaluate_job_match(
         soft_score = hard_score
 
     # 5. Cálculo del Score Total Híbrido (70% Hard + 30% Soft desde settings)
-    # Gatekeeper Técnico: si los requisitos duros obligatorios no se cumplen (< 30%),
+    # Gatekeeper Técnico: si los requisitos duros obligatorios no se cumplen (< settings.MIN_MANDATORY_HARD_THRESHOLD),
     # las habilidades blandas no pueden calificar artificialmente un rol ajeno
-    if requirements.mandatory_hard_skills and mandatory_score < 30.0:
+    if requirements.mandatory_hard_skills and mandatory_score < settings.MIN_MANDATORY_HARD_THRESHOLD:
         total_score = round(min(hard_score, (hard_score * 0.8) + (soft_score * 0.2)), 2)
     else:
         total_score = round(
@@ -160,7 +160,7 @@ def evaluate_job_match(
             key=lambda x: (x[0], -x[1].get("default_priority", 99)),
             reverse=True,
         )
-        for _, b in sorted_bullets[:3]:
+        for _, b in sorted_bullets[: settings.MAX_BULLETS_PER_COMPANY]:
             selected_bullet_ids.append(b["id"])
 
     # 7. Justificación técnica estructurada con desglose transparente

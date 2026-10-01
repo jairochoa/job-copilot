@@ -10,19 +10,15 @@ import sqlite3
 import hashlib
 from typing import Any, Dict, List, Optional
 
-logger = logging.getLogger(__name__)
+from src.config import settings
 
-DB_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "data",
-    "jobs.db",
-)
+logger = logging.getLogger(__name__)
 
 
 def get_db_connection() -> sqlite3.Connection:
     """Crea y retorna una conexión a la base de datos SQLite con row_factory Row."""
-    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
+    settings.DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(str(settings.DB_PATH))
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -115,8 +111,8 @@ def update_job_evaluation(
             raw_requirements_json = ?,
             top_bullets_json = ?,
             is_remote_eligible = ?,
-            status = CASE WHEN ? >= 65.0 THEN 'QUALIFIED' ELSE 'DISQUALIFIED' END
-        WHERE id = ?
+            status = CASE WHEN ? >= ? THEN 'QUALIFIED' ELSE 'DISQUALIFIED' END
+        WHERE id = ? OR job_hash = ? OR rowid = ?
     """,
         (
             match_score,
@@ -127,7 +123,10 @@ def update_job_evaluation(
             json.dumps(top_bullets, ensure_ascii=False),
             1 if is_remote_eligible else 0,
             match_score,
+            settings.MIN_QUALIFIED_SCORE,
             job_id,
+            job_id,
+            job_id if str(job_id).isdigit() else -1,
         ),
     )
     conn.commit()
@@ -174,7 +173,6 @@ def get_pending_or_all_jobs(pending_only: bool = False) -> List[sqlite3.Row]:
 def init_db() -> None:
     """Inicializa la base de datos creando la tabla con el esquema v2 si no existe y migra columnas."""
     init_and_migrate_db()
-    seed_initial_jobs_if_empty()
 
 
 def compute_job_hash(
@@ -256,55 +254,6 @@ def insert_job(
         return False
     finally:
         conn.close()
-
-
-def seed_initial_jobs_if_empty() -> None:
-    """Inserta vacantes iniciales de prueba si la base de datos está totalmente vacía."""
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM job_applications")
-    count = cursor.fetchone()[0]
-    conn.close()
-
-    if count == 0:
-        logger.info("Base de datos vacía. Insertando vacantes iniciales de prueba...")
-        sample_jobs = [
-            {
-                "title": "Senior Data Scientist & AI Engineer",
-                "company": "MercadoLibre LatAm",
-                "location": "Bogotá, Colombia (Híbrido)",
-                "url": "https://mercadolibre.jobs/senior-ds-1",
-                "description": "Buscamos un Senior Data Scientist con amplia experiencia en Python, SQL, PySpark y modelos de Machine Learning (Scikit-Learn, XGBoost, LLMs/RAG). Requisitos: 4+ años de experiencia, Docker, AWS (SageMaker, S3), despliegue de REST APIs con FastAPI y excelente nivel de comunicación en equipo. Deseable: Experiencia en MLOps, MLflow y Kubernetes.",
-                "status": "PENDING",
-            },
-            {
-                "title": "Machine Learning Engineer (Remote LatAm)",
-                "company": "Globant AI Studio",
-                "location": "Remote, Colombia",
-                "url": "https://globant.com/careers/mle-latam",
-                "description": "Estamos reclutando un Machine Learning Engineer para trabajar 100% remoto en proyectos globales. Requisitos indispensables: Python, PyTorch/TensorFlow, REST APIs, Git, Docker y SQL. Nivel de inglés B2 o superior. Deseables: Experiencia con HuggingFace, LangChain, Vector Databases (FAISS/ChromaDB) y arquitectura RAG.",
-                "status": "PENDING",
-            },
-            {
-                "title": "Applied AI Scientist / NLP Specialist",
-                "company": "Rappi Tech",
-                "location": "Bogotá, Colombia",
-                "url": "https://rappi.com/jobs/ai-scientist-2026",
-                "description": "Únete al equipo de innovación e IA de Rappi. Requisitos: Python avanzado, algoritmos de Machine Learning, NLP, embeddings vectoriales y SQL. Mínimo 3 años de experiencia en desarrollo de productos de datos. Deseable: GCP (BigQuery, Vertex AI) y microservicios.",
-                "status": "PENDING",
-            },
-        ]
-        for job in sample_jobs:
-            h = compute_job_hash(job["title"], job["company"], job["location"])
-            insert_job(
-                job_hash=h,
-                title=job["title"],
-                company=job["company"],
-                location=job["location"],
-                url=job["url"],
-                description=job["description"],
-                status=job["status"],
-            )
 
 
 if __name__ == "__main__":
